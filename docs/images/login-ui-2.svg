@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="682 972 451 461" width="451" height="461">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.18.4\n2021-04-07 17:51:22 +0000</metadata>
+  <g id="Login_Screen" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none" stroke="none" fill="none">
+    <title>Login Screen</title>
+    <g id="Login_Screen_Layer_1">
+      <title>Layer 1</title>
+      <g id="Graphic_2">
+        <rect x="685" y="975" width="445" height="455" fill="white"/>
+        <rect x="685" y="975" width="445" height="455" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+      <g id="Graphic_4">
+        <rect x="685" y="975" width="445" height="40" fill="#666"/>
+        <rect x="685" y="975" width="445" height="40" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+      <g id="Graphic_3">
+        <text transform="translate(695 987)" fill="white">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="white" x="7105427e-19" y="15">Excellent Application</tspan>
+        </text>
+      </g>
+      <g id="Graphic_5">
+        <rect x="745" y="1085" width="325" height="275" fill="white"/>
+        <rect x="745" y="1085" width="325" height="275" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(655.75 1095.5)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="100.3" y="15">Customer Login</tspan>
+        </text>
+      </g>
+      <g id="Graphic_6">
+        <text transform="translate(765 1136.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Email</tspan>
+        </text>
+      </g>
+      <g id="Graphic_7">
+        <rect x="930" y="1305" width="125" height="40" fill="#ccc"/>
+        <rect x="930" y="1305" width="125" height="40" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(935 1315.776)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="37.644" y="15">Login</tspan>
+        </text>
+      </g>
+      <g id="Graphic_8">
+        <rect x="760" y="1160" width="295" height="35" fill="white"/>
+        <rect x="760" y="1160" width="295" height="35" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(779.75 1168.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">sal897@verizonmedia.com</tspan>
+        </text>
+      </g>
+      <g id="Graphic_9">
+        <rect x="760" y="1240" width="295" height="35" fill="white"/>
+        <rect x="760" y="1240" width="295" height="35" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(779.75 1248.276)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">*********</tspan>
+        </text>
+      </g>
+      <g id="Graphic_10">
+        <text transform="translate(765 1216.552)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="0" y="15">Password</tspan>
+        </text>
+      </g>
+    </g>
+  </g>
+</svg>

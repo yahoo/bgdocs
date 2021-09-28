@@ -1,0 +1,1082 @@
+= Behavior Graph
+:icons: font
+:imagesdir: ../images
+:sectlinks:
+:source-highlighter: rouge
+:rouge-theme: molokai
+:toc: left
+:bg-doc-version: objc
+//:bg-doc-version: typescript
+
+
+include::includes.adoc[tag={bg-doc-version}]
+
+== The Basics
+
+=== Login button
+
+[[login_example1, Login page example]]
+.Login page example
+====
+
+Our first example implements a standard login page.
+
+image::login_ui.png[Login Page]
+
+* A login button should be enabled if a valid email and password have been entered.
+* A valid email has standard email formatting.
+* A valid password is non-empty.
+* As the user types into those fields, the enabled state of the login button will update automatically.
+====
+
+=== A behavior is a unit of functionality
+
+*Behaviors* are the fundamental unit of composition when using Behavior Graph.
+They are blocks of code along with the dependency relationships they are involved in.
+
+====
+Here is the behavior that implements our <<login_example1>>.
+It gets run whenever the email and password fields change.
+It validates those fields and updates the enabled state of the login button accordingly.
+
+[source, {source-language}, numbered, indent=0]
+[[login_behavior]]
+.Login behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_enable_behavior]
+----
+====
+
+The bulk of your code will comprise of many behaviors similar to this one.
+Without worrying too much about some unfamiliar details, keep in mind that code inside a behavior is normal code:
+
+* Conventional programming constructs: property access, method calls, and boolean expressions.
+* Platform standard API calls for interacting with the environment
+
+=== A resource is a unit of state
+
+*Resources* carry state in a controlled manner.
+Resources store information about the system you are modeling.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Login behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_enable_behavior]
+----
+* Line 1 of  references the `email` and `password` properties. 
+These are both resources.
+* {source-resource-1} access the same properties via the `extent` object passed into the block.
+
+`email` contains the current textual content of the email UI element.
+`password` plays a similar role.
+====
+
+=== Extents are collections of related behaviors and resources
+
+*Extents* are specialized containers for behaviors and resources.
+You must subclass `{extent-class}`. 
+On your subclass:
+
+1. Define resources as properties.
+2. Initialize resources in the {constructor}.
+3. Create behaviors in the {constructor}.
+
+====
+<<login_example1>> needs only a single extent, `LoginExtent`.
+`email` and `password` are defined as properties.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent-header}[tags=login_enable_extent]
+----
+
+`{state-class}` is a resource subtype for retaining state.
+Here they are specialized on the type `{string-class}` for holding the contents of their respective text fields.
+Inside the {constructor} we create the graph elements
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_enable_init]
+----
+====
+
+ifdef::uses-crtp[]
+IMPORTANT: Remember to specify your `{extent-class}` subclass with the generic parameter as the subclass itself.
+This unusual syntax is an instance of the link:https://en.wikipedia.org/wiki/Curiously_recurring_template_pattern[curiously recurring template pattern].
+It is a known technique which lets us be more precise with our types without having to override some common methods, specifically `{behavior-method}` and `{sideeffect-method}`.
+endif::[]
+
+=== {state-class} resources retain information
+
+`{state-class}` is a type of resource.
+It is generic on the type of its contents.
+
+Initial contents are supplied in the {constructor}.
+
+Use the `value` property to access its contents.
+
+Calling `{update-method}` on it will update those contents.
+The contents will remain the same until `{update-method}` is called again with different information.
+
+ifeval::["{bg-doc-version}" == "objc"]
+NOTE: Objective-C "implements" generics with pointer types.
+Therefore storing native types such as booleans and numbers in instances of `{state-class}` requires the use of Objective-C's boxed types such as `NSNumber`.
+endif::[]
+
+=== Demands are the resources a behavior depends on
+
+A behavior has read-only access to a set of resources it depends on called *demands*.
+Behavior Graph uses this dependency information to run the behavior at the correct time.
+
+You must explicitly set the demands on a behavior either when creating a behavior or via the `setDemands` method.
+
+Accessing the `value` property from inside a behavior without specifying it as a demand will raise an error.
+
+Calling `{update-method}` on a demanded resource will also raise an error.
+It is read-only.
+
+====
+In order to determine if the login button should be enabled, our login behavior needs access the information stored in the `email` and `password` resources.
+
+[source, {source-language}, numbered, indent=0]
+.Login behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_enable_behavior]
+----
+* Line 1 initializes the behavior with an array containing these resources as demands.
+* {source-resource-1} are able to access the stored contents of `email` and `password` via the `value` property.
+This is because they are listed as demands in line 1.
+
+====
+
+=== Input happens via actions
+
+The *environment* is everything that is not part of your Behavior Graph subsystem.
+In order to track changes to that environment, you program must create new *actions* via the `{action-method}` method on the graph object.
+Inside that you are able to update the contents of resources.
+
+====
+As the user types into the email and password fields, we want our program to react by updating the enabled state of the login button.
+Those UI fields are part of the environment.
+So we write handlers for those fields which will create new actions as those fields change.
+
+[source, {source-language}, numbered, indent=0]
+[[login_actions]]
+.Login actions
+----
+include::{sourcedir}/{example-loginpage}[tags=login_enable_actions]
+----
+
+* Line 1 is a typical callback method that is called from the UI framework when the email text field is updated.
+* Line 2 creates a new action block.
+* Line 3 updates the contents of the `email` resource using the `{update-method}` method.
+This is the same resource instance that is accessed in <<login_behavior>>.
+====
+
+TIP: Action blocks are initialized with an optional string called the *impulse*.
+The impulse is a debugging aid to help answer the question, "why is this happening?".
+
+=== Updating a resource causes its demanding behaviors to be activated
+
+Calling `{update-method}` on a resource will change the information stored in that resource.
+When the value changes, any behavior that demands that resource will be *activated*.
+Activated behaviors are put into an internal queue to run in the correct order.
+
+====
+* Each time the user types characters into the email field, the `didUpdateEmailField` will run, creating a new action block.
+* When that action block runs, the `email` resource will update to contain the current contents of the email field.
+* The <<login_behavior>> demands the `email` resource, so it activates.
+====
+
+=== The next activated behavior will run after the current action or behavior completes
+
+After the current action or behavior block completes, the Behavior Graph will check if any there are any activated behaviors on its internal queue.
+If so it will remove the top one from the queue and run it.
+This will continue until there are no more activated behaviors on the queue.
+
+====
+* After the action block completes in <<login_actions>>, the activated behavior <<login_behavior>> will run.
+====
+
+=== Side effects create output in the environment
+
+While a behavior is running, it may determine that changing circumstances warrant a reaction in the environment.
+Create this mechanism for output by calling `{sideeffect-method}` on the current extent.
+
+All interactions with the environment that do something should happen through *side effects*.
+This lets the Behavior Graph runtime postpone changes to the environment until after any state changes.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Login behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_enable_behavior]
+----
+* {source-sideeffect-1} creates a side effect.
+* The next line updates the `enabled` state of the UI element by making a call directly to the platform user interface API.
+====
+
+TIP: The string parameter to `{sideeffect-method}` is an aid for debugging.
+
+=== Behavior Graph is a graph
+
+*Behavior Graph diagrams* provide a compact visual overview of the elements involved in your system.
+
+====
+With our actions, resources, behavior, and side effect, <<login_example1>> takes on the distinctive characteristics of a graph.
+
+image::login_simple_diagram.png[Login Diagram]
+
+* `email` and `password` rectangles are resources.
+* The dashed boxes around them are actions.
+* The dashed box around `enable login button` is a side effect.
+* The solid box around it is the behavior.
+That behavior demands those resources as indicated by the connecting lines.
+====
+
+=== There is a graph instance
+
+A program will need at least one instance of `{graph-class}`.
+This object connects all behaviors, resources, and extents involved in your system.
+It is responsible for running behavior code blocks in the correct order and ensuring relationships are valid.
+
+Create a single instance of `{graph-class}` and make it available to any object which will work with Behavior Graph code.
+Then add your extent instances inside an action and the `{addtograph-method}` method.
+
+====
+
+In the root application code, we create an instance of the `LoginExtent` and add it to our graph.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginpage}[tags=login_enable_setup]
+----
+
+Line 2 creates a new action on this graph object inside which we add our `LoginExtent` instance.
+
+====
+
+=== An Event is a single run through the graph
+
+An *event* begins with the running of an action block.
+The behavior graph will continue to run activated behaviors until there are none left.
+It will then run side effects in the order they were created.
+When there are no remaining side effects, the event will complete.
+
+====
+Assume the user has just typed a character into the email text field which now contains the letters "sal":
+
+1. The `didUpdateEmailField` method is called, which creates a new action.
+2. The graph object will run the action block.
+3. Inside the action block the `email` resource is updated to contain the string "sal"/
+4. The updated resource activates the login behavior.
+5. The action block completes.
+6. The graph object sees only one behavior has been activated and runs it.
+7. The behavior code block runs, determines email is invalid and creates a side effect to disable the login button.
+8. The behavior code block completes.
+9. With no more activated behaviors, the graph object runs the only side effect.
+10. The side effect block runs the code to disable the login button.
+
+This is all part of a single event.
+When the user types an additional character a new event will run.
+====
+
+== Getting Deeper
+
+=== Complete login page example
+
+[[login_example2, Complete login page]]
+.Complete login page
+====
+
+We can extend our prior example to include the asynchronous interactions for logging in.
+
+image::login_ui_complete.png[Complete login page]
+
+This Behavior Graph diagram includes the additional elements and relationships to support the following additional features:
+
+* Clicking on the login button, when enabled, will make a remote API call with the user's credentials.
+* While the login API call is being made the button will disable.
+* Tapping the return key will also initiate a login.
+* Tapping the return key while the login button is disabled will not login.
+* If the API call returns an error, the login button will reenable.
+====
+
+=== Behaviors are units of state management
+
+The most common role of a behavior is to synthesize new information based on its demands.
+
+It stores this information in resources called it's *supplies*.
+These are resources to which it has read-write access.
+
+A behavior can call `{update-method}` and access the `value` property on any resource that it supplies.
+
+A behavior can supply any number of resources.
+
+====
+This behavior reacts to changes to the email text field by updating its `emailValid` resource based on the contents of the `email` resource.
+
+[source, {source-language}, numbered, indent=0]
+[[login_email_valid]]
+.Login email valid
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_email]
+----
+
+* Line 1 initializes the `emailValid` resource, a `{state-class}` resource on the `LoginExtent` object.
+Its initial value is `{false-bool}`.
+* The {behavior-method} method includes `emailValid` in its list of supplied resources in its second parameter.
+* {source-statemanagement-1} calls `{update-method}` to update the contents of `emailValid`.
+ifeval::["{bg-doc-version}" == "objc"]
+Note that we use `@(emailValid)` to provide the boxed `NSNumber*` form of the boolean value.
+endif::[]
+
+
+`passwordValid` receives a similar treatment.
+====
+
+=== Resource updates activate behaviors
+
+The primary reason a behavior runs during any given event is that one or more of its demanded resources has updated.
+
+====
+As the user types into the email text field, the `email` resource updates.
+When it updates, the behavior that supplies `emailValid` activates.
+It will be run during the same event.
+
+The similar behavior that supplies `passwordValid` will not activate during this event.
+Therefore it will not run.
+This is because the `password` resource did not update.
+====
+
+=== Updates filter for equality
+
+ifeval::["{bg-doc-version}" == "objc"]
+`{update-method}` changes the contents of a resource if the new value does not equal the current value.
+endif::[]
+ifeval::["{bg-doc-version}" != "objc"]
+`{update-method}` takes an additional parameter indicating whether the update should filter out new values that are the same as the current value.
+Passing `{true-bool}` in the second parameter will enable this filter.
+endif::[]
+If the contents are the same, say updating from `{false-bool}` to `{false-bool}`, then this version of `{update-method}` does nothing.
+Therefore no demanding behavior will activate.
+Behavior Graph uses the standard platform equality check inside `{update-method}`.
+
+ifeval::["{bg-doc-version}" == "objc"]
+There is also a `updateValueForce` method which will always register as an update without doing an internal equality check.
+endif::[]
+ifeval::["{bg-doc-version}" != "objc"]
+Passing `{false-bool}` as the second parameter will perform no additional check.
+endif::[]
+Using this, any demanding behaviors will always be activated.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Login email valid
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_email]
+----
+* On line 1, the `emailValid` resource is initialized with `{false-bool}`.
+As the user begins to type into the email text field it will not be a valid email.
+* {source-statemanagement-1} calls `{update-method}` on `emailValid`. Setting it to `{false-bool}` again will do nothing because we filter out the equality.
+The login enabling behavior which demands this resource will not activate.
+* When the user finally types in a valid email, `emailValid` will change to `{true-bool}`, which will activate and subsequently run the login enabling behavior.
+====
+
+TIP: Equality in programming is a nuanced topic, to say the least.
+If the default method does not work for you, skip the equality check and perform your own.
+
+=== Moment resources capture transient knowledge
+
+In contrast to State resources, Moment resources capture information about what is happening only during the current event.
+A button click or a key press are moments.
+
+Moments are instances of `{moment-class}`.
+
+Calling `{momentupdate-method}` on a moment instance inside an action or supplying behavior will capture the idea that it happened.
+
+Querying a moment's `{momentjustupdated-method}` property will determine if the moment happened during the current event.
+
+Some moments may contain no information beyond merely happening, such as a button click.
+Other moments, such as a successful network response, may also have additional information that you will wish to capture.
+A moment instance will be generic on the type of its contents.
+Pass in this additional information as a parameter to the `{momentupdate-method}` method.
+Query this information using the `value` property.
+
+Moments are transient.
+The contents are only available during the event that they happen.
+They will be forgotten at the end of the event.
+
+====
+`loginClick` and `returnKey` are both moments that update when the user clicks on the button or taps the return key.
+Neither has any additional contents.
+
+[source, {source-language}, numbered, indent=0]
+[[login_complete_click]]
+.Login click
+----
+include::{sourcedir}/{example-loginpage}[tags=login_complete_click]
+----
+====
+
+NOTE: Behavior Graph diagrams show moments as resources with a cutout in the top right corner.
+
+=== Moments activate behaviors when they happen
+
+Similar to a state change in state resources, when a moment happens it is considered updated.
+Any behaviors that demand it will activate.
+
+Behaviors that demand moments will frequently check `{momentjustupdated-method}` to determine how to react during the current event.
+
+====
+This behavior decides when to log in and updates the logging in state.
+`loggingIn` is a state resource, while `loginComplete` captures the moment know our login API call has succeeded.
+
+[source, {source-language}, numbered, indent=0]
+[[login_login]]
+.Logging in behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_login]
+----
+
+* The first clause of the `if` statement responds to clicking the login button or pressing the return key to start the login API call.
+* The second clause responds to the completed network call, putting us in a logged in state.
+* Lastly if we have just entered the logging in state, we will initiate that API call.
+
+====
+
+=== State changes can be queried
+
+State resources have a `{statejustupdated-method}` property.
+It is only true during the event in which a successful `{update-method}` occurs.
+
+For more precision, there are also `{statejustupdatedto-method}` and `{statejustupdatedtofrom-method}` methods.
+This check can be done in the same behavior that supplies the resource or any behavior that demands it.
+
+====
+* {source-justupdated-1} of <<login_login>> updates the value of `loggingIn` to {true-bool} when the user clicks the button or presses the return key. 
+* {source-justupdated-2} then checks that same resource via `{statejustupdatedto-method}` in order to determine if the system should do the actual side effect of calling the login API method.
+====
+
+=== Updates activate behaviors
+
+A typical behavior graph program will consist of many state and moment resources.
+It is useful to be able to talk about the general idea behind "happening" or "changing".
+This term is called *updating*.
+
+When a resource updates, any behaviors that demand it will be activated.
+
+Updates can only be checked for inside a behavior if that behavior demands or supplies that resource.
+Doing otherwise is an error
+
+=== Updates can only come from actions or behaviors
+
+If the update comes from a behavior, that resource must be supplied by that behavior.
+A resource may be supplied by _only one behavior_.
+
+If a resource is not supplied by a behavior may it be updated inside an action.
+
+These rules guarantee that a resource will be updated only once per event.
+
+== How it Works
+
+=== Behavior Graph is a bipartite directed acyclic graph
+
+The graph of the Behavior Graph contains two node types, resources and behaviors, making it a bipartite graph.
+
+Edges are the links between resources and behaviors.
+
+.Graph example
+[[graph_example, Graph example]]
+====
+image::graph_example.png[Graph example]
+====
+
+Specifically this is a dataflow dependency graph which has a few simple rules:
+
+* Resources can only point to (demanded by) behaviors
+* Behaviors can only point to (supply) resources
+* A resource can be demanded by any number of behaviors (B1 demands R2 and B2 demands R2)
+* A behavior can supply to 0 or more resources (B1 supplies R5 and R4)
+* A resource can be supplied by either:
+    ** 0 behaviors (R1 has no supplier, therefore it is updated in an action)
+    ** 1 behavior (R5 is supplied only by B1)
+* No cycles are permitted
+
+These rules combine to guarantee that during any event, each behavior will be run no more than once, and each resource will update in at most one place.
+
+=== Behavior Graph runs code in the correct order
+
+The value proposition for the Behavior Graph comes down to letting the computer manage control flow.
+Control flow means deciding what code should run next.
+
+After completing an action or behavior, the Behavior Graph will select the next behavior off the queue to run.
+However there may be multiple behaviors on that queue waiting to run.
+Behavior Graph uses a priority queue based on the topological ordering of all the behaviors in the graph.
+
+====
+We can see how this matters looking at <<graph_example>>.
+
+1. When *R1* is updated, the graph knows that *B1* should be run next. 
+2. When *R2* is updated however, both *B1* and *B2* are activated. 
+3. The graph must run *B1* first because *B1* may update *R5* which is another demand of *B2*.
+====
+
+=== Graph cycles are not permitted
+
+Behavior Graph will throw an error when a graph cycle is detected as extents are added to the graph.
+However, cycles can be easy to create.
+
+====
+Referring to <<login_login>>, a potential cyclical error occurs with `returnKey`:
+
+1. Pressing the return key, when login is enabled, should put the system in a logging in state.
+2. When the system is in a logging in state, the login button should be disabled.
+3. When login is disabled, the return key should no longer work.
+
+The dependency chain for this looks like:
+`returnKey -> loggingIn behavior -> loggingIn -> loginEnabled behavior -> loginEnabled -> loggingIn behavior (cycle)`
+
+Our solution is to recognize that when pressing the return key, the system is not interested in what state `loginEnabled` will enter during that event, but what it was as the event begins.
+
+* Pressing the return key should not try to log the user in again if loginEnabled is {false-bool}.
+* If it is {true-bool} then the user can log in at which point it will become {false-bool}.
+====
+
+== Fixing Problems
+
+=== State resources have trace values
+
+Use trace values to break cycles.
+
+Calling `traceValue` on a state resource inside a behavior will return its contents as they are at the beginning of the event.
+If at some point during the same event the contents change from an update, the `traceValue` will continue to return the value that it was before that update.
+
+Accessing the `traceValue` of a resource does not require it to be listed in the demands list of the behavior.
+
+It is important to remember that `traceValue` is different than the prior value.
+It is only the prior value if it updated during this event.
+After the event ends, `traceValue` and `value` will return the same contents.
+
+====
+
+[source, {source-language}, numbered, indent=0]
+.Logging in behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_login]
+----
+
+{source-tracevalue-1} accesses `loginEnabled.traceValue` to prevent a potential cycle.
+It is not listed in the demands and Behavior Graph will not throw an error.
+
+The behavior graph diagram in <<login_example2>> renders the dependency between `loginEnabled` and the behavior that supplies `loggingIn` with a dotted line to show the connection.
+====
+
+In Behavior Graph diagrams, trace value dependencies are drawn as a dotted line and point to the lower portion of the behavior to visually separate them from other dependencies.
+
+=== Use the debug console to track down cycles
+
+Cycles that span many behaviors and extents are not always obvious.
+The console will print the sequence of behaviors and resources that create the cycle.
+Use this information to help determine where the chain can be broken.
+
+You can call `cycleStringForBehavior` on the instance of the {graph-class} to print or step through these objects.
+
+=== Complex behaviors can make it easier to create cycles
+
+TIP: Combining many different demands and supplies in the same behavior can be practical and sometimes necessary.
+However, these behaviors also make it easier to create graph cycles during the development phase.
+Separating out independent functionality into different behaviors can often free up cycles.
+
+=== Side effect blocks run after all behaviors
+
+Behaviors may create side effects.
+By design, those side effects do not run until there are no more activated behaviors in the queue, ie the end of the event.
+
+====
+[source, {source-language}, numbered, indent=0]
+[[login_complete_enable]]
+.Login Enable
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_enable]
+----
+
+As can be seen from the <<login_example2>> diagram, this behavior has no downstream dependencies and will be the last to be run.
+{source-sideeffect-1} creates a side effect which will not be run until after this behavior completes.
+
+Likewise when the user clicks the login button the first time, the side effect on {source-sideeffect-2} of <<login_login>> will also not be run until this behavior completes.
+
+====
+
+The reason for postponing the running of side effects is to ensure that unstable information doesn't leak out into the environment.
+As a side effect block runs, Behavior Graph must relinquish control flow.
+That code may call out to some external library which subsequently calls back in to read the current value of a resource.
+If we were in the behavior phase of an event, any number of resources may still need updating to new values.
+The resources in the system are only in a stable state after all activated behaviors have been run.
+
+=== Side effect blocks are run in the order they are created
+
+Most systems will need some ability to maintain sequential dependencies between the code run in side effects.
+For example one behavior may create the side effect for initializing a video player.
+A separate behavior may create a side effect which tells the video player to play.
+It is necessary to ensure the video player is created before it is told to play.
+
+====
+In <<login_example2>>, the login call will be made before the button is disabled when the user clicks the login button.
+This is because the two behaviors that create those side effects will be run in that order.
+====
+
+If your code has implicit dependencies between side effect blocks, you can make them explicit by creating a dependency between their creating behaviors.
+Do this by creating a resource which is supplied by the behavior that creates the first side effect and demanded by the behavior that creates the second side effect.
+
+=== Events are serialized
+
+It is possible for an action to be created while another event is currently executing when a side effect block leads to a new action and there are still side effects remaining.
+However, interrupting the current event to run another one could lead to inconsistent results.
+It is necessary for the entire event to work as a single transaction.
+
+When this happens:
+
+1. The new action will be placed in a queue and the current event will continue to run any remaining side effects of current event at the action creation point.
+2. When the current event completes, the newly queued up action will create an event and run until completion.
+3. This will continue until there are no more queued actions, at which point the code will continue.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Logging in behavior
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_login]
+----
+1. When the user clicks the login button, this behavior that logs the user in will activate and run.
+2. {source-serialize-1} will be run during the side effect phase of the event.
+3. It is possible this external `login` method may immediately call the completion block which will then create a new action on {source-serialize-2}.
+4. The first event created by clicking the login button is still running. It needs to complete before running this new login complete action. So it will place the login complete action in the queue and continue to its next side effect which will disable the login button.
+5. After running the remaining side effect, the first event will complete, and the code inside the action block created on {source-serialize-2} will run.
+6. This new event will run to completion.
+7. Finally the stack from the initial side effect created on {source-serialize-3} will complete and unwind.
+====
+
+=== Events are synchronized onto the same thread
+
+Behavior Graph does not handle concurrency.
+All events are serialized onto the same thread which can be specified when initializing the `{graph-class}` object.
+
+=== Actions blocks are run synchronously
+
+When the environment creates a new action, that action block and the entire event will be run synchronously.
+The line of code that follows the action will not be run until the event created by that action has run to completion.
+
+This default matches imperative programming expectations.
+If a line of code following the action block attempts to read the value of a resource, you can expect it to have been updated accordingly.
+And all side effect blocks created as a result of that action will be run before that next line of code.
+
+As mentioned previously, however, there may already be a running event or queued actions when a new action is created.
+Many events may get run between the time an action is created and when its own corresponding event is run.
+These events will all run to completion before the code that creates the action returns.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Login click
+----
+include::{sourcedir}/{example-loginpage}[tags=login_complete_click]
+----
+This method creates a new action on line 2; however, we cannot guarantee that the code inside the action is run immediately.
+The Behavior Graph does guarantee that all events will have completed before proceeding past line 4 and exiting this method.
+====
+
+=== Side effects can't be strictly enforced
+
+You should always create a side effect when you wish to output information to the environment.
+However, strictly enforcing this policy would require wrapping every possible type of output.
+
+Instead, the code in behavior blocks is normal imperative code.
+Technically anything is possible.
+In order to manage control flow, the Behavior Graph cannot handle a new synchronous action while still running behaviors during an event.
+
+If, from inside a behavior (not side effect), you create a synchronous action or call some code that eventually leads to a synchronous action, Behavior Graph will raise an error.
+
+Also, if, from inside a behavior (not side effect), you call some code that eventually leads to accessing a non-demanded resource, Behavior Graph will raise an error.
+
+Instances of this error can be subtle.
+Be careful when working with anything that may affect the environment directly from a behavior.
+This includes memory allocation, destructors, exceptions, or any other impure code.
+
+=== Action blocks can have optional synchrony (but not the default)
+
+The safest way to create a new action is to opt out of synchrony.
+To do this call `{asyncaction-method}`.
+
+This method of creating a new action will run the action and associated event immediately if there are no events running currently.
+Otherwise, it will put them on a queue to be run after the current event (and any additional queued actions) are run, returning up the call stack.
+
+Prefer this variation whenever possible.
+
+====
+A better implementation of the login side effect in <<login_login>> would opt out of synchrony.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_complete_loginalt]
+----
+
+{source-async} uses the optional asynchronous form when creating a new action.
+Opting out of synchrony here means the side effect created on line 1 will exit its call stack before starting the event associated with this new action.
+====
+
+=== Events have sequence numbers
+
+When a resource is updated it retains a reference to the instance of `{event-class}` in which it was last updated.
+These event instances have a monotonically increasing sequence number (every event run is +1 the prior event). 
+You can use these sequence numbers to compare multiple resources to determine the order they were updated.
+
+If this `event` property is accessed inside a behavior its resource must be declared as a demand.
+There is a corresponding `traceEvent` available if such a dependency creates a cycle.
+====
+
+We can compare the timestamps of the `password` and `email` resources to see if one were updated more recently.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_sequence_compare]
+----
+
+====
+
+=== Events have timestamps
+
+Each event also gets a timestamp when the event is run.
+
+It is a common programing idiom to interweave code with timestamp parameters in order to facilitate testing and instrumentation.
+By providing this information as part of each event, behaviors and side effects have easy access without the typical crosscutting burden.
+
+====
+We can reference when the login happened in some security auditing code.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_timestamp]
+----
+====
+
+For testing purposes you can mock out the date provider of the graph object in one place.
+Override the `{dateprovider-property}` property with your own implementation of {dateprovider-class}.
+
+== Architecting Systems
+
+=== Video Chat Example
+
+We will now change our example app to a hypothetical but familiar video chat experience.
+
+[[video_chat, Video chat]]
+.Video chat
+====
+image::video_chat_ui.png[Video chat]
+
+* There will be a grid of squares showing the live video feed for a number of participants.
+* Each participant will have a small button overlay for toggling their mute.
+* Each participant will have a small button overlay to pin that participant.
+* When a participant is pinned, that ui will appear larger than the others.
+* Only one participant can be pinned at the same time.
+If there is already a pinned participant, tapping on the pin button of another will unpin the first and pin the new one.
+
+The Behavior Graph diagram for this functionality looks like this
+
+image::video_chat_diagram.png[Video Chat Diagram]
+
+====
+
+=== Extents capture lifetimes
+
+Extents can come and go, reflecting the range of time they play a useful role in your system.
+
+====
+In the <<video_chat>> example, we will have two types of extents.
+
+A single `ChatExtent` will be created and added to the graph every time we initiate a new chat.
+It reflects the lifetime of the video chat.
+Once the chat is over, it no longer plays a functioning roll and can be removed from the graph.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-chat-header}[tags=chat_extent]
+----
+
+A `ParticipantExtent` will be created each time a new participant joins the video chat.
+Each chat may have multiple participants.
+They may come and go at any time during the video chat.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-participant-header}[tags=participant_extent]
+----
+
+====
+
+=== Extents exclusively own behaviors and resources
+
+Behaviors and resources always belong to one and only one extent.
+
+They do not exist independently from their owning extent.
+
+You cannot create a resource on one extent and assign it to a member variable on another.
+
+=== Resources are named and assigned to extent member variables
+
+You will regularly refer to resources by name via their extent.
+
+====
+Our mute functionality requires some resources which we declare as properties on the ParticipantExtent.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-participant-header}[tags=participant_mute_resources]
+----
+
+* `muteTap` is a moment resource that tracks the user tapping on the mute button.
+* `muted` is a state resource that captures the local muted status of that participant. 
+ifeval::["{bg-doc-version}" == "objc"]
+It is an `NSNumber` to store our Objective-C boxed boolean.
+endif::[]
+
+We will initialize and assign them in the constructor along with the behavior that links to them.
+
+[source, {source-language}, numbered, indent=0]
+[[participant_mute]]
+.Mute behavior
+----
+include::{sourcedir}/{example-chat-participant}[tags=participant_mute]
+----
+
+On line 3 we refer to their member variables directly when specifying the linked resources for this behavior.
+On almost every line thereafter we refer to them by name via their extent.
+
+====
+
+=== Behaviors are typically unnamed
+
+Initialize behaviors via the `{extent-class}` factory method `{behavior-method}`.
+
+Behaviors can have their linked resources redefined dynamically.
+You can optionally save the results of that method to a member variable if you wish to do this.
+
+====
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-participant}[tags=participant_mute_alt]
+----
+====
+
+=== Behaviors and resources are added to and removed from a graph via extents
+
+Add behaviors and resources to the graph by adding their owning extent.
+Use the `{addtograph-method}` method of the extent object.
+
+Adding and removing extents must happen during an event– either inside an action or behavior.
+Doing otherwise will raise an error.
+
+Behaviors which have not yet been added to the graph will not run.
+Updating a resource which has not yet been added to the graph will raise an error.
+
+====
+
+During a video chat, our system will need to handle participants joining and leaving.
+We will model this by adding and removing instances of `ParticipantExtent` to the graph.
+
+To capture this functionality, we will have a behavior that demands resources indicating that a participant has joined or left.
+When these moments happen our behavior can either create and add the new extent or remove the old one.
+
+[source, {source-language}, numbered, indent=0]
+[[participants_add]]
+.Add participants
+----
+include::{sourcedir}/{example-chat-chat}[tags=participants]
+----
+
+Each time a new participant joins our video chat, the moment resource `participantJoined` will update, activating this behavior.
+In response we will create a new instance of `ParticipantExtent` on {source-addtograph-1}.
+We add it to the graph on the next line.
+
+If the participant later disconnects we can remove it's functionality from the graph.
+{source-addtograph-2} removes it from the graph.
+
+====
+
+Once an extent has been removed from the graph its elements will be removed and unlinked from any other elements still in the graph.
+A removed behavior will no longer activate in response to resources it demanded.
+A removed resource will no longer activate behaviors and updating it will result in an error.
+
+=== Behaviors always activate in the same event that their extent is added to a graph
+
+When programming a behavior it is important to remember that it will get run at this time.
+Use this to set initial values on state resources when information is not available at initialization time.
+
+ifeval::["{bg-doc-version}" == "objc"]
+endif::[]
+
+=== Extents are the execution context for behaviors and sideEffects
+
+Extents are reference objects.
+They enable code inside behaviors and side effects to interact with other graph elements or the environment.
+The extent parameter passed into behaviors and side effects is this point of reference.
+
+NOTE: Most object oriented languages predefine `self` or `this` to serve a similar role inside methods.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Mute behavior
+----
+include::{sourcedir}/{example-chat-participant}[tags=participant_mute]
+----
+
+Here we can see nearly every single line in both the behavior and the side effect utilize their `extent` parameter to refer to resources and call methods.
+====
+
+=== Resources and behaviors can link across extents
+
+Frequently information stored in a resource will outlive the behaviors that react to changes in that information.
+To enable this, a behavior can demand or supply resources from extents different from their owning extent.
+
+====
+In our <<video_chat>>, pinning one participant means unpinning the previous one if available.
+The resource which can track which participant is currently pinned must outlive any particular participant.
+
+The central `ChatExtent` has a resource `pinnedParticipant` that stores a reference to the currently pinned `ParticipantExtent`.
+Each `ParticipantExtent` instance has a behavior that demands that resource.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-participant}[tags=participant_pinned]
+----
+* Line 1 demands the common `pinnedParticipant` on the `ChatExtent` instance stored in the member variable `chatExtent`.
+* We wish for the UI to draw the pinned participant larger than the others. 
+The first clause of the if statement, checks to see if the `pinnedParticipant` became this extent and creates a side effect to enact that change.
+* The second clause checks if the pinned participant is no longer this extent, returning it to normal size.
+
+Because each `ParticipantExtent` instance demands this central resource, updating that one resource will automatically cause this behavior in each participant to update its respective UI during the same event.
+====
+
+=== Store related extents in a collection resource
+
+Many applications naturally organize into a hierarchy of lifetimes.
+These different lifetimes should be modeled with extents.
+
+The parent extent should own a state resource containing a collection of child extents.
+
+====
+[source, {source-language}, numbered, indent=0]
+.Add participants
+----
+include::{sourcedir}/{example-chat-chat}[tags=participants]
+----
+
+In our <<video_chat>>, the lifetime of each participant is necessarily bounded by the lifetime of the entire chat.
+
+On our `ChatExtent` we create a `participants` resource to hold on to them.
+This state resource holds a dictionary which maps a participant id string to each participant extent.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-chat-header}[tags=chat_participants_resources]
+----
+
+In the behavior that supplies this resource, we update it any time a participant joins or disconnects.
+
+It is worth noting how we update the `participants` resource in this behavior.
+
+1. On {source-extentcollections-1} we directly manipulate the stored dictionary.
+2. On the following lines {source-extentcollections-2}, we update using the same dictionary instance and skipping the equality check.
+By skipping this equality check, we activate any behaviors which demand the resource while also keeping the same collection.
+If we did not skip the equality check, the state resource would recognize that the collection was the same instance and make no update.
+
+====
+
+=== Relink behaviors dynamically
+
+Behaviors may link to resources in other extents.
+Those extents may come and go.
+Therefore it is necessary to change their links separately from when those behaviors were initialized and added to the graph.
+
+You may call `setDemands` and `setSupplies` on a behavior to change those links.
+Once that behavior has been added to the graph, you can only call those methods from inside an action or behavior block. 
+
+It is an error to modify a behavior's links during an event if that behavior has already run during that event.
+To prevent this, the behavior that modifies the links should supply a special resource which the Behavior Graph will use for proper ordering.
+The behavior which has its links modified should demand this ordering resource.
+
+====
+To fully implement our pinning functionality, there will be a `pinTap` moment resource on each `ParticipantExtent`.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-participant-header}[tags=participant_pin_resources]
+----
+
+There will also be a behavior in the `ChatExtent` to decide which participant should be pinned.
+This behavior demands the `pinTap` in each `ParticipantExtent` in order to be activated whenever any of those resources is updated.
+However, because participants can come and go, we will not have access to all of these resources at initialization time.
+So we will leave them out initially in the demands list when we define our pinned behavior.
+
+[source, {source-language}, numbered, indent=0]
+[[chat_pinned]]
+.Pinned Behavior
+----
+include::{sourcedir}/{example-chat-chat}[tags=chat_pinned]
+----
+
+* On {source-dynamic-1}, we iterate through each `ParticipantExtent` instance in the `participants` resource.
+* The next lines inspect the `pinTap` resource on each extent to determine if the user tapped on one or if it should maintain the current pinned participant.
+
+At this point however, the behavior will not get run when a pinTap resource is updated.
+Additionally it will be an error for it to access the `pinTap` resources because it does not demand them.
+We will introduce an additional behavior which updates these demands as the participants change.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-chat-chat}[tags=chat_relink_pinned]
+----
+
+Each time a new participant is added or removed (updating the `participants` resource), this behavior will activate and update the demands of <<chat_pinned>>.
+
+* On {source-dynamic-2}, `participants` and `participantsRelink` are added to the array.
+They are added because they are part of the default list of demands when <<chat_pinned>> was initialized.
+* Next we iterate through each `ParticipantExtent` instance and add its `pinTap` resource to the array.
+* Lastly {source-dynamic-3} updates the demands of that behavior.
+
+Note the use of `participantsRelink` resource.
+It is of the base type `{resource-class}` which has limited functionality.
+This is our ordering resource.
+It has no value and is not updated.
+It only exists to ensure that the demands of the `pinnedBehavior` are updated before the behavior itself is run.
+====
+
+=== Supplies can also be relinked dynamically
+
+It is less useful in practice.
+Occasionally you may wish to have the behavior on one of many child extents update a resource on the parent level.
+As these extents come and go, you may need to designate a new supplier.
+
+=== Updating links will cause dependent behaviors to activate
+
+When the demands of a behavior change, that behavior is activated and run to ensure it is fully taking into account its current set of demands.
+
+When a resource is supplied by a new behavior any behaviors that demand that resource will activate.
+
+=== Removed resources and behaviors are automatically removed from demands and supplies
+
+Whenever an extent is removed from the graph all its resources and behaviors will also be removed.
+Any remaining resources and behaviors will have their links to the removed elements severed.
+
+=== Removed behaviors will not run in the event they are removed
+
+If an activated behavior is removed before it is run, it will not be run.
+
+=== A program may have multiple instances of a graph
+
+A program or library can have any number of independent instances of a {graph-class}. 
+Behaviors and resources cannot link across graph instances.
+Extents cannot migrate between graph instances.
+
+=== Independent graphs may communicate through message passing
+
+One graph may pass information to another by creating a side effect on one which creates a new action on the other.
