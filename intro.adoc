@@ -1,0 +1,270 @@
+= Behavior Graph
+:icons: font
+:imagesdir: ../images
+:sectlinks:
+:source-highlighter: rouge
+:rouge-theme: molokai
+:toc: left
+//:bg-doc-version: objc
+:bg-doc-version: typescript
+:github-root: https://github.com/yahoo/
+:pages-root: https://
+include::includes.adoc[tag={bg-doc-version}]
+
+== Links
+* link:{github-root}{github-project}[Github] 
+* link:{pages-root}{bg-doc-version}/intro.html[Intro (this document)]
+* link:{pages-root}{bg-doc-version}/guide.html[Behavior Graph Programming Guide]
+
+ifeval::["{bg-doc-version}" == "objc"]
+*Cocoapods* (Objective-C): BehaviorGraph 
+endif::[]
+
+ifeval::["{bg-doc-version}" == "typescript"]
+*NPM* (Verizon Media Typescript/Javascript): `@yahoo/behavior-graph`
+endif::[]
+
+ifeval::["{bg-doc-version}" == "kotlin"]
+???
+endif::[]
+
+
+== Safe Mutable State
+
+**Behavior Graph**  is a software library that greatly enhances our ability to program **user facing software** and **control systems**.  
+Programs of this type quickly scale up in complexity as features are added. Behavior Graph directly addresses this complexity by shifting more of the burden to the computer. 
+It works by offering the programmer a new unit of code organization called a **behavior**. 
+Behaviors are blocks of code enriched with additional information about their stateful relationships. 
+Using this information, Behavior Graph enforces _safe use of mutable state_, arguably the primary source of complexity in this class of software. 
+It does this by taking on the responsibility of control flow between behaviors, ensuring they are are _run at the correct time and in the correct order_.
+
+=== State
+
+It helps to understand why user facing software, control systems, and similar programs present a particular challenge.
+
+We define these systems by three primary characteristics:
+
+1. *Asynchronous*: inputs happen over a period of time
+2. *Event-driven*: outputs occur over time in response to inputs
+3. *Stateful*: outputs depend on a history of prior inputs
+
+A thermostat controlling the temperature in a house is an example:
+
+image::thermostat-wall.svg[Login page]
+
+1. It runs continuously, responding to temperature changes as well as button presses in order to operate the heating equipment.
+2. Button presses will result in changes to the display.
+3. Button presses which set the desired temperature will determine when the heating equipment turns on in the future.
+
+The challenge comes from the large number of different inputs where order and history matter.
+A sequence of 10 presses on our Up and Down buttons can occur in over 1000 different ways.
+An interface that accepts 10 different types of input over a sequence of 10 events means we are facing 10 billion possible arrangements.
+And that is a tiny fraction of what a real user facing application is typically up against.
+
+The solution comes from the fact that we only need to remember just enough information to make decisions in the future.
+Instead of remembering each button press, we simply remember a desired temperature and update it as inputs happen.
+We don't care which sequence of button presses gets us to 68 degrees.
+To our program they are all the same.
+We call this compressed historical information *state.*
+With state we can compress 10 billion button presses into a single number.
+
+Inputs lead to state changes.
+Pressing the Up and Down button changes the desired temperature state.
+State changes lead to outputs.
+Changing the desired temperature means the disply will change.
+State changes also often lead to other state changes as our program grows in features.
+When the desired temperature changes, the desired state of the heating equipment may change.
+(And when that desired state of the heating equipment changes, our program will output to turn on or off the heating equipment.)
+
+A correctly functioning program will have a natural dependency graph between inputs, internal states, and outputs.
+Unfortunately, status quo programming techniques have no way of expressing this dependency graph directly.
+Programmers must implicitly build this graph out of the correct sequencing of method calls and state updates.
+In so doing, they throw away this valuable dependency information and the computer can no longer help us.
+**That is the root of the problem.**
+
+=== Behavior Graph
+
+With Behavior Graph, we build our programs out of units of functionality called *behaviors*.
+Behaviors manage state via components called *resources*.
+Behaviors are simple, easily understood blocks of code paired with any relationships to these resources.
+Resources are objects which encapsulate both state and how that state changes.
+A behavior for our thermostat would be "_when the user presses the *Up* or *Down* buttons, increase or decrease the desired temperature by one degree_."
+The _desired temperature_ is the resource that this behavior manages.
+
+image::thermostat-temp.svg[Login page]
+
+An entire thermostat program would be built out of many of these behaviors.
+So we add a second behavior, "_when the current temperature is below the desired temperature, turn on the heating equipment_."
+Our behaviors will collaborate to implement the complete thermostat functionality without knowing about each other directly.
+Instead, behaviors compose via resources, in this case _desired temperature_.
+The first behavior declares that it is responsible for setting the _desired temperature_.
+The second behavior declares that it uses the _desired temperature_ to know if it needs to turn on the heat.
+
+image::thermostat-heat.svg[Login page]
+
+We never run behaviors directly by calling them like we do with methods.
+Instead Behavior Graph uses the dependencies between behaviors and resources to determine which behaviors need to run and in which order.
+If the user presses the Up button to raise the desired temperature above the current temperature, the heating behavior will automatically run after the temperature behavior updates the _desired temperature_ resource.
+
+Here we can see the contrast to the status quo approach of nesting chains of method calls.
+In order to ensure the heat can be turned on when the up button is presset, the button press method needs to call the desired temperature setting method.
+And that method in turn needs to call the heating equipment method.
+Because no method runs unless another method calls it, we must explicitly weave these threads of control flow throughout our code.
+In large programs, separately maintaining control flow to ensure our dependency graph is respected is both difficult and error prone.
+
+Fred Brooks link:https://en.wikipedia.org/wiki/No_Silver_Bullet[famously pointed out] that software is necessarily complex because the problems themselves are complex.
+With Behavior Graph we overcome our human complexity limits by delegating more of that work to the computer itself.
+As programmers, we focus on individual behaviors and their immediate relationships.
+The computer in turn handles the complex chore of sorting through hundreds or thousands of those behaviors to ensure a working program. 
+
+Behavior Graph gives us control flow for free.
+
+Behavior Graph is a compact and mature library with no external dependencies.
+It is used in production applications with millions of daily users.
+It is available for multiple languages and platforms (Objective C/Swift, Typescript/Ja*vascript, Kotlin).
+
+== Walkthrough
+
+We can illustrate how Behavior Graph code works in detail through another example application, a typical login screen.
+
+image::login-ui-2.svg[Login page]
+
+As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password.
+If the user types in some password but an invalid email address (missing the '@' character, for example) the Login button will remain disabled.
+Once she corrects the email address by adding an '@' character, the Login button should immediately enable.
+
+In Behavior Graph, this unit of functionality constitutes a typical *behavior*.
+It looks like this
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_intro_short1]
+----
+
+Behaviors have dependencies on units of information called *resources*.
+This behavior depends on two resources, `email` and `password`.
+They appear as a list in the first parameter to `makeBehavior`.
+This list is called the behavior's *demands*.
+Our behavior has read only access to these resources.
+
+As stated before, behaviors are never called directly.
+In specifying a behavior's demands, we are saying, _"whenever any of these resources updates (changes), then this behavior needs to run"._
+In our example, when either `email` or `password` (or both) update, this behavior will run in response.
+
+`email` and `password` are a specific type of resource called a *state resource* which is designed for saving and retreiving information.
+The contents of these state resources is available via their `value` property.
+
+The block of code specified in the behavior is the code that will run.
+A typical behavior uses normal code to perform its work.
+Here we check the validity of the email with a normal function.
+We determine if the Login button should be enabled using normal boolean logic.
+
+This behavior is responsible for the enabled state of the Login button.
+This information is stored in another state resource called `loginEnabled`.
+We specify a behavior's responsibilites as a list in the second parameter to `makeBehavior`.
+This list is called the behavior's *supplies*.
+A behavior can read and write the contents of its supplies.
+The contents of a state resource can be written to by calling its `{update-method}` method.
+
+We can continue to develop our Login page by adding a second feature.
+When the user clicks the Login button and we are not already logging in, then we would like to enter into a logging in state.
+In order to prevent mistakes, when we are in a logging in state, we would also like the Login button to be disabled.
+
+To implement this new feature we introduce a second behavior and make a small change to our existing behavior.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_intro_short2]
+----
+
+The new behavior has one demand, `loginClick`.
+This is a second type of resource called a *moment resource*.
+Moments are designed to track momentary happenings such as a button click or network call returning.
+We can check if a moment has just happened by accessing its `{momentjustupdated-method}` property.
+
+When the user clicks on the button, `loginClick` will update, and this new behavior will run.
+It performs a simple boolean check to determine if the `loggingIn` state resource needs to update to `{true-bool}`.
+It is allowed to update this resource because `loggingIn` is part of its supplies.
+
+We also modified our previous behavior to include `loggingIn` as one of its demands.
+This means it will run when the `loggingIn` resource updates as well as have permission to access the boolean `value` of `loggingIn`.
+Now the state of `loginEnabled` depends on all three pieces of information: `email`, `password`, and `loggingIn`.
+
+image::login-intro-graph.svg[Login Behavior Graph]
+
+
+Information comes into our system via *actions*.
+A typical UI library will provide some type of callback or event system to capture user inputs.
+In this example we will listen to a click handler to create a new action which updates the `loginClick` moment resource.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_intro_action]
+----
+
+We would similarly connect `email` and `password` to their respective text fields.
+
+Once the user has entered a valid email and password, the Login button will enable.
+When the user subsequently clicks on the Login button, the behavior that supplies `loggingIn` will run.
+It will update the `loggingIn` resource to `{true-bool}`.
+This in turn will cause the behavior that supplies `loginEnabled` behavior to run.
+It will update the `loginEnabled` resource to `{false-bool}`.
+
+In order to perform real output to the UI library, we need to create a *side effect*.
+
+[source, {source-language}, numbered, indent=0]
+----
+include::{sourcedir}/{example-loginextent}[tags=login_intro_sideeffect]
+----
+
+Side effects are created directly inside behaviors.
+This side effect updates the `enabled` state of the `loginButton` based on the state of the `loginEnabled` resource.
+It does not run immediately, however.
+Behavior Graph defers the running of side effects until after all behaviors have run.
+Side effects are a practical way for Behavior Graph to create output while ensuring access to consistent state.
+
+This example covers the primary concepts when developing with Behavior Graph.
+There are, however, additional features that make Behavior Graph a practical software library.
+link:https://{guide-doc}[The Programming Guide] explains these features in detail.
+
+== Reactive Programming
+
+Behavior Graph graph has many characteristics of a link:https://en.wikipedia.org/wiki/Reactive_programming[reactive programming] library.
+If you are familiar with other libraries in this family you should find some similarities.
+There are some important distinctions:
+
+* Behaviors function as _observers_ and resources function as _observables_.
+They are always separate objects, however.
+* It is not based on streams.
+* It does not use a link:http://reactivex.io/documentation/operators.html[large library of functional combinators].
+* The principles are not programming language or platform specific.
+* It does not have link:https://en.wikipedia.org/wiki/Reactive_programming#Glitches[glitches].
+* It does not permit link:https://en.wikipedia.org/wiki/Reactive_programming#Cyclic_dependencies[cyclic dependencies] and provides tools for discovering and avoiding them.
+* It is a dynamic dataflow graph. Relationships between behaviors and resources can change at runtime which enables powerful modeling techniques.
+
+== Related Work
+
+* link:https://en.wikipedia.org/wiki/Cybernetics[Cybernetics] describes the "closed signaling loop", the essence of Unidirectional Data Flow architectures (aka MVI or Model View Intent).
+* link:https://redux.js.org[Redux] (and Flux) are popular Javscript state management frameworks organized around Unidirectional Data Flow. There are similar implementations for different platforms, eg link:https://github.com/day8/re-frame[re-frame/Clojure].
+* link:https://en.wikipedia.org/wiki/Functional_reactive_programming[Functional Reactive Programming] (FRP) is not new.
+* link:http://reactivex.io[ReactiveX] is a popular reactive programming implementation for many different imerative languages. * link:https://github.com/spotify/mobius[Mobius] is another take on FRP and Unidirectional Data Flow for the Android platform.
+* link:https://en.wikipedia.org/wiki/Observer_pattern[Observers] aren't new.
+* link:https://cycle.js.org[Cycle.js] Javascript reactive library.
+* link:https://mobx.js.org/README.html[MobX] Javascript reactive library.
+* link:https://www.rescala-lang.com[REScala].
+* link:https://developer.apple.com/documentation/combine[Apple's Combine].
+* link:https://docs.oracle.com/javase/9/docs/api/java/util/concurrent/Flow.html[Java Flow].
+* link:http://www.inf.ed.ac.uk/teaching/courses/seoc/2005_2006/resources/statecharts.pdf[State Charts(pdf)].
+* link:https://xstate.js.org[X State], state chart library.
+* link:https://en.wikipedia.org/wiki/Publish–subscribe_pattern[Event Bus/Pub-Sub] is a pattern for building reactive style architectures.
+* link:https://elm-lang.org[Elm], a functional programming language with reactive principles.
+* link:http://witheve.com[Eve], an innovative language organized around reactive blocks of code.
+* link:https://www.flapjax-lang.org/index.html[Flapjax] language.
+* link:https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.14.9769&rep=rep1&type=pdf[Designware: Software Development by Refinement], this paper presents ideas for building a system through composition.
+* link:http://publications.csail.mit.edu/lcs/pubs/pdf/MIT-LCS-TM-061.pdf[Data flow programming] is not new.
+* link:https://blog.janestreet.com/introducing-incremental/[Incremental].
+* link:https://en.wikipedia.org/wiki/Temporal_logic[Temporal Logic].
+* link:https://arxiv.org/abs/1104.2293[Reactive Imperative Programming with Dataflow Constraints]. In this paper the authors build a very similar bipartite data flow dependency graph.
+* link:https://www.cs.cmu.edu/afs/cs/project/amulet/www/papers/toplas-constraint-experience.pdf[Garnet and Amulet] are toolkits for developing software using similar data flow techniques.
+* link:https://www.amazon.com/Picturing-Quantum-Processes-Diagrammatic-Reasoning/dp/110710422X[Picturing Quantum Processes].
+* link:https://www.amazon.com/Invitation-Applied-Category-Theory-Compositionality/dp/1108711820[An Invitation to Applied Category Theory].
