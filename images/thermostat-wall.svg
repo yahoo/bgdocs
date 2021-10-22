@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="58 398 489 289" width="489" height="289">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="32" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="34" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="16" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.18.4\n2021-04-06 22:49:36 +0000</metadata>
+  <g id="Thermostat" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none" stroke="none" fill="none">
+    <title>Thermostat</title>
+    <g id="Thermostat_Layer_1">
+      <title>Layer 1</title>
+      <g id="Group_22">
+        <g id="Graphic_2">
+          <rect x="60" y="400" width="485" height="285" fill="white"/>
+          <rect x="60" y="400" width="485" height="285" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+        </g>
+        <g id="Graphic_6">
+          <text transform="translate(75 415)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="32" font-weight="400" fill="black" x="0" y="30">Tempwell</tspan>
+          </text>
+        </g>
+        <g id="Group_21">
+          <g id="Group_15">
+            <g id="Graphic_3">
+              <rect x="100.744" y="537.5" width="215" height="90" fill="white"/>
+              <rect x="100.744" y="537.5" width="215" height="90" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+            </g>
+            <g id="Graphic_8">
+              <text transform="translate(130.744 577.5)" fill="black">
+                <tspan font-family="Helvetica Neue" font-size="34" font-weight="400" fill="black" x="0" y="32">65°</tspan>
+              </text>
+            </g>
+            <g id="Graphic_10">
+              <text transform="translate(250.744 577.5)" fill="black">
+                <tspan font-family="Helvetica Neue" font-size="34" font-weight="400" fill="black" x="0" y="32">69°</tspan>
+              </text>
+            </g>
+            <g id="Graphic_11">
+              <text transform="translate(112.4 547.5)" fill="black">
+                <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="48316906e-20" y="15">Current</tspan>
+              </text>
+            </g>
+            <g id="Graphic_12">
+              <text transform="translate(235.744 547.5)" fill="black">
+                <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="831335e-18" y="15">Heat</tspan>
+              </text>
+            </g>
+          </g>
+          <g id="Group_20">
+            <g id="Group_16">
+              <g id="Graphic_4">
+                <circle cx="374.244" cy="542.5" r="22.5000359527927" fill="white"/>
+                <circle cx="374.244" cy="542.5" r="22.5000359527927" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              </g>
+              <g id="Graphic_13">
+                <text transform="translate(406.744 535)" fill="black">
+                  <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="4369838e-19" y="15">Up</tspan>
+                </text>
+              </g>
+            </g>
+            <g id="Group_17">
+              <g id="Graphic_19">
+                <circle cx="374.244" cy="622.5" r="22.5000359527927" fill="white"/>
+                <circle cx="374.244" cy="622.5" r="22.5000359527927" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="3"/>
+              </g>
+              <g id="Graphic_18">
+                <text transform="translate(408.528 615)" fill="black">
+                  <tspan font-family="Helvetica Neue" font-size="16" font-weight="400" fill="black" x="7851497e-19" y="15">Down</tspan>
+                </text>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
