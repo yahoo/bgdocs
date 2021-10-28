@@ -8,7 +8,7 @@
 //:bg-doc-version: objc
 :bg-doc-version: typescript
 :github-root: https://github.com/yahoo/
-:pages-root: https://yahoo.github.io/bgdocs/
+:pages-root: https://yahoo.github.io/bgdocs/docs/
 include::includes.adoc[tag={bg-doc-version}]
 
 == Links
