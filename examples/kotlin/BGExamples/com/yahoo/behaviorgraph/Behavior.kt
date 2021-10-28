@@ -1,4 +1,4 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
 class Behavior(
     val extent: Extent<*>, demands: List<Resource>?, supplies: List<Resource>?,

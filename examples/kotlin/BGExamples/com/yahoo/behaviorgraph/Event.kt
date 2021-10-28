@@ -1,4 +1,4 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
 data class Event(val sequence: Long, val timestamp: Long,  val impulse: String?) {
     companion object {

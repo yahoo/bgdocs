@@ -1,4 +1,4 @@
-package com.verizonmedia.behaviorgraph.platform
+package com.yahoo.behaviorgraph.platform
 
 interface PlatformSupport {
     fun isMainThread(): Boolean

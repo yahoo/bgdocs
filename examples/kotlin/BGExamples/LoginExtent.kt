@@ -1,7 +1,7 @@
-import com.verizonmedia.behaviorgraph.Extent
-import com.verizonmedia.behaviorgraph.Graph
-import com.verizonmedia.behaviorgraph.Moment
-import com.verizonmedia.behaviorgraph.State
+import com.yahoo.behaviorgraph.Extent
+import com.yahoo.behaviorgraph.Graph
+import com.yahoo.behaviorgraph.Moment
+import com.yahoo.behaviorgraph.State
 
 // tag::login_enable_extent[]
 class LoginExtent(graph: Graph) : Extent<LoginExtent>(graph) {

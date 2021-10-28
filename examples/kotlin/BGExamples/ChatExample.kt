@@ -1,4 +1,4 @@
-import com.verizonmedia.behaviorgraph.*
+import com.yahoo.behaviorgraph.*
 
 // @tag::chat_extent[]
 class ChatExtent(graph: Graph) : Extent<ChatExtent>(graph) {
