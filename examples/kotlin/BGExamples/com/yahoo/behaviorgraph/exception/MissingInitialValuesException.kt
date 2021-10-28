@@ -1,5 +1,5 @@
-package com.verizonmedia.behaviorgraph.exception
+package com.yahoo.behaviorgraph.exception
 
-import com.verizonmedia.behaviorgraph.Resource
+import com.yahoo.behaviorgraph.Resource
 
 class MissingInitialValuesException(s: String, val resource: Resource) : BehaviorGraphException("$s Resource=$resource")

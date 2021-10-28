@@ -1,6 +1,6 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
-import com.verizonmedia.behaviorgraph.Event.Companion.InitialEvent
+import com.yahoo.behaviorgraph.Event.Companion.InitialEvent
 
 class State<T>(extent: Extent<*>, initialState: T, debugName: String? = null) :
     Resource(extent, debugName),

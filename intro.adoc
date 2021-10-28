@@ -8,20 +8,19 @@
 //:bg-doc-version: objc
 :bg-doc-version: typescript
 :github-root: https://github.com/yahoo/
-:pages-root: https://
+:pages-root: https://yahoo.github.io/bgdocs/docs/
 include::includes.adoc[tag={bg-doc-version}]
 
 == Links
 * link:{github-root}{github-project}[Github] 
 * link:{pages-root}{bg-doc-version}/intro.html[Intro (this document)]
 * link:{pages-root}{bg-doc-version}/guide.html[Behavior Graph Programming Guide]
-
 ifeval::["{bg-doc-version}" == "objc"]
-*Cocoapods* (Objective-C): BehaviorGraph 
+* *Cocoapods* (Objective-C): BehaviorGraph 
 endif::[]
-
 ifeval::["{bg-doc-version}" == "typescript"]
-*NPM* (Verizon Media Typescript/Javascript): `@yahoo/behavior-graph`
+* *NPM* link:https://www.npmjs.com/package/behavior-graph[`behavior-graph`]
+* *jsDelivr* https://cdn.jsdelivr.net/npm/behavior-graph/lib/behavior-graph.min.js
 endif::[]
 
 ifeval::["{bg-doc-version}" == "kotlin"]

@@ -1,6 +1,6 @@
-package com.verizonmedia.behaviorgraph.exception
+package com.yahoo.behaviorgraph.exception
 
-import com.verizonmedia.behaviorgraph.Extent
+import com.yahoo.behaviorgraph.Extent
 
 class ExtentsCanOnlyBeRemovedDuringAnEventException(s: String, val extent: Extent<*>) : BehaviorGraphException("$s Extent=$extent")
 

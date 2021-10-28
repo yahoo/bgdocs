@@ -1,6 +1,6 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
-import com.verizonmedia.behaviorgraph.exception.BehaviorGraphException
+import com.yahoo.behaviorgraph.exception.BehaviorGraphException
 
 class Moment<T>(extent: Extent<*>, debugName: String? = null) : Resource(extent, debugName),
     Transient {

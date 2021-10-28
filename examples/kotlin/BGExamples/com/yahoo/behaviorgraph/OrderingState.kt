@@ -1,4 +1,4 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
 internal enum class OrderingState {
     Unordered,

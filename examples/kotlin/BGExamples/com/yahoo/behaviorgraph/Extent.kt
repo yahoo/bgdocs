@@ -1,6 +1,6 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
-import com.verizonmedia.behaviorgraph.exception.BehaviorGraphException
+import com.yahoo.behaviorgraph.exception.BehaviorGraphException
 import kotlin.system.measureTimeMillis
 
 /**

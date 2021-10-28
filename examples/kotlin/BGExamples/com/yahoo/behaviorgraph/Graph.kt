@@ -1,13 +1,13 @@
-package com.verizonmedia.behaviorgraph
+package com.yahoo.behaviorgraph
 
-import com.verizonmedia.behaviorgraph.Event.Companion.InitialEvent
-import com.verizonmedia.behaviorgraph.exception.AllDemandsMustBeAddedToTheGraphExceptions
-import com.verizonmedia.behaviorgraph.exception.BehaviorDependencyCycleDetectedException
-import com.verizonmedia.behaviorgraph.exception.BehaviorGraphException
-import com.verizonmedia.behaviorgraph.exception.ExtentsCanOnlyBeAddedDuringAnEventException
-import com.verizonmedia.behaviorgraph.exception.ExtentsCanOnlyBeRemovedDuringAnEventException
-import com.verizonmedia.behaviorgraph.exception.ResourceCannotBeSuppliedByMoreThanOneBehaviorException
-import com.verizonmedia.behaviorgraph.platform.PlatformSupport
+import com.yahoo.behaviorgraph.Event.Companion.InitialEvent
+import com.yahoo.behaviorgraph.exception.AllDemandsMustBeAddedToTheGraphExceptions
+import com.yahoo.behaviorgraph.exception.BehaviorDependencyCycleDetectedException
+import com.yahoo.behaviorgraph.exception.BehaviorGraphException
+import com.yahoo.behaviorgraph.exception.ExtentsCanOnlyBeAddedDuringAnEventException
+import com.yahoo.behaviorgraph.exception.ExtentsCanOnlyBeRemovedDuringAnEventException
+import com.yahoo.behaviorgraph.exception.ResourceCannotBeSuppliedByMoreThanOneBehaviorException
+import com.yahoo.behaviorgraph.platform.PlatformSupport
 import java.util.ArrayDeque
 import java.util.ArrayList
 import java.util.Deque
