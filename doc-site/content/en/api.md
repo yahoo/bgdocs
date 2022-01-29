@@ -378,6 +378,7 @@ Creates a block of code that will run during the side effect phase of the event.
 * _read only_ property
 
 Each GraphEvent is assigned a monotonically increasing number for each event run on the graph.
+You can use this information to quickly determine the order resources update.
 
 ### `timestamp`
 
@@ -561,7 +562,7 @@ Equivalent to calling `action()` on the underlying Graph instance and `update()`
 
 * param: `newValue: T`
 
-Checks to see if the newValue parameter `!=` the current value, and if so updates it to that new value.
+Checks to see if the newValue parameter `!==` the current value, and if so updates it to that new value.
 
 ### `updateForce()`
 

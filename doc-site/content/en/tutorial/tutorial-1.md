@@ -4,19 +4,16 @@ title: "Tutorial 1 - Basics"
 
 Here we will introduce the essentials to get you started quickly using Behavior Graph.
 
-You can immediately get started using our [preconfigured tutorial](https://stackblitz.com/edit/js-hajxuw?file=index.js) page on __Stackblitz__. At the time of writing, this only works with Google Chrome browser.
-Go there. Select the `index.js` file on the left. 
-Then click on `Console` in the bottom right of the screen to open the Javascript console.
-You will type your code into the editor in the middle.
+The recommended way to get started is to use our [preconfigured tutorial site](https://jsfiddle.net/slevin11/k2g6fov0/2/).
 
-_Do tutorial video for stack blitz_
-
-Alternatively, if you know how to get a Javascript or Typescript environment up and running, Behavior Graph is a single import away. Check the [Quick Start]() Documentation for where you can access Behavior Graph. [Codepen]() and [JSFiddle]() will also work.
+If you prefer to set up your own environment please see the [Quick Start page]({{< ref quickstart >}}).
+Make sure to open up the Javascript console.
+That is where we will generate our output.
 
 ## Hello, World!
 
 Type in the following into the editor.
-You will gain more by typing it, as it forces you to think about each line more.
+You will gain more by typing it, as it forces you to think about each line.
 
 
 {{< highlight javascript >}}
@@ -31,7 +28,7 @@ class HelloExtent extends bg.Extent {
     this.person = this.state("Nobody");
     this.behavior()
       .demands(this.person)
-      .runs(ext => {
+      .runs(() => {
         console.log("Hello, " + this.person.value + "!");
       });
   }
@@ -46,7 +43,17 @@ g.action(() => {
 });
 {{< / highlight >}}
 
-Let's review this in pieces
+Run the code.
+In the console you should see
+
+```
+"Hello, World!"
+```
+
+
+### The Parts
+
+Let's review this in pieces.
 
 {{< highlight javascript >}}
 import * as bg from "https://cdn.skypack.dev/behavior-graph@beta";
@@ -55,7 +62,7 @@ import * as bg from "https://cdn.skypack.dev/behavior-graph@beta";
 This is a standard Javascript import.
 You may need to adjust it depending on your Javascript environment which is beyond the scope of this tutorial.
 Behavior Graph is distributed though [NPM](https://www.npmjs.com/package/behavior-graph) and is available through a number of downstream CDNs.
-See the [Quick Start Guide]() for more information.
+See the [Quick Start page]({{< ref quickstart >}}) for more information.
 Note that Behavior Graph is imported as `bg` here.
 We will reference that in a few places in the tutorial.
 Your import name may be different.
@@ -65,7 +72,7 @@ Your import name may be different.
 let g = new bg.Graph();
 {{< / highlight >}}
 
-You must create an instance of a Graph.
+You must create an instance of a `Graph`.
 You may have more than one instance, but all Behavior Graph elements are associated with a specific instance.
 
 {{< highlight javascript >}}
@@ -74,33 +81,33 @@ class HelloExtent extends bg.Extent {
     super(graph);
 {{< / highlight >}}
 
-You will modularize your Behavior Graph code into Extents.
-You do this by extending the built in Extent class and passing it your Graph instance in the constructor.
+You will modularize your Behavior Graph code into __Extents__.
+You do this by extending the built in `Extent` class and passing it your `Graph` instance in the constructor.
 Extents collect Behaviors and Resources together with the same lifetime.
 
 {{< highlight javascript >}}
     this.person = this.state("Nobody");
 {{< / highlight >}}
 
-`person` is a Resource.
+`person` is a __Resource__.
 Resources are containers for information.
-This specifically is a State resource.
-State resources contain information that should persist.
+This specifically is a __State__ resource.
+State resources contain persistent information, i.e. it may be used in the future.
 You will define state resources as properties on your Extent subclass and create them with the `.state()` factory method.
 State resources always have an initial value.
-Our `person` resource has an intial value of "Nobody".
+Our `person` resource has an initial value of `"Nobody"`.
 
 {{< highlight javascript >}}
     this.behavior()
       .demands(this.person)
-      .runs(ext => {
+      .runs(() => {
         console.log("Hello, " + this.person.value + "!");
       });
 {{< / highlight >}}
 
-This is a Behavior.
+This is a __Behavior__.
 Behaviors are units of functionality.
-We create them with the `.behavior()` factory method that uses a fluent BehaviorBuilder API.
+We create them with the `.behavior()` factory method that uses a fluent [`BehaviorBuilder`]({{< ref "api#behaviorbuildert" >}}) API.
 
 This behavior has two parts.
 The `.demands()` clause states that this behavior depends on the resource `person`.
@@ -130,7 +137,7 @@ Here we create a new Action using `.action()` on our Graph instance.
 Action blocks are how we introduce new information from the outside.
 In this case, we are providing the person's name by calling `.update()` on our `person` state resource.
 
-## How it works
+### How it works
 
 This call to `.action()` will start a series of steps.
 
@@ -142,11 +149,16 @@ In this case there is the only one demanding behavior.
 5. That runs block prints out "Hello, World!" by accessing the `.value` of `person` which is the value we passed into the `.update()` method.
 6. The `.action()` method completes and the program continues.
 
+All of these steps together make up a single Behavior Graph __Event__.
+
 ## Doing More
 
-While this may seem like a tedious implementation of "Hello, World", we have already established the set of rules that will let this program grow to arbitrary complexity while having the computer support us the entire way.
+While this may seem like a tedious implementation of "Hello, World", we have already established a foundation that will let this program grow to arbitrary complexity.
+The computer can use these components to support us throughout the development process.
 
 Let's introduce a second reason why we may need to print our greeting.
+
+_The highlighted lines will always be the new or updated lines_
 
 {{< highlight javascript "hl_lines=2 4 6" >}}
     this.person = this.state("Nobody");
@@ -158,11 +170,14 @@ Let's introduce a second reason why we may need to print our greeting.
       });
 {{< / highlight >}}
 
-First we create a second state, `greeting`.
+First we create a second state resource, `greeting`.
 Then we add `greeting` as an additional demand.
-Finally we modify our message to use `greeting` as well.
+We must add it as a demand because we access its `.value` property.
+Behavior Graph will raise an error if we do not.
+This explicitness is by design.
+Finally we modify our message to use `greeting.value`.
 
-If we run our program now it should produce
+When we run our program now it should produce
 
 ```
 "Greetings, World!"
@@ -183,17 +198,21 @@ Now we have
 "Hello, World!"
 ```
 
+### Multiple Updates
+
 This illustrates an important distinction between Behavior Graph and many reactive libraries.
 Our behavior demands multiple resources.
-That means when either `person` or `greeting` __or both__ update our behavior will run.
-But it will only run after the action block completes.
-We can update multiple resources (our equivalent of an observable property), but it doesn't immediately run downstream subscribers.
-All updates inside a single action are treated as if they happend at the same time.
-So we still only print our message once.
+That means whenever either `person` or `greeting` __or both__ update our behavior should run.
+However it doesn't run immediately, it is only __activated__.
 
-But we aren't required to provide both.
+Inside our action we update both `person` and `greeting`.
+Our behavior that demands them will not run until the entire action block has completed.
+All updates inside a single action are treated as if they happened at the same time.
+This means our behavior runs only once.
+
+We aren't required to provide both just because we demand both.
 State resources persist their value from action to action.
-So we could add an additional step.
+Let's add an additional action to see this.
 
 {{< highlight javascript "hl_lines=5-7">}}
 g.action(() => {
@@ -212,12 +231,14 @@ Now in our console it should print
 "Goodbye, World!"
 ```
 
-## Change
+"World" persisted into the second event. While "Goodbye" replaced the previous greeting.
 
-Not all information is "stateful".
+## Moments
+
+Not all information persists.
 Sometimes things just happen.
 A button press is a typical example.
-We can model this information with Moment resources.
+We can model this information with __Moment__ resources.
 
 {{< highlight javascript "hl_lines=3 5 7-9">}}
     this.person = this.state("Nobody");
@@ -232,15 +253,19 @@ We can model this information with Moment resources.
       });
 {{< / highlight >}}
 
-First we create a new type of resource called a Moment resource.
-You create them with a `.moment()` factory method on your Extent subclass.
-Then we add it to our behavior's list of demands.
+First we create a `button` resource.
+We create it with a `.moment()` factory method on our Extent subclass.
+Then we add it to our behavior's list of demands so it runs when `button` updates.
 
-In our runs block we've now gated our log statement by checking `button.justUpdated`.
-This will be true only if some other part of our code called "button.update()".
-The result is that our program no longer outputs anything because we only update the `person` and `greeting` resources.
+Inside our runs block, we've gated our log statement by checking against `button.justUpdated`.
+This will be true only if some other part of our code called `button.update()` during the same event.
 
-So lets add some additional lines.
+### Press the Button
+
+If you run the program now you will get no output.
+This is because we only update the `person` and `greeting` resources and our `log` statement only runs when `button.justUpdated` is true.
+
+So lets add some additional lines to simulate a button press.
 
 {{< highlight javascript "hl_lines=8-10">}}
 g.action(() => {
@@ -263,7 +288,8 @@ Now our program outputs:
 
 The first two actions only update the state resources.
 Our behavior is run but the `if (this.button.justUpdated)` check prevents anything from happening.
-The third action causes the behavior to run as well, this time passing the `if` check and printing the message based on prior updates.
+The third action causes the behavior to run as well.
+This time the `if` check passes and it logs the message based on prior updates.
 
 Of course they don't need to be in separate actions.
 
@@ -274,21 +300,24 @@ g.action(() => {
 });
 {{< / highlight >}}
 
-Will ouput:
+Will output:
 
 ```
 "Nevermind, World!"
 ```
 
-Because both `button` updated as well as `greeting` in that same action, regardless of the order in which they were updated.
+The message changed because both `button` updated as well as `greeting` in that same action.
+The order in which they were updated inside the action is irrelevant to any demanding behaviors.
 
 ## A Graph
 
 With only one behavior, it is difficult to call it a behavior graph.
-The real power of Behavior Graph comes with the ability to incrementally introduce dependent functionality.
-Behaviors will often depend on the information compiled in other behaviors.
+The real power of Behavior Graph comes with the ability to incrementally introduce related functionality.
+Behaviors will often depend on information provided by other behaviors.
 
-Imagine, for security sake, that we would like to introduce logging into our "Hello, World" printer.
+### Supplies
+
+Imagine, for security sake, that we would like to introduce logging into our "Hello, World" program.
 
 {{< highlight javascript "hl_lines=2 4 7 9">}}
     this.button = this.moment();
@@ -304,13 +333,25 @@ Imagine, for security sake, that we would like to introduce logging into our "He
       });
 {{< / highlight >}}
 
-We add a new state resource to save the current message.
-This time, we add this resource to the supplies clause of our behavior definition with `.supplies()`.
-Supplies are resources that this behavior is solely responsible for.
-It means that behavior can both read a resource's `.value` and `.update()` it.
+We add a new state resource, `message`, to save the current message.
+We add this resource to a new supplies clause of our behavior definition with `.supplies()`.
+__Supplies__ are resources that this behavior is solely responsible for.
+It means that a behavior can both read a resource's `.value` and `.update()` it as well.
 
+We call `message.update()` with the text contents of the greeting to save them for later.
+
+{{< alert title="Rule" color="primary" >}}
 A resource can only be supplied by one behavior.
-Although a behavior can supply multiple resources.
+A behavior can supply multiple resources.
+It is an error to call `.update()` on a resource inside a behavior if it does not appear in the supplies clause.
+
+Actions can call `.update()` on a resource without specifying that they do so.
+Actions cannot `.update()` a resource if it is supplied by a behavior.
+{{< /alert >}}
+
+### Logging Behavior
+
+We can introduce the logging functionality by adding an additional behavior.
 
 {{< highlight javascript "hl_lines=6-10">}}
         if (this.button.justUpdated) {
@@ -325,7 +366,7 @@ Although a behavior can supply multiple resources.
       });
 {{< / highlight >}}
 
-We've added another behavior here that demands `message`.
+This new behavior demands `message`.
 This means it will run whenever `message` updates.
 Our output shows this result:
 
@@ -335,11 +376,63 @@ Our output shows this result:
 "Nevermind, World!"
 "Message changed to: Nevermind, World!"
 ```
-We log the message change once each time we update either `person` or `greeting`.
-When they change, the first behavior runs which updates `message`.
-This causes the second behavior to run and log `"Message changed to:...`.
 
-We can also log when we send the message.
+As you can see our new logging behavior runs and generates output each time the message changes.
+
+## Events
+
+In Behavior Graph we call a single pass through the graph (from the start of an action to the last output) an [__Event__]({{< ref "api#graphevent" >}}).
+Our current output is the result of three events.
+
+__First Event:__
+```mermaid
+graph LR
+  a["Action:<br />person=>World<br />greeting=>Hello"] --> b["Behavior 1:<br />message=>Hello, World!"] --> c["Behavior 2:<br />message change logged"]
+```
+
+__Second Event:__
+```mermaid
+graph LR
+  a["Action:<br />greeting=>Goodbye"] --> b["Behavior 1:<br />message=>Goodbye, World!"] --> c["Behavior 2:<br />message change logged"]
+```
+
+__Third Event:__
+```mermaid
+graph LR
+  a["Action:<br />button updates<br />greeting=>Nevermind"] --> b["Behavior 1:<br />message=>Nevermind, World!<br />message printed"] --> c["Behavior 2:<br />message change logged"]
+```
+
+### The Same Event
+
+Every time a resource is updated, it is assigned the current event.
+So in the __First Event__ example above, when `person` and `greeting` update, they get pointers to that same event in their `.event` property.
+Then when `message` updates in the first behavior it also gets a pointer to this same event.
+
+We can access this event inside any behavior that we demand (or supply).
+This can use this to append a timestamp to our log messages.
+
+{{< highlight javascript "hl_lines=4">}}
+    this.behavior()
+      .demands(this.message)
+      .runs(() => {
+        console.log("Message changed to: " + this.message.value + " : " + this.message.event.timestamp);
+      });
+{{< / highlight >}}
+
+You should now see something similar to the lines below
+
+```
+"Message changed to: Hello, World! : Fri Jan 28 2022 16:43:43 GMT-0800"
+"Message changed to: Goodbye, World! : Fri Jan 28 2022 16:43:43 GMT-0800"
+"Nevermind, World!"
+"Message changed to: Nevermind, World! : Fri Jan 28 2022 16:43:43 GMT-0800"
+```
+
+### What Just Happened?
+
+Using `.justUpdated` is a powerful tool for organizing our code into related functionality.
+We will add additional logging to see how this works.
+First we will track when we send the message.
 
 {{< highlight javascript "hl_lines=2 4 10 15 17-22">}}
     this.message = this.state(null);
@@ -354,48 +447,54 @@ We can also log when we send the message.
           this.sentMessage.update();
         }
       });
-      
-    this.behavior()
-      .demands(this.message, this.sentMessage)
-      .runs(() => {
-        if (this.message.justUpdated) {
-          console.log("Message changed to: " + this.message.value);      
-        }
-        if (this.sentMessage.justUpdated) {
-          console.log("Message sent: " + this.message.value);
-        }
-      });
 {{< / highlight >}}
 
-First we create a moment resource for `sentMessage`.
+We create a moment resource for `sentMessage`.
 Sending the message is a one off action, so we keep track of that with a moment.
 We will be calling `.update()` on `sentMessage` so we need to add it to the list of supplies.
 We call `this.sentMessage.update()` right after the `console.log` call to track when we actually print out our message.
 
-Then we modify our logging behavior.
+Note that a behavior can supply more than one resource.
+This is a common pattern that lets us group related logic together without having to jump through hoops to avoid duplication.
+
+Next we modify our logging message to demand this additional resource.
+
+{{< highlight javascript "hl_lines=2 4 6-9">}}
+    this.behavior()
+      .demands(this.message, this.sentMessage)
+      .runs(() => {
+        if (this.message.justUpdated) {
+          console.log("Message changed to: " + this.message.value + " : " + this.message.event.timestamp);      
+        }
+        if (this.sentMessage.justUpdated) {
+          console.log("Message sent: " + this.message.value + " : " + this.message.event.timestamp);
+        }
+      });
+{{< / highlight >}}
+
 This behavior now demands `sentMessage` which means it will run whenever that resource is updated.
 Inside our run block we check to see which resource was updated and generate the correct log message.
 It may be the case that either one or both is updated.
-The ability to reconstruct this "what just happened" information inside a block of code makes it easy to group related functionality together.
 
-Our output now looks like this:
+You will find yourself using this "what just happened?" pattern in many of your behaviors.
+
+Running your program should looks like this:
 
 ```
-"Message changed to: Hello, World!"
-"Message changed to: Goodbye, World!"
+"Message changed to: Hello, World! : Sat Jan 29 2022 08:33:05 GMT-0800"
+"Message changed to: Goodbye, World! : Sat Jan 29 2022 08:33:05 GMT-0800"
 "Nevermind, World!"
-"Message changed to: Nevermind, World!"
-"Message sent: Nevermind, World!"
+"Message changed to: Nevermind, World! : Sat Jan 29 2022 08:33:05 GMT-0800"
+"Message sent: Nevermind, World! : Sat Jan 29 2022 08:33:05 GMT-0800"
 ```
-
-This completes our first tutorial.
 
 ## Challenge
 
 Can you introduce a single resource that turns on or off our newly added logging?
+Try to do this challenge before looking at the answer.
 
 Here's some hints:
-* A state resource is easiest, but its also possible with a moment resource.
+* Try adding a state resource.
 * You'll need to demand it in a behavior and introduce some additional logic.
 
 ### Answer
@@ -419,11 +518,72 @@ Here's some hints:
       .runs(() => {
         if (this.loggingEnabled.value) {
           if (this.message.justUpdated) {
-            console.log("Message changed to: " + this.message.value);      
+            console.log("Message changed to: " + this.message.value + " : " + this.message.event.timestamp);      
           }
           if (this.sentMessage.justUpdated) {
-            console.log("Message sent: " + this.message.value);
+            console.log("Message sent: " + this.message.value + " : " + this.message.event.timestamp);
           }
         }
       });
 {{< / highlight >}}
+
+`loggingEnabled` is our new resource.
+We want it to persist so we use a state resource.
+It defaults to `true` meaning logging is on.
+
+We then need to demand it inside our logging behavior in order to access its `.value` property.
+If we try to access `.value` without demanding it, Behavior Graph will raise an error.
+
+We can modify our last action to see it work.
+
+{{< highlight javascript "hl_lines=4">}}
+g.action(() => {
+  e.button.update();
+  e.greeting.update("Nevermind");
+  e.loggingEnabled.update(false);
+});
+{{< / highlight >}}
+
+After adding this additional line, running our code looks like this.
+
+```
+"Message changed to: Hello, World! : Sat Jan 29 2022 08:39:43 GMT-0800"
+"Message changed to: Goodbye, World! : Sat Jan 29 2022 08:39:43 GMT-0800"
+"Nevermind, World!"
+```
+
+We no longer log the last two messages because logging was turned off in the same action.
+Notice how even though `loggingEnabled.update(false)` comes after our updates, we still disable logging for the same event.
+If you were to do this without Behavior Graph, using status quo method calls and property updates, you would need to ensure that `loggingEnabled` changes to `false` _before_ the other updates.
+It would be a different result if you updated it _after_.
+_The ability to remove the hidden complexity that comes with sequencing is a programming superpower._
+Behavior Graph gives you this feature for free.
+
+### Ordering Resources
+
+You may notice that although `.loggingEnabled` is a demand, we don't actually need it to to be a reason for our logging behavior to run.
+We only need to check its `.value`.
+Behavior Graph lets us lighten this constraint.
+
+{{< highlight javascript "hl_lines=2">}}
+    this.behavior()
+      .demands(this.message, this.sentMessage, this.loggingEnabled.order)
+      .runs(() => {
+        if (this.loggingEnabled.value) {
+          if (this.message.justUpdated) {
+{{< / highlight >}}
+
+We can add `.order` to any resource inside our demands clause.
+When we do this, updating that resource will not activate this behavior.
+This can give us some additional precision when specifying how our behaviors are linked.
+
+## Complete
+
+Congratulations! You have completed this first tutorial.
+You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/uej3y09f/68/).
+
+While you may feel that there were many new concepts introduced, we have already covered the majority of them.
+You will find they come naturally with some practice.
+The remaining tutorials give you a taste for how Behavior Graph works inside real interactive programs.
+
+
