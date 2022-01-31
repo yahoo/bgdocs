@@ -575,7 +575,7 @@ Behavior Graph lets us lighten this constraint.
 
 We can add `.order` to any resource inside our demands clause.
 When we do this, updating that resource will not activate this behavior.
-This can give us some additional precision when specifying how our behaviors are linked.
+This can give us some additional accuracy when specifying how our behaviors are linked.
 
 ## Complete
 
