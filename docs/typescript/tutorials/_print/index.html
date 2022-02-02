@@ -568,7 +568,7 @@ The remaining tutorials give you a taste for how Behavior Graph works inside rea
     
 	<p>This tutorial will show how Behavior Graph interacts with real inputs and outputs to produce a working application.
 In this case we will build the control system for a thermostat, the device in your house that controls the heat.</p>
-<p><img src="/images/thermostat-ui.png" alt="Thermostat"></p>
+<p><img src="/bgdocs/docs/typescript/images/thermostat-ui.png" alt="Thermostat"></p>
 <p>This simplified thermostat has two buttons, <strong>Up</strong> and <strong>Down</strong> for raising and lowering the desired temperature.
 It also periodically gets external updates of the current temperature.
 If the desired temperature is above the current temperature, we will turn on the heat.
@@ -594,7 +594,7 @@ If you wish to use your own environment you will need to copy the HTML and CSS f
 <h2 id="desired-temperature">Desired Temperature</h2>
 <p>The first part of our logic will focus on setting the desired temperature.
 The related elements look something like this.</p>
-<p><img src="/images/thermostat-temp.svg" alt="Desired Temperature"></p>
+<p><img src="/bgdocs/docs/typescript/images/thermostat-temp.svg" alt="Desired Temperature"></p>
 <p>First we need a state resource to track our desired temperature and a behavior to supply it.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">Thermostat</span> <span style="color:#204a87;font-weight:bold">extends</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Extent</span> <span style="color:#000;font-weight:bold">{</span>
   <span style="color:#000">constructor</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
@@ -729,7 +729,7 @@ And you can check it&rsquo;s <code>.justUpdated</code> property to specialize yo
 <h2 id="heat">Heat</h2>
 <p>Now we need to introduce a separate bit of functionality to control the heating equipment.
 This logic compares the current temperature to the desired temperature and turns on or off the heating equipment accordingly.</p>
-<p><img src="/images/thermostat-heat.svg" alt="Current Temperature"></p>
+<p><img src="/bgdocs/docs/typescript/images/thermostat-heat.svg" alt="Current Temperature"></p>
 <h3 id="current-temperature">Current Temperature</h3>
 <p>First we need a resource to track the current temperature,</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript">    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">desiredTemperature</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">60</span><span style="color:#000;font-weight:bold">);</span>
@@ -911,7 +911,7 @@ You can see the <a href="https://jsfiddle.net/slevin11/kfuwrmb8/">finished tutor
 	<h1 id="pg-887dcfb34d5204643fd01b2a692ab90d">3 - Tutorial 3 - Extents</h1>
     
 	<p>In this tutorial we will create a simple todo list.</p>
-<p><img src="/images/todolist.png" alt="Todo List"></p>
+<p><img src="/bgdocs/docs/typescript/images/todolist.png" alt="Todo List"></p>
 <p>A todo list is interesting because it has user interface elements with independent lifetimes.
 When we start, our list is empty.
 The visible interface elements are the header for adding new items and a footer for the remaining items.

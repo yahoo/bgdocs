@@ -25,11 +25,11 @@
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yahoo.github.io/bgdocs/docs/typescript/why-behavior-graph/" /><meta property="article:section" content="" />
 
-<meta property="article:modified_time" content="2022-02-01T19:27:09-08:00" /><meta property="og:site_name" content="Behavior Graph" />
+<meta property="article:modified_time" content="2022-02-02T11:01:27-08:00" /><meta property="og:site_name" content="Behavior Graph" />
 
 <meta itemprop="name" content="Why Behavior Graph?">
 <meta itemprop="description" content="Behavior Graph is a software library that greatly enhances our ability to program user facing software and control systems. Programs of this type quickly scale up in complexity as features are added. Behavior Graph directly addresses this complexity by shifting more of the burden to the computer. It works by offering the programmer a new unit of code organization called a behavior. Behaviors are blocks of code enriched with additional information about their stateful relationships.">
-<meta itemprop="dateModified" content="2022-02-01T19:27:09-08:00" />
+<meta itemprop="dateModified" content="2022-02-02T11:01:27-08:00" />
 <meta itemprop="wordCount" content="996">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Why Behavior Graph?"/>
@@ -195,7 +195,7 @@ It does this by taking on the responsibility of control flow between behaviors, 
 <li><em>Stateful</em>: outputs depend on a history of prior inputs</li>
 </ol>
 <p>A thermostat controlling the temperature in a house is an example:</p>
-<p><img src="/images/thermostat-wall.svg" alt="Thermostat"></p>
+<p><img src="/bgdocs/docs/typescript/images/thermostat-wall.svg" alt="Thermostat"></p>
 <ol>
 <li>It runs continuously, responding to temperature changes as well as button presses in order to operate the heating equipment.</li>
 <li>Button presses will result in changes to the display.</li>
@@ -230,14 +230,14 @@ Behaviors are simple, easily understood blocks of code paired with any relations
 Resources are objects which encapsulate both state and how that state changes.
 A behavior for our thermostat would be &ldquo;<em>when the user presses the <em>Up</em> or <em>Down</em> buttons, increase or decrease the desired temperature by one degree</em>.&rdquo;
 The <em>desired temperature</em> is the resource that this behavior manages.</p>
-<p><img src="/images/thermostat-temp.svg" alt="Desired Temperature"></p>
+<p><img src="/bgdocs/docs/typescript/images/thermostat-temp.svg" alt="Desired Temperature"></p>
 <p>An entire thermostat program would be built out of many of these behaviors.
 So we add a second behavior, &ldquo;<em>when the current temperature is below the desired temperature, turn on the heating equipment</em>.&rdquo;
 Our behaviors will collaborate to implement the complete thermostat functionality without knowing about each other directly.
 Instead, behaviors compose via resources, in this case <em>desired temperature</em>.
 The first behavior declares that it is responsible for setting the <em>desired temperature</em>.
 The second behavior declares that it uses the <em>desired temperature</em> to know if it needs to turn on the heat.</p>
-<p><img src="/images/thermostat-heat.svg" alt="Heating"></p>
+<p><img src="/bgdocs/docs/typescript/images/thermostat-heat.svg" alt="Heating"></p>
 <p>We never run behaviors directly by calling them like we do with methods.
 Instead Behavior Graph uses the dependencies between behaviors and resources to determine which behaviors need to run and in which order.
 If the user presses the Up button to raise the desired temperature above the current temperature, the heating behavior will automatically run after the temperature behavior updates the <em>desired temperature</em> resource.</p>
