@@ -1,5 +1,6 @@
 ---
 title: "Quick Start"
+weight: 10
 ---
 
 Using Behavior Graph is as simple as downloading it via your preferred format and importing it into your source.
@@ -53,7 +54,7 @@ The default export name is `bg` when using this method.
 
 To start exploring feel free to use any of the following which have been preconfigured to use Behavior Graph.
 
-* [JSFiddle](https://jsfiddle.net/slevin11/akevq4hm/4/)
+* [JSFiddle](https://jsfiddle.net/slevin11/akevq4hm/)
 * [CodePen](https://codepen.io/slevin11/pen/XWzbMWZ)
 
 ## Coding
@@ -61,8 +62,8 @@ To start exploring feel free to use any of the following which have been preconf
 ### Typescript or Javascript
 
 Behavior-Graph is written in Typescript. 
-It is useable directly from Javascript or Typescript code.
-Type delcaration files are provided for all APIs.
+It is usable directly from Javascript or Typescript code.
+Type declaration files are provided for all APIs.
 
 ### Hello, World!
 
@@ -85,7 +86,7 @@ If this does not work, double check your imports and your environment.
 
 ## Tutorials
 
-It is unlikely you will get very far with Behavior Graph without working through a [tutorial]({{< ref "tutorial-1.md" >}}).
+It is unlikely you will get very far with Behavior Graph without working through a [tutorial]({{< ref "tutorials/tutorial-1" >}}).
 Please spend some time with them to practice writing Behavior Graph code.
 They don't take very long, and you will be mentally stimulated and spiritually rewarded for your time.
 

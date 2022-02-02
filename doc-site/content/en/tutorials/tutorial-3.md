@@ -1,5 +1,5 @@
 ---
-title: "Tutorial 3 - A Dynamic Graph"
+title: "Tutorial 3 - Extents"
 ---
 
 In this tutorial we will create a simple todo list.
@@ -17,7 +17,7 @@ This is a powerful and practical technique that gives Behavior Graph a unique ex
 
 ## Initial Code
 
-We have created a starter project using [JSFiddle](https://jsfiddle.net/slevin11/kuw2h1no/6/).
+We have created a starter project using [JSFiddle](https://jsfiddle.net/slevin11/kuw2h1no/).
 You should use that for this tutorial.
 It has some simple HTML/CSS to represent the Todo List's user interface.
 If you wish to use your own environment you will need to copy the HTML and CSS from this JSFiddle site into your own.
@@ -25,7 +25,7 @@ If you wish to use your own environment you will need to copy the HTML and CSS f
 We first want to set up the initial structure.
 
 {{< highlight javascript "hl_lines=">}}
-import * as bg from "https://cdn.skypack.dev/behavior-graph@beta";
+import * as bg from "https://cdn.skypack.dev/behavior-graph";
 
 class ListExtent extends bg.Extent {
   constructor(graph) {
@@ -733,4 +733,4 @@ This is what `traceValue` provides.
 ## Congratulations
 
 Congratulations! You have completed the third tutorial.
-You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/vdu25ar9/65/).
+You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/vdu25ar9/).

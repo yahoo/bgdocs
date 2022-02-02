@@ -1,5 +1,6 @@
 ---
 title: "Why Behavior Graph?"
+weight: 20
 ---
 
 **Behavior Graph**  is a software library that greatly enhances our ability to program **user facing software** and **control systems**. Programs of this type quickly scale up in complexity as features are added. Behavior Graph directly addresses this complexity by shifting more of the burden to the computer. 
@@ -41,7 +42,7 @@ With state we can compress 10 billion button presses into a single number.
 Inputs lead to state changes.
 Pressing the Up and Down button changes the desired temperature state.
 State changes lead to outputs.
-Changing the desired temperature means the disply will change.
+Changing the desired temperature means the display will change.
 State changes also often lead to other state changes as our program grows in features.
 When the desired temperature changes, the desired state of the heating equipment may change.
 (And when that desired state of the heating equipment changes, our program will output to turn on or off the heating equipment.)
@@ -77,7 +78,7 @@ Instead Behavior Graph uses the dependencies between behaviors and resources to 
 If the user presses the Up button to raise the desired temperature above the current temperature, the heating behavior will automatically run after the temperature behavior updates the _desired temperature_ resource.
 
 Here we can see the contrast to the status quo approach of nesting chains of method calls.
-In order to ensure the heat can be turned on when the up button is presset, the button press method needs to call the desired temperature setting method.
+In order to ensure the heat can be turned on when the up button is pressed, the button press method needs to call the desired temperature setting method.
 And that method in turn needs to call the heating equipment method.
 Because no method runs unless another method calls it, we must explicitly weave these threads of control flow throughout our code.
 In large programs, separately maintaining control flow to ensure our dependency graph is respected is both difficult and error prone.

@@ -1,10 +1,11 @@
 ---
 title: "Code Example"
-mylang: "java"
 language: "typescript"
+weight: 30
 ---
 
-We can illustrate how Behavior Graph code works in detail through another example application, a typical login screen.
+We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen.
+_This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph._
 
 ![Login Page](/images/login-ui-2.svg)
 
@@ -15,7 +16,7 @@ Once she corrects the email address by adding an '@' character, the Login button
 In Behavior Graph, this unit of functionality constitutes a typical *behavior*.
 It looks like this
 
-{{< highlight javascript >}}
+{{< highlight javascript "hl_lines=1-9">}}
 this.behavior()
     .supplies(this.loginEnabled)
     .demands(this.email, this.password)
@@ -29,7 +30,7 @@ this.behavior()
 
 Behaviors have dependencies on units of information called *resources*.
 This behavior depends on two resources, `email` and `password`.
-They appear as a list in the first parameter to `makeBehavior`.
+They appear as parameter of the `demands()` clause of `behavior()`.
 This list is called the behavior's *demands*.
 Our behavior has read only access to these resources.
 
@@ -37,17 +38,17 @@ As stated before, behaviors are never called directly.
 In specifying a behavior's demands, we are saying, _"whenever any of these resources updates (changes), then this behavior needs to run"._
 In our example, when either `email` or `password` (or both) update, this behavior will run in response.
 
-`email` and `password` are a specific type of resource called a *state resource* which is designed for saving and retreiving information.
-The contents of these state resources is available via their `value` property.
+`email` and `password` are a specific type of resource called a *state resource* which is designed for saving and retrieving information.
+The contents of these state resources are available via their `value` property.
 
 The block of code specified in the behavior is the code that will run.
 A typical behavior uses normal code to perform its work.
 Here we check the validity of the email with a normal function.
-We determine if the Login button should be enabled using normal boolean logic.
+We determine if the Login button should be enabled using normal Boolean logic.
 
 This behavior is responsible for the enabled state of the Login button.
 This information is stored in another state resource called `loginEnabled`.
-We specify a behavior's responsibilites as a list in the second parameter to `makeBehavior`.
+We specify a behavior's responsibilities in the `supplies()` clause of `behavior()`.
 This list is called the behavior's *supplies*.
 A behavior can read and write the contents of its supplies.
 The contents of a state resource can be written to by calling its `{{< term "update-method" >}}` method.
@@ -58,7 +59,7 @@ In order to prevent mistakes, when we are in a logging in state, we would also l
 
 To implement this new feature we introduce a second behavior and make a small change to our existing behavior.
 
-{{< highlight javascript >}}
+{{< highlight javascript "hl_lines=1-9 12 16">}}
 this.behavior()
     .supplies(this.loggingIn)
     .demands(this.loginClick)
@@ -85,12 +86,14 @@ Moments are designed to track momentary happenings such as a button click or net
 We can check if a moment has just happened by accessing its `{{< term "momentjustupdated-method" >}}` property.
 
 When the user clicks on the button, `loginClick` will update, and this new behavior will run.
-It performs a simple boolean check to determine if the `loggingIn` state resource needs to update to `{{< term "true-bool" >}}`.
+It performs a simple Boolean check to determine if the `loggingIn` state resource needs to update to `{{< term "true-bool" >}}`.
 It is allowed to update this resource because `loggingIn` is part of its supplies.
 
 We also modified our previous behavior to include `loggingIn` as one of its demands.
-This means it will run when the `loggingIn` resource updates as well as have permission to access the boolean `value` of `loggingIn`.
+This means it will run when the `loggingIn` resource updates as well as have permission to access the Boolean `value` of `loggingIn`.
 Now the state of `loginEnabled` depends on all three pieces of information: `email`, `password`, and `loggingIn`.
+
+## Actions
 
 ![Login Behavior Graph](/images/login-intro-graph.svg)
 
@@ -110,13 +113,15 @@ We would similarly connect `email` and `password` to their respective text field
 
 Once the user has entered a valid email and password, the Login button will enable.
 When the user subsequently clicks on the Login button, the behavior that supplies `loggingIn` will run.
-It will update the `loggingIn` resource to `{{ term "true-bool" >}}`.
+It will update the `loggingIn` resource to `{{< term "true-bool" >}}`.
 This in turn will cause the behavior that supplies `loginEnabled` behavior to run.
 It will update the `loginEnabled` resource to `{{< term "false-bool" >}}`.
 
+## Side Effects
+
 In order to perform real output to the UI library, we need to create a *side effect*.
 
-{{< highlight javascript >}}
+{{< highlight javascript "hl_lines=10-12">}}
 this.behavior()
     .supplies(this.loginEnabled)
     .demands(this.email, this.password, this.loggingIn)
@@ -140,3 +145,4 @@ Side effects are a practical way for Behavior Graph to create output while ensur
 
 This example covers the primary concepts when developing with Behavior Graph.
 There are, however, additional features that make Behavior Graph a practical software library.
+_Please work through the tutorials for a full coverage of the core features._

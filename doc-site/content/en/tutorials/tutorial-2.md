@@ -14,7 +14,7 @@ And once they are the same, the heat will turn off.
 
 ## Initial Code
 
-We have created a starter project using [JSFiddle](https://jsfiddle.net/slevin11/k3z2uysx/11/).
+We have created a starter project using [JSFiddle](https://jsfiddle.net/slevin11/k3z2uysx/).
 You should use that for this tutorial.
 It has some simple HTML/CSS to represent the Thermostat's user interface.
 If you wish to use your own environment you will need to copy the HTML and CSS from this JSFiddle site into your own.
@@ -22,7 +22,7 @@ If you wish to use your own environment you will need to copy the HTML and CSS f
 The initial setup code has been provided for you.
 
 {{< highlight javascript "hl_lines=">}}
-import * as bg from "https://cdn.skypack.dev/behavior-graph@beta";
+import * as bg from "https://cdn.skypack.dev/behavior-graph";
 
 class Thermostat extends bg.Extent {
   constructor(graph) {
@@ -443,4 +443,4 @@ When introducing it incrementally to an exiting codebase, it is easiest to work 
 ## Congratulations
 
 Congratulations! You have completed the second tutorial.
-You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/kfuwrmb8/268/).
+You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/kfuwrmb8/).

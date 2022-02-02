@@ -4,7 +4,7 @@ title: "Tutorial 1 - Basics"
 
 Here we will introduce the essentials to get you started quickly using Behavior Graph.
 
-The recommended way to get started is to use our [preconfigured tutorial site](https://jsfiddle.net/slevin11/k2g6fov0/2/).
+The recommended way to get started is to use our [preconfigured tutorial site](https://jsfiddle.net/slevin11/k2g6fov0/).
 
 If you prefer to set up your own environment please see the [Quick Start page]({{< ref quickstart >}}).
 Make sure to open up the Javascript console.
@@ -17,7 +17,7 @@ You will gain more by typing it, as it forces you to think about each line.
 
 
 {{< highlight javascript >}}
-import * as bg from "https://cdn.skypack.dev/behavior-graph@beta";
+import * as bg from "https://cdn.skypack.dev/behavior-graph";
 
 let g = new bg.Graph();
 
@@ -56,7 +56,7 @@ In the console you should see
 Let's review this in pieces.
 
 {{< highlight javascript >}}
-import * as bg from "https://cdn.skypack.dev/behavior-graph@beta";
+import * as bg from "https://cdn.skypack.dev/behavior-graph";
 {{< / highlight >}}
 
 This is a standard Javascript import.
@@ -580,7 +580,7 @@ This can give us some additional accuracy when specifying how our behaviors are 
 ## Complete
 
 Congratulations! You have completed this first tutorial.
-You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/uej3y09f/68/).
+You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/uej3y09f/).
 
 While you may feel that there were many new concepts introduced, we have already covered the majority of them.
 You will find they come naturally with some practice.

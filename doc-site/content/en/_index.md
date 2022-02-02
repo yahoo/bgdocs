@@ -20,23 +20,27 @@ cascade:
     kind: "section"
 ---
 
-Behavior Graph is a software architecture and state management library. It greatly enhances your ability to write complex user facing software and control systems. Broadly speaking, it belongs to the category of libraries which includes Redux, MobX, Rx (Reactive Extensions), and XState. It works by providing a new unit of composition which we call the __behavior__. Behaviors are simple blocks of code together with their dependency relationships.
+Behavior Graph is a software architecture and state management library. It greatly enhances your ability to write complex user facing software and control systems. Broadly speaking, it belongs to the category of libraries which includes Redux, MobX, Rx (Reactive Extensions), and XState. It works by providing a specialized unit of composition which we call the __behavior__. Behaviors are simple blocks of code together with their dependency relationships.
+
+## Is it any good?
+
+Yes
 
 ## Highlights
 
-* Minimial boilerplate
+* Minimal boilerplate
 * Scales from the simple to the very complex
 * Incremental adoption: works alongside existing code and frameworks
-* Handles state, events, and side effects all in one
-* Multi-platform: what you learn applies everywhere
+* Handles state, events, and effects all in one
+* Multi-platform (Javascript/Typescript, Kotlin, Objective-C, Swift)
 
 We developed Behavior Graph to address our own complexity challenges while building an iOS video playing library which is used internally throughout the suite of native Yahoo mobile apps. After years of development and production usage, it has proven to be incredibly competent at scale. We have since ported it to multiple languages including Javascript/Typescript. It is less than 1500 lines of code and contains no external dependencies.
 
-Behavior Graph will appeal to anyone with an interest in software architectures and willingness to rethink how we write software applications.
+Behavior Graph will particularly appeal to anyone with a willingness to rethink how we write software applications.
 
 ## What does it look like?
 
-This block of code defines the elements that control a counter.
+The below block of code implements a simple counter using Behavior Graph.
 It can increment the counter or reset it back to zero.
 
 About 70% of the concepts you need to work with Behavior Graph are contained in this one example.
@@ -50,27 +54,36 @@ this.counter = this.state(0);
 this.behavior()
     .demands(this.increment, this.reset)
     .supplies(this.counter)
-    .runs(ext => {
-        if (ext.increment.justUpdated) {
-            ext.counter.update(ext.counter.value + 1);
-        } else if (ext.reset.justUpdated) {
-            ext.counter.update(0);
+    .runs(this => {
+        if (this.increment.justUpdated) {
+            this.counter.update(this.counter.value + 1);
+        } else if (this.reset.justUpdated) {
+            this.counter.update(0);
         }
     });
 {{< /highlight >}}
 
-A typical Behavior Graph program consists of dozens or hundreds of behaviors each with its own responsibilities.
-The real power comes with our ability to focus on small units of functionality while the computer ensures each behavior is run at the correct time and in the correct order.
+A typical Behavior Graph program consists of dozens or hundreds of behaviors like this, each with its own responsibilities.
+The Behavior Graph library then ensures these behaviors are correctly specified and runs them at the correct time and in the correct order.
+At scale this is shockingly effective.
+
+## Is it for me?
+
+Behavior Graph is a general purpose library which you can use to organize the event driven logic in any program.
+It should also be of interest to anyone with an interest in software engineering and architectures.
+
+Specifically if you are working on any of these categories, you should definitely consider it:
+
+* Web apps
+* Mobile apps
+* Desktop Applications
+* User Interfaces
+* Control Systems
+* Robots
+* Games
 
 ## Learning Behavior Graph
 
 While there are only a handful of basic concepts in Behavior Graph, it does require a shift in thinking.
-
-We recommend you start with the Quick Start then work through the Tutorials. They will help you understand how the pieces fit together.
-
-There are a number of Guides to help you delve deeper into various topics.
-
-There is the Complete API for reference.
-
-Explore the TodoMVC implementation which uses only Behavior Graph and vanilla Javascript.
-
+We recommend you start with the [Quick Start]({{< ref quickstart >}}) then work through the [Tutorials]({{< ref "tutorials/tutorial-1" >}}).
+They will help you understand how the pieces fit together.

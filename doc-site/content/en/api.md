@@ -1,5 +1,6 @@
 ---
 title: "API"
+weight: 40
 ---
 # Types
 
@@ -453,7 +454,7 @@ The base class for State and Moment.
 Prefer those types in almost all circumstances.
 Wherever you see "resource" in this document, assume we are referring to instances of State and Moment.
 
-Resource has minimial functionality.
+Resource has minimal functionality.
 Using instances of this base class directly is useful when forcing a certain ordering relationship between behaviors.
 
 ### `debugName`
