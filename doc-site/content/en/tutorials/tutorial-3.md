@@ -4,7 +4,7 @@ title: "Tutorial 3 - Extents"
 
 In this tutorial we will create a simple todo list.
 
-![Todo List](/images/todolist.png)
+![Todo List]({{< static "images/todolist.png" >}})
 
 A todo list is interesting because it has user interface elements with independent lifetimes.
 When we start, our list is empty.

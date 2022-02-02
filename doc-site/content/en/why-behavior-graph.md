@@ -21,7 +21,7 @@ We define these systems by three primary characteristics:
 
 A thermostat controlling the temperature in a house is an example:
 
-![Thermostat](/images/thermostat-wall.svg)
+![Thermostat]({{< static "images/thermostat-wall.svg" >}})
 
 1. It runs continuously, responding to temperature changes as well as button presses in order to operate the heating equipment.
 2. Button presses will result in changes to the display.
@@ -62,7 +62,7 @@ Resources are objects which encapsulate both state and how that state changes.
 A behavior for our thermostat would be "_when the user presses the *Up* or *Down* buttons, increase or decrease the desired temperature by one degree_."
 The _desired temperature_ is the resource that this behavior manages.
 
-![Desired Temperature](/images/thermostat-temp.svg)
+![Desired Temperature]({{< static "images/thermostat-temp.svg" >}})
 
 An entire thermostat program would be built out of many of these behaviors.
 So we add a second behavior, "_when the current temperature is below the desired temperature, turn on the heating equipment_."
@@ -71,7 +71,7 @@ Instead, behaviors compose via resources, in this case _desired temperature_.
 The first behavior declares that it is responsible for setting the _desired temperature_.
 The second behavior declares that it uses the _desired temperature_ to know if it needs to turn on the heat.
 
-![Heating](/images/thermostat-heat.svg)
+![Heating]({{< static "images/thermostat-heat.svg" >}})
 
 We never run behaviors directly by calling them like we do with methods.
 Instead Behavior Graph uses the dependencies between behaviors and resources to determine which behaviors need to run and in which order.

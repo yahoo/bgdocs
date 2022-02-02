@@ -5,7 +5,7 @@ title: "Tutorial 2 - IO"
 This tutorial will show how Behavior Graph interacts with real inputs and outputs to produce a working application.
 In this case we will build the control system for a thermostat, the device in your house that controls the heat.
 
-![Thermostat](/images/thermostat-ui.png)
+![Thermostat]({{< static "images/thermostat-ui.png" >}})
 
 This simplified thermostat has two buttons, __Up__ and __Down__ for raising and lowering the desired temperature.
 It also periodically gets external updates of the current temperature.
@@ -42,7 +42,7 @@ The bulk of our application will exist inside our `Thermostat` subclass of `Exte
 The first part of our logic will focus on setting the desired temperature.
 The related elements look something like this.
 
-![Desired Temperature](/images/thermostat-temp.svg)
+![Desired Temperature]({{< static "images/thermostat-temp.svg" >}})
 
 First we need a state resource to track our desired temperature and a behavior to supply it.
 
@@ -220,7 +220,7 @@ And you can check it's `.justUpdated` property to specialize your logic when nec
 Now we need to introduce a separate bit of functionality to control the heating equipment.
 This logic compares the current temperature to the desired temperature and turns on or off the heating equipment accordingly.
 
-![Current Temperature](/images/thermostat-heat.svg)
+![Current Temperature]({{< static "images/thermostat-heat.svg" >}})
 
 ### Current Temperature
 

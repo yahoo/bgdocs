@@ -7,7 +7,7 @@ weight: 30
 We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen.
 _This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph._
 
-![Login Page](/images/login-ui-2.svg)
+![Login Page]({{< static "images/login-ui-2.svg" >}})
 
 As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password.
 If the user types in some password but an invalid email address (missing the '@' character, for example) the Login button will remain disabled.
@@ -95,7 +95,7 @@ Now the state of `loginEnabled` depends on all three pieces of information: `ema
 
 ## Actions
 
-![Login Behavior Graph](/images/login-intro-graph.svg)
+![Login Behavior Graph]({{< static "images/login-intro-graph.svg" >}})
 
 Information comes into our system via *actions*.
 A typical UI library will provide some type of callback or event system to capture user inputs.
