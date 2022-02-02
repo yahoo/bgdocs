@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns="http://www.w3.org/2000/svg" xmlns:xl="http://www.w3.org/1999/xlink" version="1.1" viewBox="484 764 972 342" width="972" height="342">
+  <defs>
+    <font-face font-family="Helvetica Neue" font-size="14" panose-1="2 0 5 3 0 0 0 2 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="0" x-height="517" cap-height="714" ascent="951.9958" descent="-212.99744" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue"/>
+      </font-face-src>
+    </font-face>
+    <font-face font-family="Helvetica Neue" font-size="14" panose-1="2 0 5 3 0 0 0 9 0 4" units-per-em="1000" underline-position="-100" underline-thickness="50" slope="-857.1429" x-height="517" cap-height="714" ascent="957.0007" descent="-212.99744" font-style="italic" font-weight="400">
+      <font-face-src>
+        <font-face-name name="HelveticaNeue-Italic"/>
+      </font-face-src>
+    </font-face>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-4 -3 5 6" markerWidth="5" markerHeight="6" color="#333">
+      <g>
+        <path d="M -2.88 0 L 0 1.08 L 0 -1.08 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_2" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-1 -3 5 6" markerWidth="5" markerHeight="6" color="#333">
+      <g>
+        <path d="M 2.88 0 L 0 -1.08 L 0 1.08 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+    <marker orient="auto" overflow="visible" markerUnits="strokeWidth" id="FilledArrow_Marker_3" stroke-linejoin="miter" stroke-miterlimit="10" viewBox="-4 -3 5 6" markerWidth="5" markerHeight="6" color="#333">
+      <g>
+        <path d="M -2.736 0 L 0 1.026 L 0 -1.026 Z" fill="currentColor" stroke="currentColor" stroke-width="1"/>
+      </g>
+    </marker>
+  </defs>
+  <metadata> Produced by OmniGraffle 7.18.4\n2021-04-07 18:44:20 +0000</metadata>
+  <g id="TempSet" fill-opacity="1" stroke-opacity="1" stroke-dasharray="none" stroke="none" fill="none">
+    <title>TempSet</title>
+    <rect fill="white" x="484" y="764" width="972" height="342"/>
+    <g id="TempSet_Heat">
+      <title>Heat</title>
+      <g id="Graphic_30">
+        <path d="M 1111 955 L 1304 955 C 1304.5523 955 1305 955.4477 1305 956 L 1305 1034 C 1305 1034.5523 1304.5523 1035 1304 1035 L 1111 1035 C 1110.4477 1035 1110 1034.5523 1110 1034 L 1110 956 C 1110 955.4477 1110.4477 955 1111 955 Z" fill="white"/>
+        <path d="M 1111 955 L 1304 955 C 1304.5523 955 1305 955.4477 1305 956 L 1305 1034 C 1305 1034.5523 1304.5523 1035 1304 1035 L 1111 1035 C 1110.4477 1035 1110 1034.5523 1110 1034 L 1110 956 C 1110 955.4477 1110.4477 955 1111 955 Z" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(1115 978.608)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="68.259" y="13">Heating</tspan>
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="64.892" y="29.392">Behavior</tspan>
+        </text>
+      </g>
+      <g id="Group_38">
+        <g id="Graphic_31">
+          <path d="M 978.936 1022.716 L 978.936 1002.716 C 978.936 998.566 975.586 995.216 971.436 995.216 C 967.286 995.216 963.936 998.566 963.936 1002.716 L 963.936 1022.716 C 960.911 1024.991 958.936 1028.641 958.936 1032.716 C 958.936 1039.616 964.536 1045.216 971.436 1045.216 C 978.336 1045.216 983.936 1039.616 983.936 1032.716 C 983.936 1028.641 981.961 1024.991 978.936 1022.716 Z M 968.936 1002.716 C 968.936 1001.341 970.061 1000.216 971.436 1000.216 C 972.811 1000.216 973.936 1001.341 973.936 1002.716 L 971.436 1002.716 L 971.436 1005.216 L 973.936 1005.216 L 973.936 1010.216 L 971.436 1010.216 L 971.436 1012.716 L 973.936 1012.716 L 973.936 1017.716 L 968.936 1017.716 Z" fill="#333"/>
+        </g>
+        <g id="Graphic_36">
+          <text transform="translate(932.069 1047.216)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="15.561" y="13">Current</tspan>
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="0" y="29.392">Temperature</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Group_39">
+        <g id="Group_32">
+          <g id="Group_33">
+            <g id="Graphic_35">
+              <path d="M 1396.321 991.15 C 1395.946 992.2 1395.946 993.2 1396.121 994.35 C 1396.371 995.725 1396.946 996.95 1396.621 998.35 C 1396.296 999.825 1394.696 1001.8 1392.796 1002.425 C 1395.996 1005.05 1400.796 1003.35 1401.271 999.125 C 1401.696 995.275 1397.671 994.175 1396.321 991.15 Z" fill="#333"/>
+            </g>
+            <g id="Graphic_34">
+              <path d="M 1371.296 965 L 1371.296 1015 L 1421.296 1015 L 1421.296 965 Z M 1396.296 1005 C 1392.346 1005 1388.871 1000.3 1388.796 997.35 C 1388.796 997.225 1388.771 997.025 1388.771 996.8 C 1388.446 992.475 1391.271 988.8 1394.946 985.875 C 1396.121 988.4 1398.121 990.95 1401.371 993.175 C 1402.821 994.225 1403.796 995.325 1403.796 997.5 C 1403.796 1001.625 1400.421 1005 1396.296 1005 Z M 1416.296 1010 L 1411.296 1010 L 1411.296 1005 L 1406.246 1005 C 1407.821 1002.9 1408.796 1000.325 1408.796 997.5 C 1408.796 992.775 1406.071 990.375 1404.171 989.075 C 1396.796 984.025 1398.796 977.5 1398.796 977.5 C 1381.971 986.425 1383.746 996.175 1383.796 997.5 C 1383.871 999.9 1385.021 1002.675 1386.871 1005 L 1381.296 1005 L 1381.296 1010 L 1376.296 1010 L 1376.296 970 L 1416.296 970 Z" fill="#333"/>
+            </g>
+          </g>
+        </g>
+        <g id="Graphic_37">
+          <text transform="translate(1362.303 1019)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="9.73" y="13">Heating</tspan>
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="0" y="29.392">Equipment</tspan>
+          </text>
+        </g>
+      </g>
+      <g id="Line_40">
+        <path d="M 1001.0702 1022.8965 L 1060 1022.8965 L 1060 995 L 1110 995" marker-start="url(#FilledArrow_Marker)" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+      <g id="Line_41">
+        <line x1="1305" y1="995" x2="1349.396" y2="994.908" marker-end="url(#FilledArrow_Marker_2)" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+      <g id="Line_43">
+        <path d="M 1110 995 L 1060 995 L 1060 889.5 L 1009.9 889.5" marker-end="url(#FilledArrow_Marker_2)" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+    </g>
+    <g id="TempSet_Temperature">
+      <title>Temperature</title>
+      <g id="Graphic_6">
+        <path d="M 681 850 L 874 850 C 874.5523 850 875 850.4477 875 851 L 875 929 C 875 929.5523 874.5523 930 874 930 L 681 930 C 680.4477 930 680 929.5523 680 929 L 680 851 C 680 850.4477 680.4477 850 681 850 Z" fill="white"/>
+        <path d="M 681 850 L 874 850 C 874.5523 850 875 850.4477 875 851 L 875 929 C 875 929.5523 874.5523 930 874 930 L 681 930 C 680.4477 930 680 929.5523 680 929 L 680 851 C 680 850.4477 680.4477 850 681 850 Z" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(685 873.608)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="53.468" y="13">Temperature</tspan>
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="64.892" y="29.392">Behavior</tspan>
+        </text>
+      </g>
+      <g id="Group_21">
+        <g id="Graphic_5">
+          <text transform="translate(523.939 848.6301)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="0" y="13">Up Button</tspan>
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="14.924" y="29.392">Press</tspan>
+          </text>
+        </g>
+        <g id="Group_13">
+          <g id="Group_14">
+            <g id="Graphic_15">
+              <path d="M 569.98087 820.8682 L 562.2666 817.0111 C 565.338 814.6301 567.3142 810.91585 567.3142 806.7254 C 567.3142 799.5111 561.43325 793.6301 554.21896 793.6301 C 547.0047 793.6301 541.1237 799.5111 541.1237 806.7254 C 541.1237 811.7968 544.0285 816.2016 548.2666 818.3682 L 548.2666 826.1301 C 543.14753 825.0349 543.45706 825.0825 542.8856 825.0825 C 541.6237 825.0825 540.43325 825.5825 539.5285 826.4873 L 536.19515 829.8682 L 548.3142 841.9873 C 549.338 843.0349 550.7666 843.6301 552.2428 843.6301 L 567.2428 843.6301 C 569.5761 843.6301 571.5523 841.9635 571.93325 839.6539 L 573.838 828.4397 C 574.3618 825.3444 572.8142 822.2968 569.98087 820.8682 Z M 569.1475 827.6539 L 567.2428 838.8682 L 552.2428 838.8682 C 552.0285 838.8682 551.838 838.773 551.67134 838.6301 L 542.90944 829.8682 L 553.0285 831.9873 L 553.0285 806.7254 C 553.0285 806.0587 553.5523 805.5349 554.21896 805.5349 C 554.8856 805.5349 555.40944 806.0587 555.40944 806.7254 L 555.40944 821.0111 L 559.5999 821.0111 L 567.838 825.1301 C 568.7904 825.6063 569.3142 826.6301 569.1475 827.6539 Z M 545.8856 806.7254 C 545.8856 802.1301 549.6237 798.392 554.21896 798.392 C 558.8142 798.392 562.5523 802.1301 562.5523 806.7254 C 562.5523 808.9873 561.6475 811.0349 560.17134 812.5349 L 560.17134 806.7254 C 560.17134 803.4397 557.5047 800.773 554.21896 800.773 C 550.93325 800.773 548.2666 803.4397 548.2666 806.7254 L 548.2666 812.5349 C 546.7904 811.0349 545.8856 808.9873 545.8856 806.7254 Z" fill="#333"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="Graphic_20">
+        <circle cx="965.5" cy="889.5" r="22.5000359527927" fill="white"/>
+        <circle cx="965.5" cy="889.5" r="22.5000359527927" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+        <text transform="translate(900.666 917)" fill="black">
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="7531753e-19" y="13">Desired Temperature</tspan>
+          <tspan font-family="Helvetica Neue" font-size="14" font-weight="400" fill="black" x="35.147" y="29.392">Resource</tspan>
+        </text>
+      </g>
+      <g id="Group_22">
+        <g id="Graphic_26">
+          <text transform="translate(516.36286 978.784)" fill="black">
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="0" y="13">Down Button</tspan>
+            <tspan font-family="Helvetica Neue" font-size="14" font-style="italic" font-weight="400" fill="black" x="23.87" y="29.392">Press</tspan>
+          </text>
+        </g>
+        <g id="Group_23">
+          <g id="Group_24">
+            <g id="Graphic_25">
+              <path d="M 571.3507 951.0221 L 563.63644 947.165 C 566.7079 944.784 568.68406 941.0697 568.68406 936.8792 C 568.68406 929.665 562.8031 923.784 555.5888 923.784 C 548.37454 923.784 542.4936 929.665 542.4936 936.8792 C 542.4936 941.9507 545.39835 946.3554 549.63644 948.5221 L 549.63644 956.284 C 544.5174 955.1888 544.8269 955.2364 544.2555 955.2364 C 542.9936 955.2364 541.8031 955.7364 540.89835 956.6411 L 537.565 960.0221 L 549.68406 972.1411 C 550.7079 973.1888 552.13644 973.784 553.61263 973.784 L 568.6126 973.784 C 570.946 973.784 572.92216 972.1173 573.3031 969.8078 L 575.2079 958.5935 C 575.7317 955.4983 574.18406 952.4507 571.3507 951.0221 Z M 570.5174 957.8078 L 568.6126 969.0221 L 553.61263 969.0221 C 553.39835 969.0221 553.2079 968.9269 553.0412 968.784 L 544.2793 960.0221 L 554.39835 962.1411 L 554.39835 936.8792 C 554.39835 936.2126 554.92216 935.6888 555.5888 935.6888 C 556.2555 935.6888 556.7793 936.2126 556.7793 936.8792 L 556.7793 951.165 L 560.9698 951.165 L 569.2079 955.284 C 570.16025 955.7602 570.68406 956.784 570.5174 957.8078 Z M 547.2555 936.8792 C 547.2555 932.284 550.9936 928.5459 555.5888 928.5459 C 560.18406 928.5459 563.92216 932.284 563.92216 936.8792 C 563.92216 939.1411 563.0174 941.1888 561.5412 942.6888 L 561.5412 936.8792 C 561.5412 933.5935 558.87454 930.9269 555.5888 930.9269 C 552.3031 930.9269 549.63644 933.5935 549.63644 936.8792 L 549.63644 942.6888 C 548.16025 941.1888 547.2555 939.1411 547.2555 936.8792 Z" fill="#333"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="Line_27">
+        <path d="M 595.5973 825.4068 L 634.3151 825.4068 L 634.3151 890 L 677.5 890" marker-start="url(#FilledArrow_Marker)" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+      <g id="Line_28">
+        <path d="M 596.20355 955.4052 L 634.255 955.4052 L 634.255 890 L 677.5 890" marker-start="url(#FilledArrow_Marker_3)" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+      <g id="Line_29">
+        <path d="M 877.5 890 L 889 890 L 909 889.75 L 912.1 889.5 L 918.6 889.5" marker-end="url(#FilledArrow_Marker_2)" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="5"/>
+      </g>
+    </g>
+  </g>
+</svg>
