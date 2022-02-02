@@ -27,12 +27,12 @@ As a first feature, we would like the Login button to remain disabled until the 
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yahoo.github.io/bgdocs/docs/typescript/code-example/" /><meta property="article:section" content="" />
 
-<meta property="article:modified_time" content="2022-02-01T19:27:09-08:00" /><meta property="og:site_name" content="Behavior Graph" />
+<meta property="article:modified_time" content="2022-02-02T11:01:27-08:00" /><meta property="og:site_name" content="Behavior Graph" />
 
 <meta itemprop="name" content="Code Example">
 <meta itemprop="description" content="We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen. This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph.
 As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled.">
-<meta itemprop="dateModified" content="2022-02-01T19:27:09-08:00" />
+<meta itemprop="dateModified" content="2022-02-02T11:01:27-08:00" />
 <meta itemprop="wordCount" content="932">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Code Example"/>
@@ -187,7 +187,7 @@ As a first feature, we would like the Login button to remain disabled until the 
 	</header>    
 	<p>We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen.
 <em>This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph.</em></p>
-<p><img src="/images/login-ui-2.svg" alt="Login Page"></p>
+<p><img src="/bgdocs/docs/typescript/images/login-ui-2.svg" alt="Login Page"></p>
 <p>As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password.
 If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled.
 Once she corrects the email address by adding an &lsquo;@&rsquo; character, the Login button should immediately enable.</p>
@@ -255,7 +255,7 @@ It is allowed to update this resource because <code>loggingIn</code> is part of 
 This means it will run when the <code>loggingIn</code> resource updates as well as have permission to access the Boolean <code>value</code> of <code>loggingIn</code>.
 Now the state of <code>loginEnabled</code> depends on all three pieces of information: <code>email</code>, <code>password</code>, and <code>loggingIn</code>.</p>
 <h2 id="actions">Actions</h2>
-<p><img src="/images/login-intro-graph.svg" alt="Login Behavior Graph"></p>
+<p><img src="/bgdocs/docs/typescript/images/login-intro-graph.svg" alt="Login Behavior Graph"></p>
 <p>Information comes into our system via <em>actions</em>.
 A typical UI library will provide some type of callback or event system to capture user inputs.
 In this example we will listen to a click handler to create a new action which updates the <code>loginClick</code> moment resource.</p>
