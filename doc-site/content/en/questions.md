@@ -8,7 +8,7 @@ Let us know what you are thinking.
 Your questions and feedback help us.
 
 ### Ideas 
-* You want to more about how something works?
+* You want to know more about how something works?
 * You want to know why something works the way it does?
 * How to integrate with your favorite library?
 * What is a good pattern for expressing your particular problem?

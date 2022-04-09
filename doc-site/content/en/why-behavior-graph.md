@@ -93,3 +93,299 @@ __Behavior Graph gives us control flow for free.__
 Behavior Graph is a compact and mature library with no external dependencies.
 It is used in production applications with millions of daily users.
 It is available for multiple languages and platforms (Objective C/Swift, Typescript/Javascript, Kotlin).
+
+
+## Going Deeper: Functions and Dependencies
+
+Here's the problem. As humans we need to break things down in order to think about things.
+We can't get into the weeds. For example if I click a login button I want to say, "ok, validate the form first, then try making a login API call over the network and then update the ui to indicate that we are actively logging in. (Although here I'm doing a lot of functional thinking, do this then this).
+
+So we'd like to be able to think in chunks like "validate form", "login API call", "and update the UI".
+The tool our programming language provides for this task is the function.
+The challenge is that these different tasks actually depend on each other.
+We want to make a login api call if the user hits the button but only if the form passes validation.
+And we want to update the ui if either we validation fails or we start logging in (to indicate it is in process).
+
+So using functions, how do we indicate these dependency relationships between different parts of our code?
+Function definitions don't determine when they should be called.
+That happens somewhere else, at the call site.
+So at best these dependency relationships exist elsewhere.
+
+And even then we are limited with what we can do.
+Functions allow us to pass parameters and return values.
+So if we stay in the realm of pure functions we can do some indication of relationships by using parameters and return values.
+This is the approach strongly advocated by functional programmers.
+We might end up with something like this.
+```
+onButtonClick() {
+    let formState = getFormFields();
+    let validationResults = validateForm(formState);
+    let loginResults = loginAPICall(validationResults);
+    updateUI(validationResults, loginResults);
+}
+```
+
+Something like that. Its difficult to be purely functional without the full support of a functional language.
+So it is more difficult to get things wrong because you'd have to get the paramters correct.
+If your types are suitably rich it could be a workable solution, but it does take some time.
+
+But even then its not enough to just get parameters right.
+We still need to get the sequencing right. 
+Functions still need to be called and they nee dto be called in the correct order.
+And there's not enough information in those function definitions to do it for us.
+That doesn't happen for free.
+And in many cases its not even obvious how to get the sequencing rigtht.
+Dependencies could span multiple levels of calls and we need to work it out at the right level
+(for example)
+
+And the problem is that this leads to work and effort and bugs
+I could articulate more of the problems which I have in the past.
+
+Our alternative is a different unit of organization.
+One that has more accurate information about the things it depends on.
+Then in theory we can do away with the calls and parameters and return values and just let the compiler figure it out.
+
+We can look at functions and their data access patterns to show how we can take advantage of already available information.
+So if `validateForm` is responsible for some piece of data we call `validationResults` and `updateUI` accesses this data to do its work we know there is some dependency relationship there.
+And we can say well if validationResults changes from what it was before than updateUI needs to run as well to match.
+And this is essentially reactive programming and observers.
+
+And this works in a number of scenarios but it doesn't work everywhere.
+For example, `loginAPICall` depends on the validationResults (ie don't make the call if they fail) but we don't want it to run whenever the resultsChange, (maybe we call it periodically while the user is typign also). So here we have a dependency but we only want it to run when we click the login button.
+So here we need to be explicit about what type of dependency things are or a way of checking what just happened. So we need some enhanced data (just passing in the results only isn't good enough).
+
+But now that we've removed the "calling" from validateForma dn updateUI and loginAPICall, what do they depend on to get called in the first place. We know their relation to each other but how about to the button press.
+There's no state to check against.
+so we need to be able to depend on some internal event that tracks the button press.
+This is similar but different than reactive state.
+
+Behavior Graph lets us define different dependency types.
+It lets us specify reactive state and reactive events (moments).
+And it lets us query what changed about these reactive data from different blocks of code.
+
+All of this means we can structure more of the apps logic
+
+
+then there is transactions
+side effects
+dynamic behaviors
+
+
+
+And monads
+And then all we can do is make sure we get the dependency relationships correctly by proper sequencing of function calls.
+Our logic with the login button requires that we first call validateForm(), then loginAPICall(), then updateUI().
+
+
+
+
+
+
+
+
+
+Let's take a deeper look at why functions don't express dependency relationships well and how that makes our lives as programmers more difficult.
+
+The vast majority of our codebases are organized into functions.
+We use functions because they are the primary tool our programming languages give us for this task.
+And inherent to the nature of functions is that we need to _call_ them from somewhere else.
+
+We can look at a typical Login Form as an example.
+One feature would be for our program to validate the user inputs when the user clicks the login button.
+If the validation fails we should update the UI to provide feedback to the user.
+We might implement it like this.
+
+```javascript
+function onLoginButtonClick() {
+  validateInputs();
+}
+
+function validateInputs() {
+  // validation code here...
+  updateUI();
+}
+
+function updateUI(validationResults) {
+  // UI code here...
+}
+```
+
+We've subdivided our code into three functions.
+But they don't independently define their role in the program.
+It would be nice to define `validateInputs` to say "run this when the Login Button is clicked".
+But that is not possible with functions.
+Instead we must insert an explicit call to `validateInputs()` inside the definition of `onLoginButtonClick`.
+
+This separation is only a minor inconvenience in such a tiny program.
+But it does add up.. meh
+
+Now a form like this
+Now if we introduce some additional to make a login API call if the validation result
+
+
+The definition of `validateInputs` tells us what it does, but it doesn't tell us when it runs.
+That is somewhere else, inside `onLoginButtonClick`.
+`updateUI` is define
+
+
+as a programmer we need to inject these explicit control flow statements somewhere else
+And we are doing this to validateInputs cannot say `I run when button click happens`
+these functions have their definitions spread out
+
+
+
+
+
+
+When the describing this feature, there's a natural set of dependencies that stand out.
+* Validation depends on the button being clicked.
+* The UI depends on validation results.
+
+As humans, its trivial to think in terms
+
+
+In response to a user clicking on a button, the computer will run these three functions.
+They perform the work which gives our program value.
+Their author determined that this particular organization was a reasonable approach.
+But just looking at these lines of code doesn't give us all the information we need.
+These functions are defined somewhere else.
+it would take investigating to understand what they do and what information they depend on.
+
+We need dependency information so we can property order our function calls.
+Order matters.
+Our `updateUI()` function makes changes to the interface to indicate to the user what they should do next.
+To do so, it depends on information that the other two functions are responsible for: determining if there is user error and starting an asynchronous network login call.
+If we call `updateUI()` before the other two we will miss out on this functionality.
+As programmers, it is our job is to discern the dependency relationships between these functions and order our function calls accordingly.
+
+Dependencies are closer to the problem domain.
+As humans, we think, "what I see in user interface depends on if I have entered a valid email and password".
+And "the user interace also depends on whether or not I am waiting while the system logs me in".
+But we can't say that with function calls.
+All we can do is call them in the correct order to implicitly capture that dependency information.
+
+What if we _could_ keep that dependency information around instead?
+Let's sketch out a _new_ type of function that lets us do this, we will call it `behavior`:
+
+```javascript
+
+behavior.demands(validInputs, activelyLoggingIn)
+        .runs(() => {
+          // updateUI code goes here
+        })
+
+behavior dependsOn(validInputs, activelyLoggingIn) {
+  // updateUI code here
+}
+
+behavior responsibleFor(validInputs) 
+         dependsOn(loginButtonClicked) {
+  // validateInputs code here
+}
+
+behavior responsibleFor(activelyLoggingIn)
+         dependsOn(loginButtonClicked) {
+  // makeLoginAPICall code goes here
+}
+```
+
+Here we have an alternate version of functions that are explicit about what information they work with.
+
+
+Order matters, but dependencies are closer to the problem.
+
+
+
+
+All day long, we mentally translate between dependency relationships and the order of function calls.
+We do this so much that it's second nature for most developers.
+The problem is that it is often difficult.
+And that difficulty scales with the size of a codebase.
+And we frequently get it wrong.
+All of which means we expend a lot of effort on this translating.
+
+
+
+```javascript
+function onButtonClick() {
+  validateInputs();
+}
+
+function validateInputs() {
+  // validation code here...
+  updateUI();
+}
+
+function updateUI() {
+  // UI update code here
+}
+```
+
+## Analysis
+
+There is a pathway that begins with the button press code.
+It meanders through various functions, in and out, line by line, until all the relevant work has been performed.
+The chain of explicit function calls that makes up this pathway is the control flow we are interested in.
+
+We will build on a common example to demonstrate the problem.
+Imagine a typical household thermostat that sits on the wall and controls the temperature.
+It will have:
+ 1. Up and Down buttons to set the Desired Temperature
+ 2. A display which shows the Desired and Current Temperatures
+ 3. An ability to read in the Current Temperature
+ 4. An ability to turn on and off the Heating Equipment
+Our program to implement the thermostat will need to implement a few features
+ 1. Pressing the Up and Down buttons change the Desired Temperature and the display updates in response.
+ 2. Reading in a new Current Temperature should also update the display in response.
+ 3. If the Desired Temperature is below the Current Temperature, the Heating Equipment should turn on (or off otherwise).
+
+We make procedure calls because there is some relationship between 
+
+The problem
+Explicit control flow gives us one tool, "do this now"
+
+
+
+One challenge is that control flow can be correctly implemented any number of ways.
+And the more features we add the more valid paths through the code.
+Here is one way we might implement the control flow in response to pressing the Up button.
+
+```javascript
+function upButtonPressed() {
+  updateDesiredTemperature(+1); // increment
+  updateUI();
+  updateHeatingState();
+  updateHeatingEquipment();
+}
+```
+
+## Seriously, another library?!
+
+If you remain unconvinced, we still encourage you look for some patterns in your own code.
+Over time you will become aware of the added programmer effort that comes with keeping function calls properly sequenced.
+
+* Do you see where you've 
+
+update state, now ru this function to possibly do stuff with it
+
+functions that specify
+
+
+
+For now, pay close attention to the control flow logic in your own code.
+Do you see where it is?
+Do you see when you are maintaining it?
+Pay attention to when dependency changes lead to bugs in your control flow logic.
+When you start to see a pattern, come back and give Behavior Graph a closer look.
+
+
+
+
+
+. __mind sized chunks__  https://twitter.com/KentBeck/status/1354418068869398538?s=20&t=GPGbxTQInhXtLW6arDjQ3w
+
+
+
+It would be a disservice not to share it with the rest of the programming community.
+
+
