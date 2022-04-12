@@ -19,25 +19,28 @@
 <link rel="icon" type="image/png" href="/bgdocs/docs/typescript/favicons/android-192x192.png" sizes="192x192">
 
 <title>Code Example | Behavior Graph</title>
-<meta name="description" content="We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen.
-This is just a …">
+<meta name="description" content="This is a walk-through, please see the tutorials for a complete guide to learning Behavior Graph.
+Let&rsquo;s see how Behavior Graph code looks like …">
 <meta property="og:title" content="Code Example" />
-<meta property="og:description" content="We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen. This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph.
-As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled." />
+<meta property="og:description" content="This is a walk-through, please see the tutorials for a complete guide to learning Behavior Graph.
+Let&rsquo;s see how Behavior Graph code looks like by implementing functionality from a typical login screen.
+Form Validation As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled." />
 <meta property="og:type" content="article" />
 <meta property="og:url" content="https://yahoo.github.io/bgdocs/docs/typescript/code-example/" /><meta property="article:section" content="" />
 
-<meta property="article:modified_time" content="2022-02-02T11:01:27-08:00" /><meta property="og:site_name" content="Behavior Graph" />
+<meta property="article:modified_time" content="2022-04-12T14:48:05-07:00" /><meta property="og:site_name" content="Behavior Graph" />
 
 <meta itemprop="name" content="Code Example">
-<meta itemprop="description" content="We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen. This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph.
-As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled.">
-<meta itemprop="dateModified" content="2022-02-02T11:01:27-08:00" />
-<meta itemprop="wordCount" content="932">
+<meta itemprop="description" content="This is a walk-through, please see the tutorials for a complete guide to learning Behavior Graph.
+Let&rsquo;s see how Behavior Graph code looks like by implementing functionality from a typical login screen.
+Form Validation As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled.">
+<meta itemprop="dateModified" content="2022-04-12T14:48:05-07:00" />
+<meta itemprop="wordCount" content="1133">
 <meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
 <meta name="twitter:title" content="Code Example"/>
-<meta name="twitter:description" content="We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen. This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph.
-As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled."/>
+<meta name="twitter:description" content="This is a walk-through, please see the tutorials for a complete guide to learning Behavior Graph.
+Let&rsquo;s see how Behavior Graph code looks like by implementing functionality from a typical login screen.
+Form Validation As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password. If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled."/>
 
 
 
@@ -87,9 +90,7 @@ As a first feature, we would like the Login button to remain disabled until the 
   <a href="/bgdocs/docs/typescript/" title="Behavior Graph" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-bgdocsdocstypescript"><span class="">Documentation</span></a>
   <ul class="ul-1">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptquickstart-li">
-  <a href="/bgdocs/docs/typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptquickstart"><span class="">Quick Start</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptwhy-behavior-graph-li">
-  <a href="/bgdocs/docs/typescript/why-behavior-graph/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptwhy-behavior-graph"><span class="">Why Behavior Graph?</span></a>
+  <a href="/bgdocs/docs/typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptquickstart"><span class="">Getting Started</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-bgdocsdocstypescriptcode-example-li">
   <a href="/bgdocs/docs/typescript/code-example/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptcode-example"><span class="td-sidebar-nav-active-item">Code Example</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptapi-li">
@@ -125,6 +126,22 @@ As a first feature, we would like the Login button to remain disabled until the 
 
             
 
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#form-validation">Form Validation</a>
+      <ul>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#validation-behavior">Validation Behavior</a></li>
+        <li><a href="#supplies">Supplies</a></li>
+      </ul>
+    </li>
+    <li><a href="#logging-in">Logging In</a></li>
+    <li><a href="#actions">Actions</a></li>
+    <li><a href="#side-effects">Side Effects</a></li>
+    <li><a href="#learning-more">Learning More</a></li>
+  </ul>
+</nav></div>
 
 
 
@@ -185,48 +202,83 @@ As a first feature, we would like the Login button to remain disabled until the 
 		
 		
 	</header>    
-	<p>We can illustrate how Behavior Graph code works in more detail through another example application, a typical login screen.
-<em>This is just a walkthrough, please use the tutorials for a complete guide to learning Behavior Graph.</em></p>
+	<p><em>This is a walk-through, please see the <a href="https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/">tutorials</a> for a complete guide to learning Behavior Graph.</em></p>
+<p>Let&rsquo;s see how Behavior Graph code looks like by implementing functionality from a typical login screen.</p>
 <p><img src="/bgdocs/docs/typescript/images/login-ui-2.svg" alt="Login Page"></p>
+<h2 id="form-validation">Form Validation</h2>
 <p>As a first feature, we would like the Login button to remain disabled until the user has entered both a reasonable email and password.
 If the user types in some password but an invalid email address (missing the &lsquo;@&rsquo; character, for example) the Login button will remain disabled.
 Once she corrects the email address by adding an &lsquo;@&rsquo; character, the Login button should immediately enable.</p>
-<p>In Behavior Graph, this unit of functionality constitutes a typical <em>behavior</em>.
-It looks like this</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="display:block;width:100%;background-color:#dfdfdf"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">)</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span><span style="color:#000;font-weight:bold">)</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">emailValid</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">validEmailAddress</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">passwordValid</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">length</span> <span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">enabled</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">emailValid</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">passwordValid</span><span style="color:#000;font-weight:bold">;</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">);</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">});</span></span></code></pre></div>
-<p>Behaviors have dependencies on units of information called <em>resources</em>.
-This behavior depends on two resources, <code>email</code> and <code>password</code>.
-They appear as parameter of the <code>demands()</code> clause of <code>behavior()</code>.
-This list is called the behavior&rsquo;s <em>demands</em>.
-Our behavior has read only access to these resources.</p>
+<p>Here is Behavior Graph code for this functionality.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">as</span> <span style="color:#000">bg</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#34;https://cdn.skypack.dev/behavior-graph&#34;</span><span style="color:#000;font-weight:bold">;</span>
+
+<span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">LoginForm</span> <span style="color:#204a87;font-weight:bold">extends</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Extent</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">constructor</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+    <span style="color:#204a87;font-weight:bold">super</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">)</span>
+
+    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;&#34;</span><span style="color:#000;font-weight:bold">);</span>
+    
+    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">)</span>
+      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span><span style="color:#000;font-weight:bold">)</span>
+      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">emailValid</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">validateEmail</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
+        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">passwordValid</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">length</span> <span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">enabled</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">emailValid</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">passwordValid</span><span style="color:#000;font-weight:bold">;</span>
+        <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">);</span>
+    <span style="color:#000;font-weight:bold">});</span>
+
+  <span style="color:#000;font-weight:bold">}</span>
+<span style="color:#000;font-weight:bold">}</span>
+
+<span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">graph</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Graph</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">loginForm</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">LoginForm</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">);</span>
+<span style="color:#000">loginForm</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">addToGraphWithAction</span><span style="color:#000;font-weight:bold">();</span></code></pre></div>
+<p>First we import Behavior Graph to have access to its primary interface objects: <code>Graph</code> and <code>Extent</code>.</p>
+<p>Next we subclass <code>Extent</code> which needs to be initialized with an instance of <code>Graph</code>.
+<strong>Extents</strong> are containers of Behavior Graph elements.
+They also provide convenient API for creating these elements.</p>
+<h3 id="resources">Resources</h3>
+<p>Inside the constructor we create 3 <strong>resources</strong> using the <code>state()</code> factory method: <code>loginEnabled</code>, <code>email</code>, and <code>password</code>.
+Resources are special containers of information.
+For example, the <code>loginEnabled</code> resource will say if our Login button should be enabled or not.
+We initialize it with <code>false</code> because it will be disabled by default.</p>
+<h3 id="validation-behavior">Validation Behavior</h3>
+<p>After those we define a <strong>behavior</strong>.
+It will determine if the Login Button should be enabled based on the contents of the <code>email</code> and <code>password</code> resources.
+They appear as parameters to the <code>demands()</code> clause of our <code>behavior()</code> factory method.
+This list of resources is called the behavior&rsquo;s <strong>demands</strong>.
+They contain the information the behavior depends on.</p>
 <p>As stated before, behaviors are never called directly.
 In specifying a behavior&rsquo;s demands, we are saying, <em>&ldquo;whenever any of these resources updates (changes), then this behavior needs to run&rdquo;.</em>
 In our example, when either <code>email</code> or <code>password</code> (or both) update, this behavior will run in response.</p>
-<p><code>email</code> and <code>password</code> are a specific type of resource called a <em>state resource</em> which is designed for saving and retrieving information.
-The contents of these state resources are available via their <code>value</code> property.</p>
-<p>The block of code specified in the behavior is the code that will run.
-A typical behavior uses normal code to perform its work.
-Here we check the validity of the email with a normal function.
-We determine if the Login button should be enabled using normal Boolean logic.</p>
+<p>The block of code specified in the <code>runs()</code> clause is the code that will run.
+A typical behavior uses normal, imperative code to perform its work.
+We check the validity of the email with a normal function call.
+We use normal Boolean logic to determine if the Login button should be enabled.</p>
+<p><code>email</code> and <code>password</code> are a specific type of resource called a <strong>state resource</strong>.
+State resources are designed for saving and retrieving information.
+The contents of a state resource is available via its <code>value</code> property.
+A behavior must include a resources in its list of demands in order to access its <code>value</code>.
+Note in the code above how we use <code>.value</code> to access what the Email resource contains in order to validate it.</p>
+<h3 id="supplies">Supplies</h3>
 <p>This behavior is responsible for the enabled state of the Login button.
-This information is stored in another state resource called <code>loginEnabled</code>.
-We specify a behavior&rsquo;s responsibilities in the <code>supplies()</code> clause of <code>behavior()</code>.
-This list is called the behavior&rsquo;s <em>supplies</em>.
-A behavior can read and write the contents of its supplies.
-The contents of a state resource can be written to by calling its <code>update</code> method.</p>
-<p>We can continue to develop our Login page by adding a second feature.
+We store this information in another state resource called <code>loginEnabled</code>.
+We list this resource in the <code>supplies()</code> clause of our <code>behavior()</code>.
+This list is called the behavior&rsquo;s <strong>supplies</strong>.
+A behavior can read and write the contents of these resources.
+We write to a state resource by calling its <code>update</code> method.</p>
+<h2 id="logging-in">Logging In</h2>
+<p>We continue to develop our Login page by adding a second feature.
 When the user clicks the Login button and we are not already logging in, then we would like to enter into a logging in state.
 In order to prevent mistakes, when we are in a logging in state, we would also like the Login button to be disabled.</p>
 <p>To implement this new feature we introduce a second behavior and make a small change to our existing behavior.</p>
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="display:block;width:100%;background-color:#dfdfdf"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="display:block;width:100%;background-color:#dfdfdf"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginClick</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">()</span>
+</span><span style="display:block;width:100%;background-color:#dfdfdf"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingIn</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">)</span>
+</span><span style="display:block;width:100%;background-color:#dfdfdf">
+</span><span style="display:block;width:100%;background-color:#dfdfdf"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
 </span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingIn</span><span style="color:#000;font-weight:bold">)</span>
 </span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginClick</span><span style="color:#000;font-weight:bold">)</span>
 </span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
@@ -234,8 +286,8 @@ In order to prevent mistakes, when we are in a logging in state, we would also l
 </span><span style="display:block;width:100%;background-color:#dfdfdf">            <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingIn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">);</span>
 </span><span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#000;font-weight:bold">}</span>
 </span><span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">});</span>
-</span><span style="display:block;width:100%;background-color:#dfdfdf">
-</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span>
+<span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">)</span>
 <span style="display:block;width:100%;background-color:#dfdfdf">    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingIn</span><span style="color:#000;font-weight:bold">)</span>
 </span>    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
@@ -244,19 +296,19 @@ In order to prevent mistakes, when we are in a logging in state, we would also l
 <span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#204a87;font-weight:bold">const</span> <span style="color:#000">enabled</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">emailValid</span> <span style="color:#ce5c00;font-weight:bold">&amp;&amp;</span> <span style="color:#000">passwordValid</span> <span style="color:#ce5c00;font-weight:bold">&amp;</span> <span style="color:#ce5c00;font-weight:bold">!</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingIn</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">;</span>
 </span>        <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">enabled</span><span style="color:#000;font-weight:bold">);</span>
     <span style="color:#000;font-weight:bold">})</span></code></pre></div>
-<p>The new behavior has one demand, <code>loginClick</code>.
-This is a second type of resource called a <em>moment resource</em>.
+<p>Our new behavior has one demand, <code>loginClick</code>.
+This is a second type of resource called a <strong>moment resource</strong>.
 Moments are designed to track momentary happenings such as a button click or network call returning.
 We can check if a moment has just happened by accessing its <code>justUpdated</code> property.</p>
 <p>When the user clicks on the button, <code>loginClick</code> will update, and this new behavior will run.
 It performs a simple Boolean check to determine if the <code>loggingIn</code> state resource needs to update to <code>true</code>.
 It is allowed to update this resource because <code>loggingIn</code> is part of its supplies.</p>
 <p>We also modified our previous behavior to include <code>loggingIn</code> as one of its demands.
-This means it will run when the <code>loggingIn</code> resource updates as well as have permission to access the Boolean <code>value</code> of <code>loggingIn</code>.
+This means it will also run when the <code>loggingIn</code> resource updates.
 Now the state of <code>loginEnabled</code> depends on all three pieces of information: <code>email</code>, <code>password</code>, and <code>loggingIn</code>.</p>
 <h2 id="actions">Actions</h2>
 <p><img src="/bgdocs/docs/typescript/images/login-intro-graph.svg" alt="Login Behavior Graph"></p>
-<p>Information comes into our system via <em>actions</em>.
+<p>Information comes into our system via <strong>actions</strong>.
 A typical UI library will provide some type of callback or event system to capture user inputs.
 In this example we will listen to a click handler to create a new action which updates the <code>loginClick</code> moment resource.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginButton</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">onClick</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
@@ -268,10 +320,10 @@ In this example we will listen to a click handler to create a new action which u
 <p>Once the user has entered a valid email and password, the Login button will enable.
 When the user subsequently clicks on the Login button, the behavior that supplies <code>loggingIn</code> will run.
 It will update the <code>loggingIn</code> resource to <code>true</code>.
-This in turn will cause the behavior that supplies <code>loginEnabled</code> behavior to run.
-It will update the <code>loginEnabled</code> resource to <code>false</code>.</p>
+This in turn will cause the behavior that supplies <code>loginEnabled</code> to run.
+It will update the <code>loginEnabled</code> resource to <code>false</code> (because we are logging in).</p>
 <h2 id="side-effects">Side Effects</h2>
-<p>In order to perform real output to the UI library, we need to create a <em>side effect</em>.</p>
+<p>In order to perform real output to the UI library, we need to create a <strong>side effect</strong>.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
     <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loginEnabled</span><span style="color:#000;font-weight:bold">)</span>
     <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">email</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">password</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingIn</span><span style="color:#000;font-weight:bold">)</span>
@@ -286,13 +338,17 @@ It will update the <code>loginEnabled</code> resource to <code>false</code>.</p>
 </span><span style="display:block;width:100%;background-color:#dfdfdf">        <span style="color:#000;font-weight:bold">});</span>
 </span>    <span style="color:#000;font-weight:bold">})</span></code></pre></div>
 <p>Side effects are created directly inside behaviors.
+Inside are are allowed to do anything we like.
 This side effect updates the <code>enabled</code> state of the <code>loginButton</code> based on the state of the <code>loginEnabled</code> resource.
 It does not run immediately, however.
 Behavior Graph defers the running of side effects until after all behaviors have run.
 Side effects are a practical way for Behavior Graph to create output while ensuring access to consistent state.</p>
-<p>This example covers the primary concepts when developing with Behavior Graph.
-There are, however, additional features that make Behavior Graph a practical software library.
-<em>Please work through the tutorials for a full coverage of the core features.</em></p>
+<h2 id="learning-more">Learning More</h2>
+<p>Congratulations, you have just learned all the important concepts for using Behavior Graph in your code.</p>
+<p>Please don&rsquo;t be discouraged by the number of new abstractions.
+This walk-through is intentionally brief.
+But from here on out, it&rsquo;s mostly just nuance.</p>
+<p>To learn more, please take a look at our <a href="https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/">tutorials</a>.</p>
 
 	
 	
