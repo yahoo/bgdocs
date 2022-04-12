@@ -20,7 +20,8 @@
 <link rel="icon" type="image/png" href="/bgdocs/docs/typescript/favicons/android-192x192.png" sizes="192x192">
 
 <title>Behavior Graph</title>
-<meta name="description" content="Behavior Graph is a software architecture and state management library. It greatly enhances your ability to write complex user facing software and …">
+<meta name="description" content="Behavior Graph lets you build your program out of small, easily understood pieces in a way that lets the computer do more of the work for you.
+It is …">
 <meta property="og:title" content="Behavior Graph" />
 <meta property="og:description" content="Behaior Graph Documentation" />
 <meta property="og:type" content="website" />
@@ -79,9 +80,7 @@
   <a href="/bgdocs/docs/typescript/" title="Behavior Graph" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section tree-root" id="m-bgdocsdocstypescript"><span class="td-sidebar-nav-active-item">Documentation</span></a>
   <ul class="ul-1">
     <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptquickstart-li">
-  <a href="/bgdocs/docs/typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptquickstart"><span class="">Quick Start</span></a>
-</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptwhy-behavior-graph-li">
-  <a href="/bgdocs/docs/typescript/why-behavior-graph/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptwhy-behavior-graph"><span class="">Why Behavior Graph?</span></a>
+  <a href="/bgdocs/docs/typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptquickstart"><span class="">Getting Started</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptcode-example-li">
   <a href="/bgdocs/docs/typescript/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocstypescriptcode-example"><span class="">Code Example</span></a>
 </li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocstypescriptapi-li">
@@ -120,11 +119,20 @@
 
 <div class="td-toc"><nav id="TableOfContents">
   <ul>
-    <li><a href="#is-it-any-good">Is it any good?</a></li>
-    <li><a href="#highlights">Highlights</a></li>
-    <li><a href="#what-does-it-look-like">What does it look like?</a></li>
-    <li><a href="#is-it-for-me">Is it for me?</a></li>
-    <li><a href="#learning-behavior-graph">Learning Behavior Graph</a></li>
+    <li><a href="#whos-it-for">Who&rsquo;s it for?</a></li>
+    <li><a href="#how-does-it-work">How does it Work?</a></li>
+    <li><a href="#can-i-see-an-example">Can I see an example?</a></li>
+    <li><a href="#small">Small</a></li>
+    <li><a href="#incremental">Incremental</a></li>
+    <li><a href="#scale">Scale</a></li>
+    <li><a href="#multiplatform">Multiplatform</a></li>
+    <li><a href="#obtaining-behavior-graph">Obtaining Behavior Graph</a></li>
+    <li><a href="#documentation">Documentation</a></li>
+    <li><a href="#contact-us">Contact Us</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#comparisons">Comparisons</a></li>
+    <li><a href="#challenges">Challenges</a></li>
+    <li><a href="#going-deeper-reactive-programming">Going Deeper: Reactive Programming</a></li>
   </ul>
 </nav></div>
 
@@ -187,58 +195,136 @@
 		
 		
 	</header>
-	<p>Behavior Graph is a software architecture and state management library. It greatly enhances your ability to write complex user facing software and control systems. Broadly speaking, it belongs to the category of libraries which includes Redux, MobX, Rx (Reactive Extensions), and XState. It works by providing a specialized unit of composition which we call the <strong>behavior</strong>. Behaviors are simple blocks of code together with their dependency relationships.</p>
-<h2 id="is-it-any-good">Is it any good?</h2>
-<p>Yes</p>
-<h2 id="highlights">Highlights</h2>
+	<p>Behavior Graph lets you build your program out of small, easily understood pieces in a way that lets the computer do more of the work for you.</p>
+<p>It is an architecture and supporting library that simplifies the type of complexity that comes with event-driven software such as user facing applications and control systems.</p>
+<p>It&rsquo;s also a fun way to program.</p>
+<h2 id="whos-it-for">Who&rsquo;s it for?</h2>
+<p>It is particularly helpful for developers building:</p>
 <ul>
-<li>Minimal boilerplate</li>
-<li>Scales from the simple to the very complex</li>
-<li>Incremental adoption: works alongside existing code and frameworks</li>
-<li>Handles state, events, and effects all in one</li>
-<li>Multi-platform (Javascript/Typescript, Kotlin, Objective-C, Swift)</li>
-</ul>
-<p>We developed Behavior Graph to address our own complexity challenges while building an iOS video playing library which is used internally throughout the suite of native Yahoo mobile apps. After years of development and production usage, it has proven to be incredibly competent at scale. We have since ported it to multiple languages including Javascript/Typescript. It is less than 1500 lines of code and contains no external dependencies.</p>
-<p>Behavior Graph will particularly appeal to anyone with a willingness to rethink how we write software applications.</p>
-<h2 id="what-does-it-look-like">What does it look like?</h2>
-<p>The below block of code implements a simple counter using Behavior Graph.
-It can increment the counter or reset it back to zero.</p>
-<p>About 70% of the concepts you need to work with Behavior Graph are contained in this one example.</p>
-<!-- Intro-1 -->
-<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">increment</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">();</span>
-<span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">reset</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">();</span>
-<span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">counter</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">);</span>
-
-<span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
-    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">increment</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">reset</span><span style="color:#000;font-weight:bold">)</span>
-    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">counter</span><span style="color:#000;font-weight:bold">)</span>
-    <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
-        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">increment</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
-            <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">counter</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">counter</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#0000cf;font-weight:bold">1</span><span style="color:#000;font-weight:bold">);</span>
-        <span style="color:#000;font-weight:bold">}</span> <span style="color:#204a87;font-weight:bold">else</span> <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">reset</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
-            <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">counter</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#0000cf;font-weight:bold">0</span><span style="color:#000;font-weight:bold">);</span>
-        <span style="color:#000;font-weight:bold">}</span>
-    <span style="color:#000;font-weight:bold">});</span></code></pre></div>
-<p>A typical Behavior Graph program consists of dozens or hundreds of behaviors like this, each with its own responsibilities.
-The Behavior Graph library then ensures these behaviors are correctly specified and runs them at the correct time and in the correct order.
-At scale this is shockingly effective.</p>
-<h2 id="is-it-for-me">Is it for me?</h2>
-<p>Behavior Graph is a general purpose library which you can use to organize the event driven logic in any program.
-It should also be of interest to anyone with an interest in software engineering and architectures.</p>
-<p>Specifically if you are working on any of these categories, you should definitely consider it:</p>
-<ul>
-<li>Web apps</li>
-<li>Mobile apps</li>
-<li>Desktop Applications</li>
-<li>User Interfaces</li>
-<li>Control Systems</li>
+<li>Web app front ends</li>
+<li>Mobile and desktop applications</li>
+<li>Control systems</li>
 <li>Robots</li>
-<li>Games</li>
 </ul>
-<h2 id="learning-behavior-graph">Learning Behavior Graph</h2>
-<p>While there are only a handful of basic concepts in Behavior Graph, it does require a shift in thinking.
-We recommend you start with the <a href="https://yahoo.github.io/bgdocs/docs/typescript/quickstart/">Quick Start</a> then work through the <a href="https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/">Tutorials</a>.
-They will help you understand how the pieces fit together.</p>
+<p>We originally developed it for ourselves to use in a video playing library at Yahoo. Even though we had experienced engineers and excellent test coverage, we still struggled with the complexity of the codebase. Behavior Graph is our solution.</p>
+<p>Or maybe you&rsquo;re the type of person who likes nerdy new software ideas. (Seriously though, who doesn&rsquo;t, amirite?) We guarantee you will find Behavior Graph interesting.</p>
+<h2 id="how-does-it-work">How does it Work?</h2>
+<p>As programmers it is natural to partition our software into smaller tasks. Consider a typical Login form.</p>
+<ol>
+<li>When a user clicks on the Login button, we want to validate the Email and Password fields.</li>
+<li>If validation passes we want to make a network call to log the user in.</li>
+<li>And we want to update the UI to provide feedback in case the validation fails, or disable the login button while we are actively logging in.</li>
+</ol>
+<p>Most programming languages offer <strong>functions</strong> as the primary tool for creating these subtasks. The code for our Login form will have <code>validateFields</code>, <code>networkLogin</code>, and <code>updateUI</code> functions. There will also be an <code>onLoginClick</code> function that looks like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-javascript" data-lang="javascript"><span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">onLoginClick</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+  <span style="color:#000">validateFields</span><span style="color:#000;font-weight:bold">();</span>
+  <span style="color:#000">networkLogin</span><span style="color:#000;font-weight:bold">();</span>
+  <span style="color:#000">updateUI</span><span style="color:#000;font-weight:bold">();</span>
+<span style="color:#000;font-weight:bold">}</span>
+</code></pre></div><p>These functions are not independent, however. There are <strong>dependency relationships</strong> between them that need to be respected.</p>
+<ul>
+<li><code>validateFields</code> depends on <code>onLoginClick</code> being run.</li>
+<li><code>networkLogin</code> depends on <code>onLoginClick</code> being run, and it depends on the results of <code>validateFields</code>.</li>
+<li><code>updateUI</code> depends on the results of both <code>validateFields</code> and <code>networkLogin</code>.</li>
+</ul>
+<p><strong>Functions</strong> cannot express dependency relationships directly. Instead we must call functions in a particular order to uphold these relationships.
+If we call <code>networkLogin()</code> before <code>validateFields()</code> the feature won&rsquo;t work. It has to be after. <code>networkLogin</code> depends on the validation in <code>validateFields</code> succeeding.</p>
+<p>We could partially encode the dependency relationships by using parameters and return values (aka functional programming). This gives us additional structure, but it doesn&rsquo;t remove the need to call these functions in a correct order. Calling something like <code>networkLogin(validateFields())</code> is still a sequence of function calls. It&rsquo;s just sideways.</p>
+<p>The problem is that expressing dependency relationships in terms of sequenced function calls means work for the developer:</p>
+<ul>
+<li>There&rsquo;s work to get it correct.</li>
+<li>There&rsquo;s work to rearrange calls as dependencies (inevitably) change.</li>
+<li>There&rsquo;s work mentally translating back from sequenced function calls to the original dependency relationships in order to understand the intent of the code.</li>
+<li>And there&rsquo;s work fixing errors whenever any of these efforts go wrong.</li>
+</ul>
+<p>But maybe all this work isn&rsquo;t necessary. What if functions <em>could</em> express dependency relationships?</p>
+<p><strong>Behavior Graph</strong> is a library that provides this alternative. It introduces a new unit of code organization called the <strong>behavior</strong>. It is a block of code together with its dependency relationships.</p>
+<p>Unlike functions, behaviors are never called directly. Instead, behaviors declare their interfaces using reactive containers of data called <strong>resources</strong>. When data in these resources changes, Behavior Graph knows that any dependent behaviors need to run. Behaviors together with resources form a graph. (A graph of behaviors! Get it?!)</p>
+<p>This gives us:</p>
+<ol>
+<li><em>Control flow for free</em>: The computer uses the dependency relationships to run our behaviors in the correct sequence. This works just like spreadsheet formulas.</li>
+<li><em>Ease of maintenance</em>: Requirements inevitably change, and do dependencies. Control flow automatically adapts.</li>
+<li><em>Legibility</em>: Dependency relationships are explicit. We can look at a behavior and immediately see how it interfaces with other behaviors. This is unlike functions which are often linked via calls made in some other part(s) of the code.</li>
+</ol>
+<p>Behavior Graph isn&rsquo;t a replacement for functions. (We wrote it with functions, hello!) Instead it gives us a higher level of abstraction for partitioning our code into subtasks. It lets us say &ldquo;these two blocks of code are related and here&rsquo;s how&rdquo;. And with that information both humans and the computer are better able to infer the intent of the code.</p>
+<h2 id="can-i-see-an-example">Can I see an example?</h2>
+<p>Behavior Graph introduces a handful of new concepts.
+These concepts aren&rsquo;t difficult, but you will require some orientation.</p>
+<ul>
+<li>We&rsquo;ve created a <a href="https://yahoo.github.io/bgdocs/docs/typescript/code-example/">short walk-through of a Login form</a> using Behavior Graph.</li>
+<li>You can also take a look at <a href="https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/">one of our tutorials</a>.</li>
+</ul>
+<h2 id="small">Small</h2>
+<p>Behavior Graph is a small library. It&rsquo;s around 1500 lines of formatted code. It has no dependencies. The Javascript is less than 6KB minified + gzip&rsquo;d.</p>
+<h2 id="incremental">Incremental</h2>
+<p>It is easy to introduce into a codebase incrementally. It is designed to work side by side with existing code. We gradually migrated Yahoo&rsquo;s video playing library, while in production, as we became confident in Behavior Graph&rsquo;s feature set.</p>
+<h2 id="scale">Scale</h2>
+<p>A complex codebase is exactly where it brings the most benefit. Our team uses it daily in a codebase where the status quo wasn&rsquo;t good enough.</p>
+<h2 id="multiplatform">Multiplatform</h2>
+<p>Behavior Graph has been ported to multiple platforms.</p>
+<ul>
+<li>Javascript/Typescript: <a href="https://github.com/yahoo/bgjs">bgjs</a></li>
+<li>Objective-C: <a href="https://github.com/yahoo/bgobjc">bgobjc</a></li>
+<li>Swift: <a href="https://github.com/yahoo/BGSwift">BGSwift</a></li>
+<li>Kotlin/Android: <a href="https://github.com/yahoo/bgkotlin">bgkotlin</a></li>
+</ul>
+<h2 id="obtaining-behavior-graph">Obtaining Behavior Graph</h2>
+<p>Javascript Behavior Graph is hosted on NPM @ <a href="https://www.npmjs.com/package/behavior-graph">behavior-graph</a>.</p>
+<p>Behavior Graph is also available via a number of popular CDN Services. You may prefer to use these when importing directly into the browser or with Deno.</p>
+<ul>
+<li><a href="https://www.skypack.dev/view/behavior-graph">Skypack.dev</a></li>
+<li><a href="https://www.jsdelivr.com/package/npm/behavior-graph">JSDelivr</a></li>
+</ul>
+<h2 id="documentation">Documentation</h2>
+<p><a href="https://yahoo.github.io/bgdocs/docs/typescript/tutorials/">Go here for the full documentation site</a>.</p>
+<p>While there are only a handful of basic concepts in Behavior Graph, it does require a shift in thinking. We recommend you start with the <a href="https://yahoo.github.io/bgdocs/docs/typescript/quickstart/">Getting Started guide</a> then work through the <a href="https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/">Tutorials</a>.</p>
+<h2 id="contact-us">Contact Us</h2>
+<p>We really do like talking about Behavior Graph.
+Discord is a good place for that.</p>
+<p><a href="https://discord.gg/5mvat8tc7d">Behavior Graph Discord</a></p>
+<h2 id="contributing">Contributing</h2>
+<ul>
+<li>Yes there are many interesting areas for contribution. Please ask us.</li>
+<li>Don&rsquo;t just make a pull request. We would prefer to let you know upfront if your idea is unlikely to be accepted.</li>
+</ul>
+<h2 id="comparisons">Comparisons</h2>
+<p>Behavior Graph builds on concepts from <a href="https://en.wikipedia.org/wiki/Reactive_programming">reactive programming</a>. It uses the same underlying idea to automate control flow by using existing dataflow dependencies.</p>
+<p>However, programming with Behavior Graph feels different than when using other reactive programming libraries. It is not functional reactive programming. It is not built around streams. And it is not optimized for assembling observable chains of data transformations.</p>
+<p>Behavior Graph is also not a reactive UI library. You should continue to use your preferred UI framework of choice.</p>
+<p>Instead Behavior Graph gives developers a tool for organizing their software around dependency relationships. We consider the following features essential for this:</p>
+<ul>
+<li><strong>Bipartite Graph</strong>: Behavior Graph separates reactive blocks of code, <em>behaviors</em>, from reactive containers of data, <em>resources</em>. Behaviors can update multiple resources independently. Their relationships can vary dynamically at runtime. They can exist in separate modules and with separate lifetimes.</li>
+<li><strong>Imperative Friendly</strong>: Many reactive libraries have a strong functional programming flavor. This can lead to added friction when working with non-reactive code. Behavior Graph is designed to be compatible with existing imperative code and APIs. The code inside behaviors is as imperative as you like. We provide ways to create side effects and mutate state. You are free to read the contents of resources from external code.</li>
+<li><strong>Explicit</strong>: Behaviors declare their relationships explicitly. This aids in navigation and readability in large codebases. Reading and writing reactive data does not look like normal variable access. Reactive variables are not the same as normal variables and we prefer presenting them that way.</li>
+<li><strong>Error Detection</strong>: By understanding the underlying graph, the computer is able to detect errors for us. Behavior Graph tells us when we have specified our dependencies incorrectly.</li>
+<li><strong>Glitch Free</strong>: Glitches occur when multiple dependency paths result in the same reactive code getting run twice. Behavior Graph does not have glitches.</li>
+<li><strong>Transactional</strong>: Side effects are always postponed until after all other reactive code has completed to ensure consistent state. Reactive events are serialized to prevent side effects from leaking new reactive events into the current event.</li>
+<li><strong>A Language for Change</strong>: We can ask a resource if it &ldquo;just updated&rdquo; and &ldquo;what it updated from&rdquo;.</li>
+<li><strong>Dynamic Graph</strong>: Dependencies are dynamically updatable. Different parts of a running program which have different lifetimes can all be part of the same graph.</li>
+</ul>
+<h2 id="challenges">Challenges</h2>
+<p>There&rsquo;s always trade-offs with any programming paradigm (even the one that ships with your preferred programming language). We have worked hard to keep Behavior Graph from forcing you into a corner. It is designed to be compatible with existing code.</p>
+<p>Wherever you feel friction, just don&rsquo;t use it.</p>
+<p>Here are some challenges based on our own experience using it daily:</p>
+<ul>
+<li>You need to learn it. As will people who work on the same code. Sorry, there&rsquo;s no way around this.</li>
+<li>Not all problems are dependency problems. You will be surprised how much of your code can be effectively organized into behaviors. At the same time you will need to develop a sense of where it isn&rsquo;t needed.</li>
+<li>Dependency cycles happen. They can be tricky. Behavior Graph lets you know where they are and offers some debugging tools to help visualize it. But it&rsquo;s still up to you to fix it. This requires leaning back in your chair and thinking.</li>
+<li>Debugging is different. We&rsquo;ve noticed that the first tool programmers reach for when they run into an error is the stack frame debugger. They want to figure out <em>why</em> the current line of code is running. With Behavior Graph this information is no longer on the stack. Programmers need to learn to use the tools Behavior Graph provides for this. We think there&rsquo;s room for interesting innovation here.</li>
+<li>It is a library. It&rsquo;s impossible to avoid seeing some of its internals inside stack traces and errors. We think there&rsquo;s room for interesting innovation here as well.</li>
+<li>Performance. Behavior Graph is plenty fast, but it is doing some work for you. And some work takes more than zero time. If you are writing high performance code (ie nanosecond time-frame), we recommend you use the proper tools for the job.</li>
+</ul>
+<h2 id="going-deeper-reactive-programming">Going Deeper: Reactive Programming</h2>
+<p>If you search on the internet for &ldquo;what is reactive programming&rdquo; you are likely to end up more confused than before you searched. For us, the benefits are all about simplifying control flow. We can see this in spreadsheet formulas. They are an easy example of how reactive programming improves the user experience.</p>
+<p>In spreadsheet software, a formula often depends on the contents of other cells. When the contents of those cells change, the formula that depends on them is rerun. The formula&rsquo;s cell then updates with the new results. This updated cell then causes any formulas that depend on it to rerun. This process cascades across the cells in the spreadsheet. Formulas run at the correct time because the computer has automated the control flow for us. It knows how to do this because the formulas already specify what other cells they depend on.</p>
+<p>Now, let&rsquo;s imagine a different type of spreadsheet program. In this one, the program does <em>not automatically run</em> formulas for us. Instead it requires us to do this manually. After we type in a formula for what a cell should display, we also need to type in which formulas should run whenever it updates. For example, if cells <code>B1</code> and <code>C1</code> depend on <code>A1</code>, then the formula for <code>A1</code> needs to explicitly tell them to run. This might look like this:</p>
+<pre tabindex="0"><code class="language-excel" data-lang="excel">A1 := 1 / 1000
+      runFormulaFor(B1)
+      runFormulaFor(C1)
+</code></pre><p>That&rsquo;s it. That&rsquo;s the feature. Would you switch to this new spreadsheet program?</p>
+<p>No, because it&rsquo;s bad idea.</p>
+<p>Even if we get the control flow correct, every change we make comes with potential control flow errors. We need to mentally walk backwards and forwards along some implicit dependency graph to ensure that formulas are still running in the correct order. For example, what would happen if someone else comes along and changes the formula for <code>B1</code> so that it also depends on <code>C1</code>? The formula for <code>A1</code> becomes wrong because it&rsquo;s calls are in the wrong order. We need to run the formula for <code>C1</code> first. Maintaining a large spreadsheet like this would be madness.</p>
+<p>But this is exactly what we do as programmers on a daily basis.</p>
 
         <div class="section-index">
     
@@ -254,15 +340,7 @@ They will help you understand how the pieces fit together.</p>
             
             <div class="entry">
                 <h5>
-                    <a href="/bgdocs/docs/typescript/quickstart/">Quick Start</a>
-                </h5>
-                <p></p>
-            </div>
-        
-            
-            <div class="entry">
-                <h5>
-                    <a href="/bgdocs/docs/typescript/why-behavior-graph/">Why Behavior Graph?</a>
+                    <a href="/bgdocs/docs/typescript/quickstart/">Getting Started</a>
                 </h5>
                 <p></p>
             </div>
