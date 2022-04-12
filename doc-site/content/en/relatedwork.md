@@ -3,7 +3,7 @@ title: "Related Work"
 weight: 60
 ---
 
-We acknowledge the hard work and incredible contributions from everyone below.
+We acknowledge the hard work and incredible contributions from all the projects below.
 
 * [Cybernetics](https://en.wikipedia.org/wiki/Cybernetics) describes the "closed signaling loop", the essence of Unidirectional Data Flow architectures (aka MVI or Model View Intent).
 * [Redux](https://redux.js.org) (and Flux) are popular Javascript state management frameworks organized around Unidirectional Data Flow. There are similar implementations for different platforms

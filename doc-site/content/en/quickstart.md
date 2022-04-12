@@ -1,5 +1,5 @@
 ---
-title: "Quick Start"
+title: "Getting Started"
 weight: 10
 ---
 
@@ -57,36 +57,15 @@ To start exploring feel free to use any of the following which have been preconf
 * [JSFiddle](https://jsfiddle.net/slevin11/akevq4hm/)
 * [CodePen](https://codepen.io/slevin11/pen/XWzbMWZ)
 
-## Coding
-
-### Typescript or Javascript
+## Typescript or Javascript
 
 Behavior-Graph is written in Typescript. 
 It is usable directly from Javascript or Typescript code.
 Type declaration files are provided for all APIs.
 
-### Hello, World!
-
-Once you've set up your environment, type in the following to see the magic inside the Javascript console.
-
-```javascript
-let g = new bg.Graph();
-let e = new bg.Extent(g);
-let m1 = e.moment();
-e.behavior()
-  .demands(m1)
-  .runs(() => {
-  	console.log('Hello, World!')
-  });
-e.addToGraphWithAction();
-m1.updateWithAction();
-```
-
-If this does not work, double check your imports and your environment.
-
 ## Tutorials
 
 It is unlikely you will get very far with Behavior Graph without working through a [tutorial]({{< ref "tutorials/tutorial-1" >}}).
 Please spend some time with them to practice writing Behavior Graph code.
-They don't take very long, and you will be mentally stimulated and spiritually rewarded for your time.
+They don't take very long. We promise you will be mentally stimulated and spiritually rewarded for your time.
 
