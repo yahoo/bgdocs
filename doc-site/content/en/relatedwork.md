@@ -31,3 +31,25 @@ We acknowledge the hard work and incredible contributions from all the projects 
 * [Garnet and Amulet (pdf)](https://www.cs.cmu.edu/afs/cs/project/amulet/www/papers/toplas-constraint-experience.pdf) are toolkits for developing software using similar data flow techniques.
 * [Picturing Quantum Processes](https://www.amazon.com/Picturing-Quantum-Processes-Diagrammatic-Reasoning/dp/110710422X).
 * [An Invitation to Applied Category Theory](https://www.amazon.com/Invitation-Applied-Category-Theory-Compositionality/dp/1108711820).
+
+### Potential Others
+
+#### Research
+* [Embedding Dynamic Dataflow in a Call-by-Value Language (FRTime)](https://cs.brown.edu/~sk/Publications/Papers/Published/ck-frtime/)
+* [Versatile Event Correlation with Algebraic Effects](https://dl.acm.org/citation.cfm?id=3236762)
+* [Awkward Squad for Reactive Programming (pdf)](https://drops.dagstuhl.de/opus/volltexte/2020/13176/pdf/LIPIcs-ECOOP-2020-19.pdf)
+* [Safe asynchronous Event Driven Programming](https://www.microsoft.com/en-us/research/publication/p-safe-asynchronous-event-driven-programming/)
+* [Dynamic Dataflow Graphs](https://link.springer.com/chapter/10.1007/978-3-319-91734-4_32)
+* [Reactive behavior in object-oriented applications...](https://dl.acm.org/doi/abs/10.1145/2451436.2451442)
+
+#### Code / Projects
+* [CWLSignal](https://www.cocoawithlove.com/blog/cwlsignal.html)
+* [observer-util](https://github.com/nx-js/observer-util )
+
+#### Tooling
+
+#### Other
+
+* [On the proliferation of try and soon and await](https://forums.swift.org/t/on-the-proliferation-of-try-and-soon-await/42621)
+
+

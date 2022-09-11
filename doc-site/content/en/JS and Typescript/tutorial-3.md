@@ -102,7 +102,7 @@ We add a new `ItemExtent` subclass and pass in some information into its constru
 
 Back in our `ListExtent`, inside our behavior we can create an `ItemExtent` and add it to the graph.
 
-{{< highlight javascript "hl_lines=5-7">}}
+{{< highlight javascript "hl_lines=4-8">}}
     this.behavior()
       .demands(this.save)
       .runs(() => {
@@ -467,7 +467,7 @@ You may also notice that the remaining items count now goes down if you remove a
 We get this for free because we defined the remaining items on the `allItems` list.
 If we were just using method calls to implement delete, we very likely would have removed the item from our list directly and then had to remember to call some `updateRemainingCount()` which could have easily been forgotten.
 
-This ability to make chances without introducing additional complexity is a hallmark of programming with Behavior Graph.
+This ability to make changes without introducing additional complexity is a hallmark of programming with Behavior Graph.
 Once you've experienced it a few times you will find it difficult to give up.
 
 ## Editing

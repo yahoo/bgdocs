@@ -132,3 +132,19 @@ However, if it feels foreign, developers will reject it.
 * Ideally make it a part of an existing trusted organization (eg Boost).
 * Even better, make it part of the standard library.
 * Even better, make it part of the language itself.
+
+## Resources
+
+### Project
+
+* [Podcast episode on tech evangelism](https://overcast.fm/+LfVMvIuHA)
+* Crossing the Chasm, book
+* [Elinor Ostrom's 8 Principles for Managing A Commmons | On the Commons](https://www.onthecommons.org/magazine/elinor-ostroms-8-principles-managing-commmons)
+* [Making is show business](https://alexdanco.com/2020/10/08/making-is-show-business-now/)
+* Achievements to help organize what to learn?
+
+### Tools
+* [Jointjs](https://www.jointjs.com) paid for js library for building diagramming tools.
+* [roughjs](https://roughjs.com) js library for hand drawn feel diagrams
+
+

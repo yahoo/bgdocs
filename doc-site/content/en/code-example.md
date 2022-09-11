@@ -4,7 +4,7 @@ language: "typescript"
 weight: 30
 ---
 
-_This is a walk-through, please see the [tutorials]({{< ref tutorial-1 >}}) for a complete guide to learning Behavior Graph._
+_This is a walk-through, please see the tutorials for a complete guide to learning Behavior Graph._
 
 Let's see how Behavior Graph code looks like by implementing functionality from a typical login screen.
 
@@ -18,7 +18,8 @@ Once she corrects the email address by adding an '@' character, the Login button
 
 Here is Behavior Graph code for this functionality.
 
-{{< highlight javascript>}}
+{{< tabpane code=true >}}
+{{< tab header="Javascript" lang="javascript" >}}
 import * as bg from "https://cdn.skypack.dev/behavior-graph";
 
 class LoginForm extends bg.Extent {
@@ -45,7 +46,35 @@ class LoginForm extends bg.Extent {
 let graph = new bg.Graph();
 let loginForm = new LoginForm(graph);
 loginForm.addToGraphWithAction();
-{{< /highlight >}}
+{{< /tab >}}
+{{< tab header="Java" lang="java" >}}
+import com.yahoo.behaviorgraph.*;
+
+public class LoginForm extends Extent<LoginForm> {
+    State<Boolean> loginEnabled = state(false);
+    State<String> email = state("");
+    State<String> password = state("");
+
+    public LoginForm(Graph graph) {
+        super(graph);
+
+        behavior()
+            .supplies(loginEnabled)
+            .demands(email, password)
+            .runs(ext -> {
+                boolean emailValid = validateEmail(email.value());
+                boolean passwordValid = password.value().length() > 0;
+                boolean enabled = emailValid && passwordValid;
+                loginEnabled.update(enabled);
+            });
+    }
+
+    private boolean validateEmail(String email) {
+        // ... validate email code goes here
+    }
+}
+{{< /tab >}}
+{{< /tabpane >}}
 
 First we import Behavior Graph to have access to its primary interface objects: `Graph` and `Extent`.
 
@@ -100,7 +129,8 @@ In order to prevent mistakes, when we are in a logging in state, we would also l
 
 To implement this new feature we introduce a second behavior and make a small change to our existing behavior.
 
-{{< highlight javascript "hl_lines=1-11 15 19">}}
+{{< tabpane code=true >}}
+{{< tab header="Javascript" lang="javascript" highlight="hl_lines=1-11 15 19">}}
 this.loginClick = this.moment()
 this.loggingIn = this.state(false)
 
@@ -119,10 +149,36 @@ this.behavior()
     .runs(() => {
         const emailValid = this.validEmailAddress(this.email.value);
         const passwordValid = this.password.value.length > 0;
-        const enabled = emailValid && passwordValid & !this.loggingIn.value;
+        const enabled = emailValid && passwordValid && !this.loggingIn.value;
         this.loginEnabled.update(enabled);
     })
-{{< /highlight >}}
+{{< /tab >}}
+{{< tab header="Java" lang="java" highlight="hl_lines=2-3 8-15 19 23" >}}
+State<String> password = state("");
+Moment loginClick = moment();
+State<Boolean> loggingIn = state(false);
+public LoginForm(Graph graph) {
+    super(graph);
+    behavior()
+        .supplies(loggingIn)
+        .demands(loginClick)
+        .runs(ext -> {
+            if (loginClick.justUpdated() && !this.loggingIn.value()) {
+                loggingIn.update(true);
+            }
+        });
+    
+    behavior()
+        .supplies(loginEnabled)
+        .demands(email, password, loggingIn)
+        .runs(ext -> {
+            boolean emailValid = validateEmail(email.value());
+            boolean passwordValid = password.value().length() > 0;
+            boolean enabled = emailValid && passwordValid && !loggingIn.value();
+            loginEnabled.update(enabled);
+        });
+{{< /tab >}}
+{{< /tabpane >}}
 
 Our new behavior has one demand, `loginClick`.
 This is a second type of resource called a __moment resource__.
@@ -145,13 +201,22 @@ Information comes into our system via __actions__.
 A typical UI library will provide some type of callback or event system to capture user inputs.
 In this example we will listen to a click handler to create a new action which updates the `loginClick` moment resource.
 
-{{< highlight javascript >}}
+{{< tabpane code=true >}}
+{{< tab header="Javascript" lang="javascript">}}
 this.loginButton.onClick = () => {
     this.action(() => {
         this.loginClick.update();
     });
 };
-{{< /highlight >}}
+{{< /tab >}}
+{{< tab header="Java" lang="java" >}}
+loginButton.addActionListener(e -> {
+    graph.action(() -> {
+        loginForm.loginClick.updateWithAction();
+    });
+});
+{{< /tab >}}
+{{< /tabpane >}}
 
 We would similarly connect `email` and `password` to their respective text fields.
 
@@ -165,7 +230,8 @@ It will update the `loginEnabled` resource to `{{< term "false-bool" >}}` (becau
 
 In order to perform real output to the UI library, we need to create a __side effect__.
 
-{{< highlight javascript "hl_lines=10-12">}}
+{{< tabpane code=true >}}
+{{< tab header="Javascript" lang="javascript" highlight="hl_lines=10-12">}}
 this.behavior()
     .supplies(this.loginEnabled)
     .demands(this.email, this.password, this.loggingIn)
@@ -179,10 +245,26 @@ this.behavior()
             this.loginButton.enabled = this.loginEnabled.value;
         });
     })
-{{< /highlight >}}
+{{< /tab >}}
+{{< tab header="Java" lang="java" highlight="hl_lines=10-12" >}}
+behavior()
+    .supplies(loginEnabled)
+    .demands(email, password, loggingIn)
+    .runs(ext -> {
+        boolean emailValid = validateEmail(email.value());
+        boolean passwordValid = password.value().length() > 0;
+        boolean enabled = emailValid && passwordValid && !loggingIn.value();
+        loginEnabled.update(enabled);
+        
+        sideEffect(ext1 -> {
+            loginButton.setEnabled(loginEnabled.value());
+        });
+    });
+{{< /tab >}}
+{{< /tabpane >}}
 
 Side effects are created directly inside behaviors.
-Inside are are allowed to do anything we like.
+Inside we are allowed to do anything we like.
 This side effect updates the `enabled` state of the `loginButton` based on the state of the `loginEnabled` resource.
 It does not run immediately, however.
 Behavior Graph defers the running of side effects until after all behaviors have run.
@@ -196,4 +278,4 @@ Please don't be discouraged by the number of new abstractions.
 This walk-through is intentionally brief.
 But from here on out, it's mostly just nuance.
 
-To learn more, please take a look at our [tutorials]({{< ref tutorial-1 >}}).
+For a more guided tour please try out one of our tutorials for your platform.
