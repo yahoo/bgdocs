@@ -17,56 +17,53 @@ This is a powerful and practical technique that gives Behavior Graph a unique ex
 
 ## Initial Code
 
-We have created a starter project using [JSFiddle](https://jsfiddle.net/slevin11/kuw2h1no/).
+We have created a starter project on [Replit](https://replit.com/@slevin1/Behavior-Graph-Java-Tutorial-3?v=1).
 You should use that for this tutorial.
-It has some simple HTML/CSS to represent the Todo List's user interface.
-If you wish to use your own environment you will need to copy the HTML and CSS from this JSFiddle site into your own.
+It has some simple Swing code to represent the Todo List's user interface.
+If you wish to use your own environment you will need to copy the java files from this project to your environment.
 
-We first want to set up the initial structure.
+`Main.java` sets up the project, creates the Graph, ListExtent, and UI objects.
 
-{{< highlight javascript "hl_lines=">}}
-import * as bg from "https://cdn.skypack.dev/behavior-graph";
+`ListUI.java` and `ItemUI.java` contain the majority of the Swing code we will use to interact with the UI.
 
-class ListExtent extends bg.Extent {
-  constructor(graph) {
-    super(graph);
+`ListExtent.java` will contain the logic for the whole list. We've created the stub for you. It uses the Extent subclass pattern.
 
-  }
-}
-
-let graph = new bg.Graph();
-let list = new ListExtent(graph);
-list.addToGraphWithAction();
-{{< / highlight >}}
+`ItemExtent.java` will contain logic for each item.
 
 ## Adding Items
 
 _New code for you to add or modify will always be highlighted._
 
-In order to add a new item,
+We'll start off by adding logic for adding a new item inside `ListExtent.java`
 
-{{< highlight javascript "hl_lines=5-16">}}
-class ListExtent extends bg.Extent {
-  constructor(graph) {
+{{< highlight java "hl_lines=3 8-10 12-16">}}
+public class ListExtent extends Extent<ListExtent> {
+  
+  TypedMoment<String> save = typedMoment();
+  
+  public ListExtent(Graph graph, ListUI listUI) {
     super(graph);
 
-    this.save = this.moment();
-    document.querySelector('#save').addEventListener('click', () => {
-      this.save.updateWithAction(document.querySelector('#new-item-text').value);
+    listUI.save.addActionListener(actionEvent -> {
+      save.updateWithAction(listUI.newItemText.getText());
     });
 
-    this.behavior()
-      .demands(this.save)
-      .runs(() => {
-      	// do adding here
+    behavior()
+      .demands(save)
+      .runs(ext -> {
+        // add item here
       });
+  }
+}
 {{< / highlight >}}
 
-We create a `save` moment resource to model the interaction of clicking on the Save button after typing in a new todo.
-We use a normal DOM event to call `save.updateWithAction()` when the button it pressed.
+We create a `save` moment resource to model the interaction of clicking on the Save button after typing in something into the input box.
+This moment is a `TypedMoment`, however.
+These model the same temporary interactions as moments, but they carry additional information.
+Our `save` moment will have a `String` value in which we will store the text of the new todo list item.
 
-Unlike in previous tutorials, with this moment resource we are passing our update method a parameter which contains the value of the text field.
-Moments often carry information along with them, in this case we would like to know the textual content of the new item.
+We use a normal Swing action listener logic to call `save.updateWithAction()` when the button it pressed.
+Into it we pass the contents of the input field.
 
 Next we create an empty behavior, demanding the `save` resource.
 When `save` is updated, we want this behavior to create a list item and update the UI.
@@ -74,51 +71,53 @@ When `save` is updated, we want this behavior to create a list item and update t
 ### What is an Item?
 
 A typical way to represent a list item is to create a data structure or object with the relevant data.
-We can do something similar with a new Extent subclass.
+We can do something similar with a second Extent subclass, `ItemExtent` which we will define in `ItemExtent.java`.
 
-{{< highlight javascript "hl_lines=4-10">}}
+{{< highlight java "hl_lines=11">}}
+public class ItemExtent extends Extent<ItemExtent> {
+  ListExtent list;
+  ItemUI itemUI;
+  State<String> itemText;
+  
+  public ItemExtent(Graph g, String inText, ListExtent inList) {
+    super(g);
+
+    list = inList;
+    itemUI = new ItemUI();
+    itemText = state(inText);
+
   }
 }
-
-class ItemExtent extends bg.Extent {
-  constructor(graph, text, list) {
-    super(graph);
-    this.list = list;
-    this.itemText = this.state(text);
-  }
-}
-
-let graph = new bg.Graph();
-let list = new ListExtent(graph);
-list.addToGraphWithAction();
 {{< / highlight >}}
 
-We add a new `ItemExtent` subclass and pass in some information into its constructor.
+The starter template contains much of this already.
+
+We define a new `ItemExtent` subclass and pass in some information into its constructor.
 1. A required `Graph` instance
-2. The text of the new todo list item which we store in an `itemText` state resource
-3. A pointer to the parent `ListExtent` instance which we will use later
+2. A pointer to the parent `ListExtent` instance which we will use later
+3. The text of the new todo list item which we will store in an `itemText` state resource using the initial value
 
 ### Creating an ItemExtent
 
-Back in our `ListExtent`, inside our behavior we can create an `ItemExtent` and add it to the graph.
+Now that we have a basic `ItemExtent` defined, we can create one back in our `ListExtent`.
 
-{{< highlight javascript "hl_lines=4-8">}}
-    this.behavior()
-      .demands(this.save)
-      .runs(() => {
-        if (this.save.justUpdated) {
-          let item = new ItemExtent(this.graph, this.save.value, this);
-          this.addChildLifetime(item);
-          item.addToGraph();
-        }
-      });
+{{< highlight java "hl_lines=4-8">}}
+behavior()
+    .demands(save)
+    .runs(ext -> {
+      if (save.justUpdated()) {
+        var item = new ItemExtent(graph, save.value(), this);
+        addChildLifetime(item);
+        item.addToGraph();
+      }
+    });
 {{< / highlight >}}
 
-We create the new item with the contents of the text field.
+We check if the `save` button was clicked via `save.justUpdated()`.
+If so, we create the new item with the contents of the text field, `save.value()`.
 Then we call `.addChildLifetime(item)`.
 This lets Behavior Graph know that our `ListExtent` instance will always be around longer than any individual `ItemExtent`.
-This will make it easier to connect behaviors in our `ItemExtent` to resources in our `ListExtent`.
-We will see more on that later.
+We will see more on lifetimes later.
 
 Next we call `item.addToGraph()`.
 Adding an extent to the graph is a necessary step.
@@ -127,96 +126,91 @@ Until we do this, any behaviors or resources in that extent will not perform the
 ### Collecting the Items
 
 We also need a way to keep track of these items as they are added.
+First we add a state resource to hold these individual items.
 
-{{< highlight javascript "hl_lines=1 4 11-12">}}
-    this.allItems = this.state([]);
+{{< highlight java "hl_lines=4">}}
+public class ListExtent extends Extent<ListExtent> {
 
-    this.behavior()
-      .supplies(this.allItems)
-      .demands(this.save)
-      .runs(() => {
-        if (this.save.justUpdated) {
-          let item = new ItemExtent(this.graph, this.save.value, this);
-          this.addChildLifetime(item);
-          item.addToGraph();
-          this.allItems.value.push(item);
-          this.allItems.updateForce(this.allItems.value);
-        }
-      });
+  TypedMoment<String> save = typedMoment();
+  State<ArrayList<ItemExtent>> allItems = state(new ArrayList<>());
 {{< / highlight >}}
 
-`allItems` is a state resource initialized with an empty array.
-We supply it because we will be updating it inside this behavior.
-Whenever we create a new item we will append that `ItemExtent` instance to the end of that array via its `.value` property and the built in `Array.push()` method.
+`allItems` is a state resource initialized with an empty ArrayList.
+
+Next we modify our saving behavior to update this list.
+
+{{< highlight java "hl_lines=2 9 10">}}
+    behavior()
+        .supplies(allItems)
+        .demands(save)
+        .runs(ext -> {
+          if (save.justUpdated()) {
+            var item = new ItemExtent(graph, save.value(), this);
+            addChildLifetime(item);
+            item.addToGraph();
+            allItems.value().add(item);
+            allItems.updateForce(allItems.value());
+          }
+        });
+{{< / highlight >}}
+
+We add a `supplies()` clause which includes `allItems` because we will be updating it inside this behavior.
+Whenever we create a new item we will append that `ItemExtent` instance to the end of its ArrayList via its `.value` property and the built in `.add()` method.
 It is typical when working with extents that come and go to store them in a state resource or a collection inside a state resource.
 
-Lastly, changing the contents of a collection is not equivalent to calling `.update()` on the owning resource.
-We must update the resource so that demanding behaviors will be notified.
-To do this we update the resource with its own contents.
-We do this with `.updateForce()`.
-We cannot just call `.update()` because the contents are still the same array instance.
+Lastly, we call `.updateForce()` with the same array list instance.
+`.updateForce()` says, I don't care if what I'm putting in here is the same as it was before, I still want you to notify any demanding behaviors.
+
+We cannot just call `.update()` because even though the contents of the array list have changed, it is still the same array list instance.
 `.update()` automatically filters out updates when the old value `===` the new value.
-`.updateForce()` works identically but ignores this check.
-This is a common pattern when storing collections inside a resource.
+This is usually what we want, but sometimes we need something different.
+`.updateForce()` works identically but ignores this equality check.
+This is a common pattern when storing mutable collections inside a resource.
 
 ### Updating the UI
 
 Adding an item still doesn't update the UI to match.
-Inside our `ItemExtent` we add some code to create a DOM node.
+Inside our `ItemExtent` we already created an instance `ItemUI` which contains the Swing code for an individual item.
 
-{{< highlight javascript "hl_lines=6">}}
-class ItemExtent extends bg.Extent {
-  constructor(graph, text, list) {
-    super(graph);
-    this.list = list;
-    this.itemText = this.state(text);
-    this.itemElement = document.querySelector('#templates .list-item').cloneNode(true);
-  }
-}
+So now we need to tell our list about this new component.
+
+{{< highlight java "hl_lines=4-7">}}
+  item.addToGraph();
+  allItems.value().add(item);
+  allItems.updateForce(allItems.value());
+  sideEffect(ext1 -> {
+    listUI.addItem(item.itemUI);
+    listUI.newItemText.setText("");
+  });
 {{< / highlight >}}
 
-This is a normal property that points to a DOM element we create by cloning some template content inside the existing HTML document.
-Then inside our `ListExtent` behavior we can add our list item UI.
-
-{{< highlight javascript "hl_lines=8-11">}}
-      .runs(() => {
-        if (this.save.justUpdated) {
-          let item = new ItemExtent(this.graph, this.save.value, this);
-          this.addChildLifetime(item);
-          item.addToGraph();
-          this.allItems.value.push(item);
-          this.allItems.updateForce(this.allItems.value);
-          this.sideEffect(() => {
-            document.querySelector('#list').appendChild(item.itemElement);
-            document.querySelector('#new-item-text').value = '';
-          });
-        }
-{{< / highlight >}}
-
-This side effect adds the DOM element that our new `ListExtent` instance points to.
+We create a side effect because we are making external changes.
+This side effect calls `.addItem()` which just inserts the item into the correct place in the view heirarchy.
 It also clears the text field so we can add additional items.
 
+Run it.
 Try adding some items by typing in the box and clicking Save.
 It seems to add items but we only see empty text.
-We can fix that by using our `addedToGraph` built in resource.
 
-Inside `ItemExtent` a new behavior.
+We can fix that by using `getDidAdd()` built in resource.
 
-{{< highlight javascript "hl_lines=4-10">}}
-    this.itemText = this.state(text);
-    this.itemElement = document.querySelector('#templates .list-item').cloneNode(true);
+Inside `ItemExtent.java` we create a new behavior.
 
-    this.behavior()
-      .demands(this.itemText, this.addedToGraph)
-      .runs(() => {
-        this.sideEffect(() => {
-          this.itemElement.querySelector('.item-text').innerText = this.itemText.value;
+{{< highlight java "hl_lines=4-10">}}
+    itemUI = new ItemUI();
+    itemText = state(inText);
+
+    behavior()
+      .demands(itemText, getDidAdd())
+      .runs(ext -> {
+        sideEffect(ext1 -> {
+          itemUI.itemText.setText(itemText.value());
         });
       });
 {{< / highlight >}}
 
-This behavior will run when the `ItemExtent` is added to the graph updating its `innerText` HTML content.
-We also added a demand on `itemText` since we would expect that to change the UI if it ever changes as well.
+Looking at the `demands()` clause we can see this behavior will run when the `ItemExtent` is added to the graph and whenever `itemText` changes.
+The side effect tells the UI label to update to the correct text.
 Now running our code and adding a few items will show our list correctly.
 
 ### Completing Items
@@ -225,41 +219,54 @@ There's a checkbox to complete a todo list item.
 Checking it at this point does nothing.
 Let's fix that.
 
-Inside `ItemExtent`
+Inside `ItemExtent` we'll add a new state resource to track if an item is completed.
 
-{{< highlight javascript "hl_lines=4-7">}}
-    this.list = list;
-    this.itemText = this.state(text);
-    this.itemElement = document.querySelector('#templates .list-item').cloneNode(true);
-    this.completed = this.state(false);
-    this.itemElement.querySelector('.completed-checkbox').addEventListener('change', () => {
-      this.completed.updateWithAction(!this.completed.value);
+{{< highlight java "hl_lines=3">}}
+  ItemUI itemUI;
+  State<String> itemText;
+  State<Boolean> completed;
+
+  public ItemExtent(Graph g, String inText, ListExtent inList) {
+{{< / highlight >}}
+
+Then inside our constructor
+
+{{< highlight java "hl_lines=3 5-7">}}
+    itemUI = new ItemUI();
+    itemText = state(inText);
+    completed = state(false);
+    
+    itemUI.completedCheckbox.addItemListener(itemEvent -> {
+      completed.updateWithAction(itemEvent.getStateChange() == ItemEvent.SELECTED);
     });
 {{< / highlight >}}
 
-We add a new `completed` state resource that defaults to false.
-We also add a DOM event for when the checkbox is checked so we can update `completed`.
+We initialize our `completed` state resource which defaults to false.
+We also use standard Swing API to connect the checkbox element to an action which will update our state resource.
+
+(Note, you may prefer to design your UI classes with more or less encapsulation.
+There are many approaches.
+Our goal here is to keep behavior graph related functionality together so it is easier to see.)
 
 And we add an additional behavior inside `ItemExtent`
 
-{{< highlight javascript "hl_lines=1-12">}}
-    this.behavior()
-      .demands(this.completed, this.addedToGraph)
-      .runs(() => {
-        this.sideEffect(() => {
-          let completedClass = 'completed';
-          if (this.completed.value) {
-            this.itemElement.classList.add(completedClass);
-          } else {
-            this.itemElement.classList.remove(completedClass);
-          }
+{{< highlight java "hl_lines=5-11">}}
+          itemUI.itemText.setText(itemText.value());
+        });
+      });
+
+    behavior()
+      .demands(completed, getDidAdd())
+      .runs(ext -> {
+        sideEffect(ext1 -> {
+          itemUI.setCompleted(completed.value());
         });
       });
 {{< / highlight >}}
 
-This behavior creates a side effect which adds a "completed" class to our HTML item.
-This uses the existing CSS to strike-through a completed todo item.
-We also include `addedToGraph` as an additional demand.
+This behavior creates a side effect which updates the UI with our completed state.
+This uses the Swing API's to strike-through a completed todo item.
+We also include `getDidAdd()` as an additional demand.
 It is not strictly necessary at this point because all todo items start off as not completed.
 However, it is good practice to use it in behaviors that generate side effects to reflect the current state.
 If we were to introduce functionality later for saving and restoring todo lists, we may have items that start in a completed state.
@@ -278,52 +285,55 @@ First we need it to respond when adding items.
 Inside `ListExtent` we add a new behavior.
 
 {{< highlight javascript "hl_lines=1-8">}}
-    this.behavior()
-      .demands(this.allItems, this.addedToGraph)
-      .runs(() => {
-        this.sideEffect(() => {
-          let count = this.allItems.value.filter(item => !item.completed.value).length;
-          document.querySelector('#remaining-count').textContent = count;
+    behavior()
+        .demands(allItems, getDidAdd())
+        .runs(ext -> {
+          sideEffect(ext1 -> {
+            long count = allItems.value().stream().filter(itemExtent -> !itemExtent.completed.value()).count();
+            listUI.setRemainingCount(count);
+          });
         });
-      });
 {{< / highlight >}}
 
-This behavior will create a side effect to update the remaining items text to match the current number of non-completed items in the list.
+This behavior will create a side effect to update the remaining items text at the bottome to match the current number of non-completed items in the list.
 `allItems` is a demand because we want to run it whenever we add a new item to the list.
-Inside the side effect we are able to iterate over the array of `ItemExtent` instances to check the `.value` of their `completed` state resource.
-`addedToGraph` ensures we have the correct starting value in there since it starts out empty.
+`getDidAdd()` is also a demand because we want it to run once at the beginning.
+Inside the side effect we use some logic to count the items whose `.value` of their `completed` state resource is true.
 
 Now try adding a few items to the list and you will see the remaining items count increment.
 
 ### Updating Remaining Items
 
 If you try to complete an item however our remaining items count does not change.
-This is because that new behavior does not demand the `completed` resource from our `ItemExtent` instances.
+This is because our new behavior does not demand the `completed` resource from our `ItemExtent` instances.
+So it won't run when they change.
 However, we cannot just add it inside the list of demands because the set of `ItemExtent` instances changes over time.
 
 Behaviors have another clause for handling these situations.
 
-{{< highlight javascript "hl_lines=3-5">}}
-    this.behavior()
-      .demands(this.allItems, this.added)
-      .dynamicDemands([this.allItems], () => {
-        return this.allItems.value.map(item => item.completed);
-      })
-      .runs(() => {
-        this.sideEffect(() => {
-          let count = this.allItems.value.filter(item => !item.completed.value).length;
-          document.querySelector('#remaining-count').textContent = count;
+{{< highlight java "hl_lines=3-7">}}
+    behavior()
+        .demands(allItems, getDidAdd())
+        .dynamicDemands(new Demandable[] { allItems }, (ctx, demands) -> {
+          for (ItemExtent item : allItems.value()) {
+            demands.add(item.completed);
+          }
+        })
+        .runs(ext -> {
+          sideEffect(ext1 -> {
+            long count = allItems.value().stream().filter(itemExtent -> !itemExtent.completed.value()).count();
+            listUI.setRemainingCount(count);
+          });
         });
-      });
 {{< / highlight >}}
 
 `.dynamicDemands()` is another clause when creating a behavior that lets you specify an additional list of demands that can change.
 It takes two parameters.
-The first is an array of resources.
+The first is an array of resources (Specifically `Demandable` which is an interface resources implement).
 Whenever any of those update, it will run the anonymous function in the second parameter.
-That function returns a list of additional demands this behavior should have.
+That function includes a `demands` ArrayList parameter to which we can add any additional demands this behavior should have.
 
-Here our dynamic demands clause will return an array containing the `completed` resource from each `ItemExtent` instance.
+Here our dynamic demands clause will add the `completed` resource from each `ItemExtent` instance.
 So each time we add a new item, our behavior will adapt so that it will run when the `completed` resource for that item updates.
 
 Now try running the code.
@@ -338,11 +348,11 @@ The _entire_ remaining items feature is defined by this single behavior.
 Let's compare this with a status quo implementation: methods, properties, and objects.
 First we might have a method similar to our run block to update the UI
 
-```javascript
+```java
 // Hypothetical Code -- Don't type this in
-updateRemainingCount() {
-  let count = this.allItems.filter(item => !item.completed).length;
-  document.querySelector('#remaining-count').textContent = count;
+void updateRemainingCount() {
+  long count = allItems.value().stream().filter(itemExtent -> !itemExtent.completed.value()).count();
+  listUI.setRemainingCount(count);
 }
 ```
 
@@ -350,24 +360,24 @@ That seems reasonable, but its not enough.
 We need to go inside another method somewhere else in this same class to ensure this gets called when we add a new item.
 Perhaps it might look like this:
 
-```javascript
+```java
 // Hypothetical Code -- Don't type this in
-saveButtonPressed(text) {
-  let save = new Item(text);
-  this.allItems.push(save);
+void saveButtonPressed(text) {
+  var save = new Item(text);
+  this.allItems.add(save);
   this.updateRemainingCount();
 }
 ```
 
-Ok, so the feature is in two places.
+Ok, so the "Remaining Count" feature is in two places.
 That's manageable.
 Unfortunately, to handle completing, we still need to call in from another place in the code inside the Item class.
 
-```javascript
+```java
 // Hypothetical Code -- Don't type this in
-completeChecked(checked) {
+void completeChecked(checked) {
   this.completed = checked;
-  this.updateRemainingCount();
+  this.list.updateRemainingCount();
 }
 ```
 
@@ -376,11 +386,14 @@ And when we add a way to remove items we will need to involve another code-path.
 This type of spread out logic is a real challenge for developers.
 It is incredibly easy to miss a case.
 
+But, as we said above, the Behavior Graph implementation combines the remaining count functionality into one place.
+There is only one place to read to understand it.
+There is only one place to change it.
+
 Production software is significantly more complex than this trivial example.
 Most developers are swimming in control flows like this.
 Behavior Graph lets us collect the "what" and the "why" all together in the same behavior.
 The problem literally disappears.
-
 
 ## Deleting Items
 
@@ -389,59 +402,67 @@ We will fix that now.
 
 Inside `ItemExtent` we add some button click handling.
 
-{{< highlight javascript "hl_lines=6-8">}}
-    this.itemElement = document.querySelector('#templates .list-item').cloneNode(true);
-    this.completed = this.state(false);
-    this.itemElement.querySelector('.completed-checkbox').addEventListener('change', () => {
-      this.completed.updateWithAction(!this.completed.value);
+{{< highlight java "hl_lines=4-6">}}
+      completed.updateWithAction(itemEvent.getStateChange() == ItemEvent.SELECTED);
     });
-    this.itemElement.querySelector('.item-delete').addEventListener('click', () => {
-      this.list.removeItem.updateWithAction(this);
+
+    itemUI.itemDelete.addActionListener(actionEvent -> {
+      list.removeItem.updateWithAction(this);
     });
+
+    behavior()
+      .demands(itemText, getDidAdd())
 {{< / highlight >}}
 
-This takes a DOM event and updates the `removeItem` resource on `ListExtent` (which we haven't added yet).
+This handles a Swing event and updates the `removeItem` resource on `ListExtent` (which we haven't added yet).
 It is common to interact with resources on other extents and a source of conceptual power.
 Here we are saying, "this list item is requesting to be removed."
 
 Note that each `ItemExtent`'s Delete button updates the same `list.removeItem` resource.
 We are allowed to update resources from multiple actions because only one action will happen during a single event.
 
-Now, inside `ListExtent`,
+Now, inside `ListExtent` we add our `removeItem` resource,
 
-{{< highlight javascript "hl_lines=2 6 8 18-25">}}
-    this.allItems = this.state([]);
-    this.removeItem = this.moment();
+{{< highlight java "hl_lines=2">}}
+  State<ArrayList<ItemExtent>> allItems = state(new ArrayList<>());
+  TypedMoment<ItemExtent> removeItem = typedMoment();
 
-    this.behavior()
-      .supplies(this.allItems)
-      .demands(this.save, this.removeItem)
-      .runs(() => {
-        if (this.save.justUpdated) {
-          let item = new ItemExtent(this.graph, this.save.value, this);
-          this.addChildLifetime(item);
-          item.addToGraph();
-          this.allItems.value.push(item);
-          this.allItems.updateForce(this.allItems.value);
-          this.sideEffect(() => {
-            document.querySelector('#list').appendChild(item.itemElement);
-            document.querySelector('#new-item-text').value = '';
-          });
-        } else if (this.removeItem.justUpdated) {
-          let item = this.removeItem.value;
-          item.removeFromGraph();
-          this.allItems.update(this.allItems.value.filter(listItem => listItem !== item));
-          this.sideEffect(() => {
-            document.querySelector('#list').removeChild(item.itemElement);
-          });
-        }
-      });
+  public ListExtent(Graph graph, ListUI listUI) {
+    super(graph);
 {{< / highlight >}}
 
-These changes make up the remove item feature.
-First we have a new `removeItem` moment resource.
-`removeItem` models the concept of "a request to be removed happened".
-We add `removeItem` as an additional demand on our `allItems` behavior.
+It is a `TypedMoment` because it models something happening once (a button press) and we want to transmit which `ItemExtent` we want to remove.
+
+And next we will modify the behavior that maintains `allItems`.
+
+{{< highlight java "hl_lines=3 15-23">}}
+    behavior()
+        .supplies(allItems)
+        .demands(save, removeItem)
+        .runs(ext -> {
+          if (save.justUpdated()) {
+            var item = new ItemExtent(graph, save.value(), this);
+            addChildLifetime(item);
+            item.addToGraph();
+            allItems.value().add(item);
+            allItems.updateForce(allItems.value());
+            sideEffect(ext1 -> {
+              listUI.addItem(item.itemUI);
+              listUI.newItemText.setText("");
+            });
+          } else if (removeItem.justUpdated()) {
+            var item = removeItem.value();
+            item.removeFromGraph();
+            allItems.value().remove(item);
+            allItems.updateForce(allItems.value());
+            sideEffect(ctx1 -> {
+              listUI.removeItem(item.itemUI);
+            });
+          }
+        });
+{{< / highlight >}}
+
+First we add `removeItem` as an additional demand on our `allItems` behavior.
 This causes the behavior to run when a user clicks on a Delete button.
 
 It is common to refer to behaviors by the resources they supply.
@@ -452,14 +473,15 @@ We are modifying this behavior because removing an item affects the list in `all
 We could not put this logic in another behavior because a resource can only be supplied by one behavior.
 Updating a resource can only happen in the one behavior that supplies it.
 
-Inside the runs block we add new checks for `save.justUpdated` and `removeItem.justUpdated`.
-It is a common pattern to iterate through `.justUpdated` checks of the various demands to determine what happened.
-In this case we remove the item from the list by building a new list without the item to remove.
-So we do not need to call `.forceUpdate()` like we did when adding the item.
-Our side effect ensures that the UI updates as well.
+Inside the runs block we add a new check for `removeItem.justUpdated()`.
+It is a common pattern to iterate through `.justUpdated()` checks of the various demands to determine what happened.
 
+Then we get the `ItemExtent` we want removed and remove it from our `allItems` list.
+We need to call `.forceUpdate()` again because we are mutating the same instance of our list.
 Also note that we call`.removeFromGraph()` on the removed `ItemExtent`.
 Extents should always be removed from the graph if they are no longer needed otherwise their behaviors will continue to run.
+Lastly our side effect ensures that the UI updates as well.
+
 
 ### Remaining Items Re-revisited
 
@@ -479,83 +501,98 @@ While selected, the user can edit the text inside the main text field.
 
 ### Selecting
 
-The first step is to use a DOM event to identify when we have selected a particular item.
+The first step is to use a Swing event to identify when we have selected a particular item.
 
 Inside `ItemExtent` add another handler.
 
-{{< highlight javascript "hl_lines=4-6">}}
-    this.itemElement.querySelector('.item-delete').addEventListener('click', () => {
-      this.list.removeItem.updateWithAction(this);
+{{< highlight java "hl_lines=5-10">}}
+    itemUI.itemDelete.addActionListener(actionEvent -> {
+      list.removeItem.updateWithAction(this);
     });
-    this.itemElement.querySelector('.item-text').addEventListener('click', () => {
-    	this.list.selectRequest.updateWithAction(this);
+
+    itemUI.addMouseListener(new MouseAdapter() {
+      @Override
+      public void mouseClicked(MouseEvent e) {
+        list.selectRequest.updateWithAction(ItemExtent.this);
+      }
     });
 {{< / highlight >}}
 
-`selectRequest` updates with the list item that was clicked as its `.value`.
+`selectRequest` (which is a resource we haven't yet added on our `ListExtent`) updates with the list item that was clicked as its `.value`. (`ItemExtent.this` let's us point to the outer this, not the `MouseAdapter` this.)
 
 Inside `ListExtent` we add the related resources and a corresponding behavior.
 
-{{< highlight javascript "hl_lines=3-4">}}
-    this.allItems = this.state([]);
-    this.removeItem = this.moment();
-    this.selectRequest = this.moment();
-    this.selected = this.state(null);
+{{< highlight java "hl_lines=3-4">}}
+  State<ArrayList<ItemExtent>> allItems = state(new ArrayList<>());
+  TypedMoment<ItemExtent> removeItem = typedMoment();
+  TypedMoment<ItemExtent> selectRequest = typedMoment();
+  State<ItemExtent> selected = state(null);
 {{< / highlight >}}
 
-{{< highlight javascript "hl_lines=1-6">}}
-    this.behavior()
-      .supplies(this.selected)
-      .demands(this.selectRequest)
-      .runs(() => {
-      	this.selected.update(this.selectRequest.value);
-      });
+We have two resrouces. `selectRequest` was the list item we clicked on.
+`selected` is the list item that is currently selected.
+`null` means we have no selected item.
+
+Next we add a behavior that updates `selected` based on which item we clicked on.
+
+{{< highlight java "hl_lines=4-11">}}
+          });
+        });
+
+    behavior()
+        .supplies(selected)
+        .demands(selectRequest)
+        .runs(ctx -> {
+          if (selectRequest.justUpdated()) {
+            selected.update(selectRequest.value());
+          }
+        });
 {{< / highlight >}}
 
 Clicking on an item sets our new `selected` resource as the item that was just clicked.
+Although we can't tell it is working yet.
 
 ### Selected
 
 Now we want our items to visually reflect when they are selected.
-We can do this by demanding this resource in a behavior in each `ItemExtent`.
+We can do this by demanding this resource in a behavior in each item.
+Add the following code inside `ItemExtent`.
 
-{{< highlight javascript "hl_lines=1-13">}}
-	this.behavior()
-      .demands(this.list.selected)
-      .runs(() => {
-      	let selected = this.list.selected.value === this;
-        this.sideEffect(() => {
-          let selectedClass = 'selected'
-          if (selected) {
-          	this.itemElement.classList.add(selectedClass);
-          } else {
-            this.itemElement.classList.remove(selectedClass);
-          }
+{{< highlight java "hl_lines=5-12">}}
+          itemUI.setCompleted(completed.value());
+        });
+      });
+
+    behavior()
+      .demands(list.selected, getDidAdd())
+      .runs(ext -> {
+        var selected = list.selected.value() == this;
+        sideEffect(ext1 -> {
+          itemUI.setSelected(selected);
         });
       });
 {{< / highlight >}}
 
 When the `selected` state resource inside `ListExtent` updates, this behavior on every item will run.
-They each demand `this.list.selected`.
-Depending on if the item is the one that is selected we will change the UI accordingly.
+They each demand `list.selected`.
+Each one will check to see if it is the one selected and we change the UI accordingly.
 
 We want to refer back to the beginning where we called `.addChildLifetime(item)` inside `ListExtent`.
 
-{{< highlight javascript "hl_lines=">}}
-          let item = new ItemExtent(this.graph, this.save.value, this);
-          this.addChildLifetime(item);
-          item.addToGraph();
+{{< highlight javascript "hl_lines=2">}}
+            var item = new ItemExtent(graph, save.value(), this);
+            addChildLifetime(item);
+            item.addToGraph();
 {{< / highlight >}}
 
 This line says that the list will always be around when the item is.
-This gives us permission to add `this.list.selected`, a resource in `ListExtent`, as a demand on the behavior inside each `ItemExtent`.
+This gives us permission to add `list.selected`, a resource in `ListExtent`, as a demand on the behavior inside each `ItemExtent`.
 Behavior Graph ensures that we don't link to resources that may no longer be part of the graph and it uses lifetimes as a way to manage that.
 
 You can now try out this code by clicking on different items.
 
 Notice that we can take a list of many items and click on different ones and watch it switch.
-Each time, one of those behaviors adds the 'selected' CSS class while all the rest remove the 'selected' class.
-Removing a class when its already not there is valid and simplifies our logic.
+Each time, one of those behaviors calls the Swing UI logic to change the background color.
 
 ### Deselect
 
@@ -563,55 +600,66 @@ Its easy enough to introduce deselecting by clicking on the already selected ele
 
 Inside `ListExtent` we modify our `selected` behavior.
 
-{{< highlight javascript "hl_lines=5-7 9">}}
-    this.behavior()
-      .supplies(this.selected)
-      .demands(this.selectRequest)
-      .runs(() => {
-      	if (this.selected.value == this.selectRequest.value) {
-          this.selected.update(null);
-        } else {
-        	this.selected.update(this.selectRequest.value);      
-        }
-      });
+{{< highlight java "hl_lines=6-8 10">}}
+    behavior()
+        .supplies(selected)
+        .demands(selectRequest)
+        .runs(ctx -> {
+          if (selectRequest.justUpdated()) {
+            if (selected.value() == selectRequest.value()) {
+              selected.update(null);
+            } else {
+              selected.update(selectRequest.value());
+            }
+          }
+        });
 {{< / highlight >}}
 
 We check if the currently selected item is the one that was just clicked on and set it to `null` in that case.
 This communicates that nothing should be selected.
 Try running now and clicking on an item multiple times.
 
+That was too easy.
+You don't need to make space for new control flow.
+This is because of the way behavior Behavior Graph functionality composes.
+
 ### Updating The Text Field
 
 Now we want to introduce editing.
 Let's try updating the main text field when we select an item so we can edit it.
+Continuing to edit our `selected` behavior in `ListExtent`
 
-{{< highlight javascript "hl_lines=10-18">}}
-    this.behavior()
-      .supplies(this.selected)
-      .demands(this.selectRequest)
-      .runs(() => {
-      	if (this.selected.value == this.selectRequest.value) {
-          this.selected.update(null);
-        } else {
-        	this.selected.update(this.selectRequest.value);      
-        }
-        
-        if (this.selected.justUpdated) {
-          this.sideEffect(() => {
-            let textField = document.querySelector('#new-item-text');
-            textField.value = this.selected.value === null ? '' : this.selected.value.itemText.value;
-            let actionText = document.querySelector('#action');
-            actionText.innerText = this.selected.value === null ? 'Add' : 'Edit'
-          });
-        }
-      });
+{{< highlight java "hl_lines=13-17">}}
+    behavior()
+        .supplies(selected)
+        .demands(selectRequest)
+        .runs(ctx -> {
+          if (selectRequest.justUpdated()) {
+            if (selected.value() == selectRequest.value()) {
+              selected.update(null);
+            } else {
+              selected.update(selectRequest.value());
+            }
+          }
+
+          if (selected.justUpdated()) {
+            sideEffect(ctx1 -> {
+              listUI.setSelected(selected.value());
+            });
+          }
+        });
 {{< / highlight >}}
 
 Whenever `selected` updates, we run this new side effect.
 It copies over the text of the item into the text field.
 It also updates the UI to indicate that we are editing and not adding.
-
 Conversely, when `selected` updates to `null`, it puts our UI state back to an Add mode.
+
+In many reactive libraries, a reactive block of code can only output the new state.
+Any downstream effects need to be somewhere else.
+With Behavior Graph we can mutate our state and create any related side effects in the same block of code.
+
+Run the program and you will see how selecting an item updates the header to an editing mode.
 
 ### Preventing Adding
 
@@ -619,26 +667,26 @@ When we are in editing mode, the save button should cause the text in our item t
 However right now it will still create a new item.
 We want to prevent that from happening when we are in editing mode.
 
-{{< highlight javascript "hl_lines=5">}}
-    this.behavior()
-      .supplies(this.allItems)
-      .demands(this.save, this.removeItem)
-      .runs(() => {
-        if (this.save.justUpdated && this.selected.traceValue === null) {
-          let item = new ItemExtent(this.graph, this.save.value, this);
-          this.addChildLifetime(item);
-          item.addToGraph();
-          this.allItems.value.push(item);
+{{< highlight java "hl_lines=5">}}
+    behavior()
+        .supplies(allItems)
+        .demands(save, removeItem)
+        .runs(ext -> {
+          if (save.justUpdated() && selected.traceValue() == null) {
+            var item = new ItemExtent(graph, save.value(), this);
+            addChildLifetime(item);
+            item.addToGraph();
+            allItems.value().add(item);
 {{< / highlight >}}
 
 At the time we click the Save button, we want to know if we are in editing mode or not.
 We could check `selected.value` to see if it is null (ie not editing).
-However, here we use `selected.traceValue` instead.
-`.traceValue` is the value of the resource at the beginning of the graph event (the instant the action started).
+However, here we use `selected.traceValue()` instead.
+`.traceValue()` is the value of the resource at the beginning of the graph event (the instant the action started).
 So if `selected` updates this event, `.traceValue` will still return what it was before it changed.
 
 This also removes the requirement that we demand `selected` in this behavior.
-Here we just care if an item is already selected or not, not that something was "just selected".
+Here we care if an item is "already selected", not that something was "just selected".
 So we don't need it as a demand.
 `.traceValue` of any resource is always accessible by any behavior without demanding (or supplying) it.
 
@@ -648,36 +696,39 @@ The `if` check ignores the `save` click when there's something already selected.
 
 Now we can add a new behavior inside `ListExtent` that responds to our save and updates the text of the selected item.
 
-{{< highlight javascript "hl_lines=4-14">}}
-        }
-      });
-      
-    this.behavior()
-      .dynamicSupplies([this.allItems], () => {
-        return this.allItems.value.map(item => item.itemText);
-      })
-      .demands(this.save)
-      .runs(() => {
-      	if (this.save.justUpdated && this.selected.traceValue !== null) {
-          this.selected.traceValue.itemText.update(this.save.value);
-        }
-      });
-      
-    this.behavior()
-      .demands(this.allItems, this.addedToGraph)
+{{< highlight javascript "hl_lines=8-19">}}
+          if (selected.justUpdated()) {
+            sideEffect(ctx1 -> {
+              listUI.setSelected(selected.value());
+            });
+          }
+        });
+
+    behavior()
+        .dynamicSupplies(new Demandable[] { allItems }, (ctx, supplies) -> {
+          for (ItemExtent item : allItems.value()) {
+            supplies.add(item.itemText);
+          }
+        })
+        .demands(save)
+        .runs(ctx -> {
+          if (save.justUpdated() && selected.traceValue() != null) {
+            selected.traceValue().itemText.update(save.value());
+          }
+        });
 {{< / highlight >}}
 
 This new behavior uses `.dyanmicSupplies()`.
 This is a clause we haven't seen before.
-It does work similarly to `.dynamicDemands()`.
+It works similarly to `.dynamicDemands()`.
 In this behavior, we update our supplies to be the `itemText` resource from each `ItemExtent` instance.
-Whenever we add our remove an item, this behavior will update its supplies.
+Whenever we add our remove an item, this behavior will adjust to include or remove the corresponding `itemText` state resource.
 
 We will supply all of them because any one of them might become selected.
 When the user clicks the Save button, this behavior will update the `itemText` on the selected item to whats inside the text field.
 
 Notice that we use `selected.traceValue` again here, so it is not part of the demands.
-We want which item was selected at the time `save` was updated.
+We want which item was selected at the time `save` was updated (as opposed to after we're done saving).
 We also do not need this behavior to run when `selected` updates.
 
 Notice that all we do is update `itemText`.
@@ -703,24 +754,27 @@ Hints:
 
 We can modify our `selected` behavior inside `ListExtent`.
 
-{{< highlight javascript "hl_lines=3 5 11-13">}}
-    this.behavior()
-      .supplies(this.selected)
-      .demands(this.selectRequest, this.save)
-      .runs(() => {
-      	if (this.selectRequest.justUpdated) {
-      	  if (this.selected.value == this.selectRequest.value) {
-            this.selected.update(null);
-          } else {
-          	this.selected.update(this.selectRequest.value);      
-          }        
-        } else if (this.save.justUpdated) {
-          this.selected.update(null);
-        }
+{{< highlight javascript "hl_lines=3 11-13">}}
+    behavior()
+        .supplies(selected)
+        .demands(selectRequest, save)
+        .runs(ctx -> {
+          if (selectRequest.justUpdated()) {
+            if (selected.value() == selectRequest.value()) {
+              selected.update(null);
+            } else {
+              selected.update(selectRequest.value());
+            }
+          } else if (save.justUpdated()) {
+            selected.update(null);
+          }
+
+          if (selected.justUpdated()) {
+            sideEffect(ctx1 -> {
 {{< / highlight >}}
 
 Now our `selected` behavior also runs and deselects the current item when the Save button is pressed.
-Here see again the common pattern of checking various resources' `.justUpdated` property inside a behavior.
+Here see again the common pattern of checking various resources' `.justUpdated()` inside a behavior.
 
 Just before adding this feature we used `selected.traceValue` in a few behaviors.
 This change here is an additional motivation for that.
