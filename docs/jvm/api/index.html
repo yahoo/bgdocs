@@ -1,0 +1,972 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.97.3" />
+<meta name="robots" content="index, follow">
+
+
+<link rel="shortcut icon" href="/bgdocs/docs/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/bgdocs/docs/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-192x192.png" sizes="192x192">
+
+<title>API | Behavior Graph</title>
+<meta name="description" content="You can view the API docs in Javadoc format here
+Types
+Behavior
+A behavior is a block of code together with its dependency relationships (links).
+They …">
+<meta property="og:title" content="API" />
+<meta property="og:description" content="You can view the API docs in Javadoc format here
+Types Behavior A behavior is a block of code together with its dependency relationships (links). They are one of the two node types in a behavior graph. You define behaviors using the behavior() factory method of an Extent.
+Behaviors have both static and dynamic links. You provide static links when you create the behavior. Behavior Graph will update dynamic links per special methods on BehaviorBuilder or you can update them directly on a behavior." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yahoo.github.io/bgdocs/docs/jvm/api/" /><meta property="article:section" content="jvm" />
+
+<meta property="article:modified_time" content="2022-10-05T16:08:24-07:00" /><meta property="og:site_name" content="Behavior Graph" />
+
+<meta itemprop="name" content="API">
+<meta itemprop="description" content="You can view the API docs in Javadoc format here
+Types Behavior A behavior is a block of code together with its dependency relationships (links). They are one of the two node types in a behavior graph. You define behaviors using the behavior() factory method of an Extent.
+Behaviors have both static and dynamic links. You provide static links when you create the behavior. Behavior Graph will update dynamic links per special methods on BehaviorBuilder or you can update them directly on a behavior.">
+<meta itemprop="dateModified" content="2022-10-05T16:08:24-07:00" />
+<meta itemprop="wordCount" content="2834">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="API"/>
+<meta name="twitter:description" content="You can view the API docs in Javadoc format here
+Types Behavior A behavior is a block of code together with its dependency relationships (links). They are one of the two node types in a behavior graph. You define behaviors using the behavior() factory method of an Extent.
+Behaviors have both static and dynamic links. You provide static links when you create the behavior. Behavior Graph will update dynamic links per special methods on BehaviorBuilder or you can update them directly on a behavior."/>
+
+
+
+
+<link rel="preload" href="/bgdocs/docs/scss/main.min.209ee91954d0f2f182770e6c71011a5580360636bcf2a9bcf7f1c3da478784ff.css" as="style">
+<link href="/bgdocs/docs/scss/main.min.209ee91954d0f2f182770e6c71011a5580360636bcf2a9bcf7f1c3da478784ff.css" rel="stylesheet" integrity="">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/bgdocs/docs/">
+		<span class="navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zm7.993 21.8577c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="font-weight-bold">Behavior Graph</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"></div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-bgdocsdocs-li">
+  <a href="/bgdocs/docs/" title="Behavior Graph" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-bgdocsdocs"><span class="">Documentation</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-bgdocsdocsjs-and-typescript-li">
+  <a href="/bgdocs/docs/js-and-typescript/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-bgdocsdocsjs-and-typescript"><span class="">JS and Typescript</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptquickstart-li">
+  <a href="/bgdocs/docs/js-and-typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptquickstart"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptcode-example-li">
+  <a href="/bgdocs/docs/js-and-typescript/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptcode-example"><span class="">Code Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptapi-li">
+  <a href="/bgdocs/docs/js-and-typescript/api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptapi"><span class="">API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-1-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-1/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-1"><span class="">Tutorial 1 - Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-2-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-2"><span class="">Tutorial 2 - IO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-3-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-3/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-3"><span class="">Tutorial 3 - Extents</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-bgdocsdocsjvm-li">
+  <a href="/bgdocs/docs/jvm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-bgdocsdocsjvm"><span class="">JVM and Android</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmquickstart-li">
+  <a href="/bgdocs/docs/jvm/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmquickstart"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmcode-example-li">
+  <a href="/bgdocs/docs/jvm/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmcode-example"><span class="">Code Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-bgdocsdocsjvmapi-li">
+  <a href="/bgdocs/docs/jvm/api/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmapi"><span class="td-sidebar-nav-active-item">API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-1-li">
+  <a href="/bgdocs/docs/jvm/tutorial-1/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-1"><span class="">Tutorial 1 - Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-2-li">
+  <a href="/bgdocs/docs/jvm/tutorial-2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-2"><span class="">Tutorial 2 - IO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-3-li">
+  <a href="/bgdocs/docs/jvm/tutorial-3/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-3"><span class="">Tutorial 3 - Extents</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsrelatedwork-li">
+  <a href="/bgdocs/docs/relatedwork/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsrelatedwork"><span class="">Related Work</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsquestions-li">
+  <a href="/bgdocs/docs/questions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsquestions"><span class="">Questions and Feedback</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a id="print" href="https://yahoo.github.io/bgdocs/docs/jvm/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+
+</div>
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#behavior">Behavior</a>
+      <ul>
+        <li><a href="#getdemands"><code>getDemands()</code></a></li>
+        <li><a href="#getextent"><code>getExtent()</code></a></li>
+        <li><a href="#setdynamicdemands"><code>setDynamicDemands()</code></a></li>
+        <li><a href="#setdynamicsupplies"><code>setDynamicSupplies()</code></a></li>
+        <li><a href="#getsupplies"><code>getSupplies()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#behaviorbuildert"><code>BehaviorBuilder&lt;T&gt;</code></a>
+      <ul>
+        <li><a href="#demands"><code>demands()</code></a></li>
+        <li><a href="#dynamicdemands"><code>dynamicDemands()</code></a></li>
+        <li><a href="#dynamicsupplies"><code>dynamicSupplies()</code></a></li>
+        <li><a href="#runs"><code>runs()</code></a></li>
+        <li><a href="#supplies"><code>supplies()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#extentt"><code>Extent&lt;T&gt;</code></a>
+      <ul>
+        <li><a href="#action"><code>action()</code></a></li>
+        <li><a href="#actionasync"><code>actionAsync()</code></a></li>
+        <li><a href="#addchildlifetime"><code>addChildLifetime()</code></a></li>
+        <li><a href="#getdidadd"><code>getDidAdd()</code></a></li>
+        <li><a href="#addtograph"><code>addToGraph()</code></a></li>
+        <li><a href="#addtographwithaction"><code>addToGraphWithAction()</code></a></li>
+        <li><a href="#behavior-1"><code>behavior()</code></a></li>
+        <li><a href="#getdebugname"><code>getDebugName()</code></a></li>
+        <li><a href="#setdebugname"><code>setDebugName()</code></a></li>
+        <li><a href="#new-extent"><code>new Extent()</code></a></li>
+        <li><a href="#getgraph"><code>getGraph()</code></a></li>
+        <li><a href="#moment"><code>moment()</code></a></li>
+        <li><a href="#removefromgraph"><code>removeFromGraph()</code></a></li>
+        <li><a href="#removefromgraphwithaction"><code>removeFromGraphWithAction()</code></a></li>
+        <li><a href="#resource"><code>resource()</code></a></li>
+        <li><a href="#setcontext"><code>setContext()</code></a></li>
+        <li><a href="#sideeffect"><code>sideEffect()</code></a></li>
+        <li><a href="#statet"><code>state&lt;T&gt;()</code></a></li>
+        <li><a href="#typedmomentt"><code>typedMoment&lt;T&gt;()</code></a></li>
+        <li><a href="#unifylifetime"><code>unifyLifetime()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#graph">Graph</a>
+      <ul>
+        <li><a href="#action-1"><code>action()</code></a></li>
+        <li><a href="#actionasync-1"><code>actionAsync()</code></a></li>
+        <li><a href="#getcurrentbehavior"><code>getCurrentBehavior()</code></a></li>
+        <li><a href="#getcurrentevent"><code>getCurrentEvent()</code></a></li>
+        <li><a href="#dateprovider"><code>dateProvider</code></a></li>
+        <li><a href="#debugcycleforbehavior"><code>debugCycleForBehavior()</code></a></li>
+        <li><a href="#getlastevent"><code>getLastEvent()</code></a></li>
+        <li><a href="#new-graph">`new Graph()</a></li>
+        <li><a href="#sideeffect-1"><code>sideEffect()</code></a></li>
+        <li><a href="#setvalidatedependencies"><code>setValidateDependencies()</code></a></li>
+        <li><a href="#setvalidatelifetimes"><code>setValidateLifetimes()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#event">Event</a>
+      <ul>
+        <li><a href="#getsequence"><code>getSequence()</code></a></li>
+        <li><a href="#gettimestamp"><code>getTimestamp()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#moment-and-typedmomentt">Moment and TypedMoment<T></a>
+      <ul>
+        <li><a href="#event-1"><code>event()</code></a></li>
+        <li><a href="#justupdated"><code>justUpdated()</code></a></li>
+        <li><a href="#justupdatedto"><code>justUpdatedTo()</code></a></li>
+        <li><a href="#update"><code>update()</code></a></li>
+        <li><a href="#updatewithaction"><code>updateWithAction()</code></a></li>
+        <li><a href="#value"><code>value()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#resource-1">Resource</a>
+      <ul>
+        <li><a href="#getdebugname-1"><code>getDebugName()</code></a></li>
+        <li><a href="#getextent-1"><code>getExtent()</code></a></li>
+        <li><a href="#getgraph-1"><code>getGraph()</code></a></li>
+        <li><a href="#order"><code>order()</code></a></li>
+        <li><a href="#getsuppliedby"><code>getSuppliedBy()</code></a></li>
+      </ul>
+    </li>
+    <li><a href="#statet-1">State<T></a>
+      <ul>
+        <li><a href="#getevent"><code>getEvent()</code></a></li>
+        <li><a href="#justupdated-1"><code>justUpdated()</code></a></li>
+        <li><a href="#justupdatedto-1"><code>justUpdatedTo()</code></a></li>
+        <li><a href="#justupdatedfrom"><code>justUpdatedFrom()</code></a></li>
+        <li><a href="#justupdatedtofrom"><code>justUpdatedToFrom()</code></a></li>
+        <li><a href="#traceevent"><code>traceEvent()</code></a></li>
+        <li><a href="#tracevalue"><code>traceValue()</code></a></li>
+        <li><a href="#updatewithaction-1"><code>updateWithAction()</code></a></li>
+        <li><a href="#update-1"><code>update()</code></a></li>
+        <li><a href="#updateforce"><code>updateForce()</code></a></li>
+        <li><a href="#value-1"><code>value()</code></a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul>
+    <li><a href="#demandable">Demandable</a></li>
+    <li><a href="#dateprovider-1">DateProvider</a></li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+			
+				
+			
+			
+
+
+
+  
+  
+
+		
+			
+				
+			
+			
+
+
+
+  
+  
+
+		
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="https://yahoo.github.io/bgdocs/docs/jvm/">JVM and Android</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="https://yahoo.github.io/bgdocs/docs/jvm/api/">API</a>
+  </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>API</h1>
+	
+	<header class="article-meta">
+		
+
+  
+    
+      
+
+
+    
+      
+
+
+    
+  
+
+		
+	</header>    
+	<p>You can view the API docs in <a href="https://javadoc.io/doc/com.yahoo.behaviorgraph/bgjvm/latest/index.html">Javadoc format here</a></p>
+<h1 id="types">Types</h1>
+<h2 id="behavior">Behavior</h2>
+<p>A behavior is a block of code together with its dependency relationships (links).
+They are one of the two node types in a behavior graph.
+You define behaviors using the <code>behavior()</code> factory method of an Extent.</p>
+<p>Behaviors have both static and dynamic links.
+You provide static links when you create the behavior.
+Behavior Graph will update dynamic links per special methods on BehaviorBuilder or you can update them directly on a behavior.</p>
+<h3 id="getdemands"><code>getDemands()</code></h3>
+<ul>
+<li>Kotlin: <code>demands</code></li>
+<li>returns: <code>Set&lt;Resource&gt;?</code></li>
+<li><em>read only property</em></li>
+</ul>
+<p>The current set of all Resources which the behavior demands.</p>
+<h3 id="getextent"><code>getExtent()</code></h3>
+<ul>
+<li>Kotlin: <code>extent</code></li>
+<li>returns: <code>Extent</code></li>
+<li><em>read only property</em></li>
+</ul>
+<p>A behavior always has an Extent with which it is created.</p>
+<h3 id="setdynamicdemands"><code>setDynamicDemands()</code></h3>
+<ul>
+<li>param: <code>newDemands: Demandable...</code></li>
+<li>or param: <code>newDemands: List&lt;? extends Demandable&gt;?</code></li>
+</ul>
+<p>Provide an array of Demandables.
+The complete set of demands for this behavior will be the ones it is defined with (static demands) plus this additional set. Calling this multiple times will replace the set of dynamic demands, it will not continue to add demands.</p>
+<p>Providing <code>null</code> or no demands is equivalent to saying there are only static demands.</p>
+<h3 id="setdynamicsupplies"><code>setDynamicSupplies()</code></h3>
+<ul>
+<li>param: <code>newSupplies: Resource...</code></li>
+<li>or param: <code>newSupplies: List&lt;Resource&gt;?</code></li>
+</ul>
+<p>Provide an array of Resources to supply.
+The complete set of supplies for this behavior will be the ones it is defined with (static supplies) plus this additional set. CAlling this multiple times will replace the set of dynamic supplies, it will not continue to add supplies.</p>
+<p>Providing <code>null</code> or no supplies is equivalent to saying there are only static supplies.</p>
+<h3 id="getsupplies"><code>getSupplies()</code></h3>
+<ul>
+<li>Kotlin: <code>supplies</code></li>
+<li>returns: <code>Set&lt;Resource&gt;?</code></li>
+<li><em>read only property</em></li>
+</ul>
+<p>The current set of all Resources which the behavior supplies.</p>
+<h2 id="behaviorbuildert"><code>BehaviorBuilder&lt;T&gt;</code></h2>
+<p>BehaviorBuilder provides fluent API for constructing instances of a Behavior.
+You create an instance of a BehaviorBuilder using the <code>behavior()</code> method on Extent.
+All methods except <code>runs()</code> return the same instance of BehaviorBuilder so you can chain multiple optional clauses.</p>
+<p>Generic type T is the Extent subtype BehaviorBuilder is created with.</p>
+<!-- Behavior-1 -->
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">// Create a single behavior with one demand and one supply.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">var</span> <span style="color:#000">moment1</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">moment</span><span style="color:#ce5c00;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">var</span> <span style="color:#000">moment2</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">moment</span><span style="color:#ce5c00;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">var</span> <span style="color:#000">moment3</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">moment</span><span style="color:#ce5c00;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">behavior</span><span style="color:#ce5c00;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">demands</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">moment1</span><span style="color:#ce5c00;font-weight:bold">,</span> <span style="color:#000">moment2</span><span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">supplies</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">moment3</span><span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">runs</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span> <span style="color:#ce5c00;font-weight:bold">-&gt;</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">moment1</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">justUpdated</span><span style="color:#ce5c00;font-weight:bold">()</span> <span style="color:#ce5c00;font-weight:bold">||</span> <span style="color:#000">moment2</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">justUpdatedTo</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#ce5c00;font-weight:bold">))</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">moment3</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">update</span><span style="color:#ce5c00;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">});</span></span></span></code></pre></div>
+<h3 id="demands"><code>demands()</code></h3>
+<ul>
+<li>param: <code>demands: Demandable...</code></li>
+<li>or param: <code>demands: List&lt;? extends Demandable&gt;</code></li>
+<li>returns: <code>BehaviorBuilder&lt;T&gt;</code></li>
+</ul>
+<p>Provide a list of static demands this behavior will link to.</p>
+<h3 id="dynamicdemands"><code>dynamicDemands()</code></h3>
+<ul>
+<li>param: <code>switches: Demandable[]</code> or <code>switches: List&lt;? extends Demandable&gt;</code></li>
+<li>optional param: <code>relinkingOrder: RelinkingOrder</code></li>
+<li>param: <code>links: (ext: T, demands: MutableList&lt;? extends Demandable?&gt;) -&gt; void</code></li>
+<li>returns: <code>BehaviorBuilder&lt;T&gt;</code></li>
+</ul>
+<p>This clause updates the dynamicDemands of this behavior based on the updating of other resources, the switches.
+When the switches update, the links parameter will be called. The provided code should add any additional resources to the <code>demands</code> MutableList.</p>
+<p>We permit <code>nulls</code> in the list to make for easier logic and they will be filtered out. Adding nothing to the demands list is equivalent to saying there are no dynamicDemands.</p>
+<p><code>relinkingOrder</code> parameter can optionally be set to <code>RelinkingOrder.relinkingOrderSubsequent</code> which will update the demands <em>after</em> the runs block is run. The default is <code>RelinkingOrder.relinkingOrderPrior</code>.</p>
+<!-- Behavior-2 -->
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">// This behavior will automatically demand the deleteButton resource of
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">// the currentChild extent whenever it changes.
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">var</span> <span style="color:#000">currentChild</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">state</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">null</span><span style="color:#ce5c00;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">behavior</span><span style="color:#ce5c00;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">dynamicDemands</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Demandable</span><span style="color:#ce5c00;font-weight:bold">[]</span> <span style="color:#ce5c00;font-weight:bold">{</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">currentChild</span> <span style="color:#ce5c00;font-weight:bold">},</span> <span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span><span style="color:#ce5c00;font-weight:bold">,</span> <span style="color:#000">demands</span><span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">-&gt;</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">currentChild</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">value</span><span style="color:#ce5c00;font-weight:bold">())</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">demands</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">add</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">currentChild</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">value</span><span style="color:#ce5c00;font-weight:bold">().</span><span style="color:#c4a000">deleteButton</span><span style="color:#ce5c00;font-weight:bold">));</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">})</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">runs</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span> <span style="color:#ce5c00;font-weight:bold">-&gt;</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">currentChild</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">value</span><span style="color:#ce5c00;font-weight:bold">())</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">currentChild</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">value</span><span style="color:#ce5c00;font-weight:bold">().</span><span style="color:#c4a000">deleteButton</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">justUpdated</span><span style="color:#ce5c00;font-weight:bold">())</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#8f5902;font-style:italic">// do something in response
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span>            <span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">});</span></span></span></code></pre></div>
+<h3 id="dynamicsupplies"><code>dynamicSupplies()</code></h3>
+<ul>
+<li>param: <code>switches: Demandable[]</code> or <code>switches: List&lt;? extends Demandable&gt;</code></li>
+<li>optional param: <code>relinkingOrder: RelinkingOrder</code></li>
+<li>param: <code>links: (ext: T, supplies: MutableList&lt;Resource&gt;) -&gt; void</code></li>
+<li>returns: <code>BehaviorBuilder&lt;T&gt;</code></li>
+</ul>
+<p>This clause updates the dynamicSupplies. Please see <code>dynamicDemands()</code> for additional details and example.</p>
+<h3 id="runs"><code>runs()</code></h3>
+<ul>
+<li>param: <code>block: (ext: T) -&gt; void</code></li>
+<li>returns: <code>Behavior</code></li>
+</ul>
+<p>This clause sets the block of code which will run at some point after this behavior is activated.
+The parameter <code>ext</code> will be the instance of the Extent&rsquo;s generic type this behavior was created on.</p>
+<p><code>runs()</code> will return the created behavior which will typically be ignored.</p>
+<h3 id="supplies"><code>supplies()</code></h3>
+<ul>
+<li>param: <code>supplies: Resource...</code></li>
+<li>or param: <code>supplies: List&lt;Resource&gt;?</code></li>
+<li>returns: <code>BehaviorBuilder&lt;T&gt;</code></li>
+</ul>
+<p>Provide a list of static supplies this behavior will link to.</p>
+<h2 id="extentt"><code>Extent&lt;T&gt;</code></h2>
+<p>Extents are collections of resources and behaviors.
+You will create your own Extent subclasses to define your Behavior Graph functionality.</p>
+<!-- Extent-1 -->
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-java" data-lang="java"><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">// Define extent that toggles state on a switch
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">MyExtent</span> <span style="color:#204a87;font-weight:bold">extends</span> <span style="color:#000">Extent</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">MyExtent</span><span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">Moment</span> <span style="color:#000">toggleSwitch</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">moment</span><span style="color:#ce5c00;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">State</span><span style="color:#ce5c00;font-weight:bold">&lt;</span><span style="color:#000">Boolean</span><span style="color:#ce5c00;font-weight:bold">&gt;</span> <span style="color:#000">currentState</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#000">state</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#ce5c00;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#000">MyExtent</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#ce5c00;font-weight:bold">)</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">super</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#ce5c00;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">behavior</span><span style="color:#ce5c00;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">demands</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">toggleSwitch</span><span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">supplies</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">currentState</span><span style="color:#ce5c00;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">runs</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">ext</span> <span style="color:#ce5c00;font-weight:bold">-&gt;</span> <span style="color:#ce5c00;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#000">currentState</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">update</span><span style="color:#ce5c00;font-weight:bold">(!</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">currentState</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">value</span><span style="color:#ce5c00;font-weight:bold">());</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#ce5c00;font-weight:bold">});</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#ce5c00;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic">// Create instance of MyExtent and add it to the graph
+</span></span></span><span style="display:flex;"><span><span style="color:#8f5902;font-style:italic"></span><span style="color:#000">var</span> <span style="color:#000">myGraph</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">Graph</span><span style="color:#ce5c00;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">var</span> <span style="color:#000">myExtent</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">MyExtent</span><span style="color:#ce5c00;font-weight:bold">(</span><span style="color:#000">myGraph</span><span style="color:#ce5c00;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">myExtent</span><span style="color:#ce5c00;font-weight:bold">.</span><span style="color:#c4a000">addToGraphWithAction</span><span style="color:#ce5c00;font-weight:bold">();</span></span></span></code></pre></div>
+<h3 id="action"><code>action()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String</code></li>
+<li>param: <code>action: (ext: T) -&gt; void</code></li>
+</ul>
+<p>Calls the <code>action()</code> method on the underlying Graph object.
+Contains an additional <code>ext</code> parameter which will be the Extent&rsquo;s generic type T instance.</p>
+<h3 id="actionasync"><code>actionAsync()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String</code></li>
+<li>param: <code>action: (ext: T) -&gt; void</code></li>
+</ul>
+<p>Calls the <code>actionAsync()</code> method on the underlying Graph object.
+Contains an additional <code>ext</code> parameter which will be the Extent&rsquo;s generic type T instance.</p>
+<h3 id="addchildlifetime"><code>addChildLifetime()</code></h3>
+<ul>
+<li>param: <code>extent: Extent</code></li>
+</ul>
+<p>Adds the parameter to list of child lifetimes.
+An extent with child lifetimes is guaranteed to be part of the graph for at least as long as the child is.
+Behaviors in child extents are permitted to have static links to resources in the parent.</p>
+<h3 id="getdidadd"><code>getDidAdd()</code></h3>
+<ul>
+<li>Kotlin: <code>didAdd</code></li>
+<li>returns <code>State&lt;Boolean&gt;</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Every extent comes with this state resource.
+It updates to <code>true</code> during the event the extent is added to the graph.
+Behaviors can demand it to ensure they are activated when they are added.</p>
+<h3 id="addtograph"><code>addToGraph()</code></h3>
+<p>Adds this extent to the graph.
+Behavior Graph will only interact with resources and behaviors after their extent has been added.</p>
+<h3 id="addtographwithaction"><code>addToGraphWithAction()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String</code></li>
+</ul>
+<p>Syntactic sugar for creating a new action and calling <code>addToGraph()</code>.
+<code>debugName</code> is passed to the action.</p>
+<h3 id="behavior-1"><code>behavior()</code></h3>
+<p>Creates a BehaviorBuilder instance.</p>
+<h3 id="getdebugname"><code>getDebugName()</code></h3>
+<ul>
+<li>Kotlin: <code>debugName</code></li>
+<li>returns: <code>String?</code></li>
+<li><em>read write</em> property</li>
+</ul>
+<p>You can define a runtime debugName for your instances to aid in debugging.
+It defaults to the name of your Extent subclass.</p>
+<h3 id="setdebugname"><code>setDebugName()</code></h3>
+<ul>
+<li>Kotlin: <code>debugName</code></li>
+<li>param: <code>debugName: String?</code></li>
+<li><em>read write</em> property</li>
+</ul>
+<p>Overrides default subclass name.</p>
+<h3 id="new-extent"><code>new Extent()</code></h3>
+<ul>
+<li>param: <code>graph: Graph</code></li>
+<li>constructor</li>
+</ul>
+<p>An Extent must be initialized with a Graph.
+You must call super() with the graph in your overridden constructor.</p>
+<h3 id="getgraph"><code>getGraph()</code></h3>
+<ul>
+<li>Kotlin: <code>graph</code></li>
+<li>returns <code>Graph</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>The graph on which this extent was created.</p>
+<h3 id="moment"><code>moment()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String?</code></li>
+</ul>
+<p>Factory method to create a moment resource.
+By default the <code>debugName</code> will be the name of the property that points to this resource.</p>
+<h3 id="removefromgraph"><code>removeFromGraph()</code></h3>
+<ul>
+<li>optional param: <code>strategy: ExtentRemoveStrategy</code></li>
+</ul>
+<p>Default is <code>ExtentRemoveStrategy.ExtentOnly</code></p>
+<p>After an extent is removed from the graph its resource and behaviors will no longer interact with other extents in the graph.</p>
+<p>Extents must be removed in a manner that is consistent with their lifetimes.</p>
+<ul>
+<li>All extents with a unified lifetime must be removed during the same event.</li>
+<li>All extents that have a parent lifetime must not remain in the graph longer than their parent.</li>
+</ul>
+<p>The default value <code>ExtentOnly</code> will just try to remove the receiver extent.</p>
+<p>Providing <code>ExtentRemoveStrategy.removeContainedLifetimes</code> as the strategy parameter will automatically remove all extents with the unified or child lifetimes.</p>
+<h3 id="removefromgraphwithaction"><code>removeFromGraphWithAction()</code></h3>
+<ul>
+<li>optional param: <code>strategy: ExtentRemoveStrategy</code></li>
+<li>optional param: <code>debugName: string</code></li>
+</ul>
+<p>Syntactic sugar for creating a new action and calling <code>removeFromGraph()</code>.
+<code>debugName</code> is passed to the action. <code>strategy</code> is passed to <code>removeFromGraph()</code>.</p>
+<h3 id="resource"><code>resource()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String?</code></li>
+</ul>
+<p>Factory method to create a resource.
+By default the <code>debugName</code> will be the name of the property that points to this resource.</p>
+<p>In general, you should prefer <code>state()</code>, <code>moment()</code>, or <code>typedMoment()</code>. This &ldquo;abstract&rdquo; resource is typically only useful for ensuring proper ordering between two behaviors.</p>
+<h3 id="setcontext"><code>setContext()</code></h3>
+<ul>
+<li>Kotlin: <code>context</code></li>
+<li>param: <code>context: T</code></li>
+<li><em>read write property</em></li>
+</ul>
+<p>The generic type parameter T on Extent is typically an Extent subclass. This is the easiest option.
+However, it is not strictly necessary.</p>
+<p>We can define our separate type and call <code>setContext()</code> to pair our extent with an instance of this separate type.
+This &ldquo;context&rdquo; object will be provided in the various lambdas provided by Extent.</p>
+<h3 id="sideeffect"><code>sideEffect()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String?</code></li>
+<li>param: <code>block: (ext: T) -&gt; void</code></li>
+</ul>
+<p>Calls the <code>sideEffect()</code> method on the underlying Graph object.
+Contains an additional <code>ext</code> parameter</p>
+<h3 id="statet"><code>state&lt;T&gt;()</code></h3>
+<ul>
+<li>param: <code>initialState: T</code></li>
+<li>optional param: <code>debugName: String?</code></li>
+</ul>
+<p>Factory method to create a state resource.
+By default the <code>debugName</code> will be the name of the property that points to this resource.</p>
+<h3 id="typedmomentt"><code>typedMoment&lt;T&gt;()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String?</code></li>
+</ul>
+<p>Creates a <code>TypedMoment</code> instance similar to <code>Moment</code> except that it contains additional data of type <code>T</code>.</p>
+<h3 id="unifylifetime"><code>unifyLifetime()</code></h3>
+<ul>
+<li>param: <code>extent: Extent</code></li>
+</ul>
+<p>Combines the lifetime of this extent with that of the parameter.
+Extents with unified lifetimes are guaranteed to be part of the graph for the same period of time.
+They are permitted to have static links between them.</p>
+<h2 id="graph">Graph</h2>
+<p>The core construct that represents the graph of behavior and resource nodes. As many graphs can exist in the same program as you like; however nodes in one graph cannot directly link to nodes in another graph.</p>
+<h3 id="action-1"><code>action()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String</code></li>
+<li>param: <code>thunk: () -&gt; void</code></li>
+</ul>
+<p>Creates a synchronous action on the graph.
+This means that all behaviors and side effects which will run because of this action will necessarily complete before the completion of this method call.</p>
+<p>By default the debugName will be derived from the set of resources that are updated inside the action block.</p>
+<h3 id="actionasync-1"><code>actionAsync()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String</code></li>
+<li>param: <code>block: () -&gt; void</code></li>
+</ul>
+<p>Creates an action that will run asynchronously.
+This means that the behaviors and side effects which will run because of this action <em>may not</em> necessarily complete before the completion of this method call.</p>
+<h3 id="getcurrentbehavior"><code>getCurrentBehavior()</code></h3>
+<ul>
+<li>Kotlin: <code>currentBehavior</code></li>
+<li>returns <code>Behavior?</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns the currently running behavior or null if otherwise.</p>
+<h3 id="getcurrentevent"><code>getCurrentEvent()</code></h3>
+<ul>
+<li>Kotlin: <code>currentEvent</code></li>
+<li>returns <code>Event?</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns the current Event if the graph is running an event or null otherwise.</p>
+<h3 id="dateprovider"><code>dateProvider</code></h3>
+<ul>
+<li>returns: <code>GraphDateProvider</code></li>
+<li><em>read write</em> property</li>
+</ul>
+<p>The default dateProvider returns <code>Date.now()</code> which is the source of <code>timestamp</code> on GraphEvent instances.
+Overriding is primarily useful for controlling values during testing.</p>
+<h3 id="debugcycleforbehavior"><code>debugCycleForBehavior()</code></h3>
+<ul>
+<li>param: <code>behavior: Behavior</code></li>
+<li>returns: <code>List≤Resource&gt;</code></li>
+</ul>
+<p>Used during debugging as an aid when there are dependency cycles.
+The returned list contains the sequence of Resource objects which will result in a dependency cycle including this behavior.
+The array will be empty if there is not a cycle.</p>
+<h3 id="getlastevent"><code>getLastEvent()</code></h3>
+<ul>
+<li>Kotlin: <code>lastEvent</code></li>
+<li>returns <code>Event</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns the last Event that completed.
+It starts as <code>Event.InitialEvent</code>.</p>
+<h3 id="new-graph">`new Graph()</h3>
+<ul>
+<li>optional param: <code>dateProvider: DateProvider</code></li>
+</ul>
+<p>Graph uses the platform default to get the current timestamp when creating new Events.
+We can provide an optional dateProvider object which will return a user defined timestamp.
+This is particularly useful for automated testing.</p>
+<h3 id="sideeffect-1"><code>sideEffect()</code></h3>
+<ul>
+<li>optional param: <code>debugName: String</code></li>
+<li>param: <code>thunk: () =&gt; void</code></li>
+</ul>
+<p>Creates a block of code that will run during the side effect phase of the event.
+Side effects are run in the order they are created.
+Side effects do not run until after all behaviors have been run.</p>
+<h3 id="setvalidatedependencies"><code>setValidateDependencies()</code></h3>
+<ul>
+<li>Kotlin: <code>validateDependencies</code></li>
+<li>param: <code>validate: boolean</code></li>
+</ul>
+<p>True by default. This will ensure that a code inside a behavior only accesses resources specified in its demands and supplies clauses.</p>
+<p>Validating dependencies is a runtime check that is useful during development and debugging but does incur some runtime costs. It can be practical to disable this for production builds.</p>
+<h3 id="setvalidatelifetimes"><code>setValidateLifetimes()</code></h3>
+<ul>
+<li>Kotlin: <code>validateLifetimes</code></li>
+<li>param: <code>validate: boolean</code></li>
+</ul>
+<p>True by default. This will ensure that behaviors are not linked to resources that may no longer be part of the graph (and vice versa).</p>
+<p>Validating lifetimes is a runtime check that is useful during development and debugging but does incur some runtime costs. It can be practical to disable this for production builds.</p>
+<h2 id="event">Event</h2>
+<h3 id="getsequence"><code>getSequence()</code></h3>
+<ul>
+<li>Kotlin: <code>sequence</code></li>
+<li>returns: <code>long</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Each Event is assigned a monotonically increasing number for each event run on the graph.
+You can use this information to quickly determine the order resources update.</p>
+<h3 id="gettimestamp"><code>getTimestamp()</code></h3>
+<ul>
+<li>Kotlin: <code>timestamp</code></li>
+<li>returns: <code>long</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Each Event is given a timestamp according to the registered DateProvider given to a graph instance.
+It defaults to <code>currentTimeMillis()</code>.</p>
+<h2 id="moment-and-typedmomentt">Moment and TypedMoment<T></h2>
+<p><em>extends Resource</em></p>
+<p>A Moment is a type of Resource for tracking information that exists at a moment in time.
+Button presses are examples of Moments.</p>
+<p>TypedMoments are moments that have values associated with them.
+A network call return would be a TypedMoment. The data returned from that call is a possible value.</p>
+<h3 id="event-1"><code>event()</code></h3>
+<ul>
+<li>Kotlin: <code>event</code></li>
+<li>returns <code>Event?</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns the Event of the most recent time the moment was updated.
+It is <code>null</code> if it has never been updated.</p>
+<h3 id="justupdated"><code>justUpdated()</code></h3>
+<ul>
+<li>Kotlin: <code>justUpdated</code></li>
+<li>returns: <code>boolean</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns true if the moment updated during this event.</p>
+<h3 id="justupdatedto"><code>justUpdatedTo()</code></h3>
+<ul>
+<li><em>TypedMoment only</em></li>
+<li>param <code>value: T</code></li>
+<li>returns <code>boolean</code></li>
+</ul>
+<p>Returns true if the moment was justUpdated and the value <code>.equals()</code> the parameter.
+If you wish to use something different than <code>.equals()</code> you can implement your own check as this method is syntactic sugar.</p>
+<h3 id="update"><code>update()</code></h3>
+<ul>
+<li><em>TypedMoment only</em> param <code>value: T</code></li>
+</ul>
+<p>Marks the moment as justUpdated.
+If a value is provided, it will be set on the moment for reading.</p>
+<h3 id="updatewithaction"><code>updateWithAction()</code></h3>
+<ul>
+<li><em>TypedMoment only</em> param <code>value: T | undefined</code></li>
+<li>optional param <code>debugName : String?</code></li>
+</ul>
+<p>Syntactic sugar for calling <code>action()</code> on the underlying graph and calling <code>update()</code> on the moment.</p>
+<h3 id="value"><code>value()</code></h3>
+<ul>
+<li><em>TypedMoment only</em></li>
+<li>Kotlin: <code>value</code></li>
+<li>returns <code>T</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns the value stored in the TypedMoment if it was updated during this event.
+Throws exception if the moment was not updated this event.</p>
+<h2 id="resource-1">Resource</h2>
+<p>The base class for State, Moment, and TypedMoment.
+Prefer those types in almost all circumstances.
+Wherever you see &ldquo;resource&rdquo; in this document, assume we are referring to instances of State and Moment and TypedMoment as well.</p>
+<p>Resource has minimal functionality.
+Using instances of this base class directly is useful when forcing a certain ordering relationship between behaviors.</p>
+<h3 id="getdebugname-1"><code>getDebugName()</code></h3>
+<ul>
+<li>Kotlin: <code>debugName</code></li>
+<li>returns <code>String?</code></li>
+<li><em>read write</em> property</li>
+</ul>
+<p>Assignable name for use during debugging.</p>
+<h3 id="getextent-1"><code>getExtent()</code></h3>
+<ul>
+<li>Kotlin: <code>extent</code></li>
+<li>returns <code>Extent</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>All resources belong to an Extent.</p>
+<h3 id="getgraph-1"><code>getGraph()</code></h3>
+<ul>
+<li>Kotlin: <code>graph</code></li>
+<li>returns <code>Graph</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>All resources belong to a Graph.</p>
+<h3 id="order"><code>order()</code></h3>
+<ul>
+<li>Kotlin: <code>order</code></li>
+<li>returns <code>Demandable</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>A behavior can also demand <code>resource.order()</code> which tells the behavior not to activate when the resource updates.
+All resource subclasses have this option as well.</p>
+<h3 id="getsuppliedby"><code>getSuppliedBy()</code></h3>
+<ul>
+<li>Kotlin: <code>suppliedBy</code></li>
+<li>returns <code>Behavior?</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>If the resource is supplied by a behavior it will be returned, null otherwise.</p>
+<h2 id="statet-1">State<T></h2>
+<p><em>extends Resource</em></p>
+<p>A State is a type of resource for storing information over a period of time.
+Its value will persist into the future until it is updated.</p>
+<p>All States must be given an initial value when created.</p>
+<h3 id="getevent"><code>getEvent()</code></h3>
+<ul>
+<li>Kotlin <code>event</code></li>
+<li>returns <code>Event</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>The last time the State was updated.
+Will return <code>Event.InitialEvent</code> for its initial value before it has been updated.</p>
+<p>A behavior must demand or supply a state resource to access this property.</p>
+<h3 id="justupdated-1"><code>justUpdated()</code></h3>
+<ul>
+<li>Kotlin <code>justUpdated</code></li>
+<li>returns <code>boolean</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>Returns true if the state was updated during this event.</p>
+<p>A behavior must demand or supply a state resource to access this property.</p>
+<h3 id="justupdatedto-1"><code>justUpdatedTo()</code></h3>
+<ul>
+<li>param: <code>toState: T</code></li>
+<li>returns: <code>boolean</code></li>
+</ul>
+<p>Returns true if the state was updated during this event and toState parameter <code>.equals()</code> value.</p>
+<p>A behavior must demand or supply a state resource to access this property.</p>
+<h3 id="justupdatedfrom"><code>justUpdatedFrom()</code></h3>
+<ul>
+<li>param: <code>fromState: T</code></li>
+<li>returns: <code>boolean</code></li>
+</ul>
+<p>Returns true if the state was updated during this event and the fromState parameter <code>.equals()</code> the value it had before updating.</p>
+<p>A behavior must demand or supply a state resource to access this property.</p>
+<h3 id="justupdatedtofrom"><code>justUpdatedToFrom()</code></h3>
+<ul>
+<li>param: <code>toState: T</code></li>
+<li>param: <code>fromState: T</code></li>
+<li>returns: <code>boolean</code></li>
+</ul>
+<p>A combination of <code>justUpdatedTo()</code> and <code>justUpdatedFrom()</code></p>
+<p>A behavior must demand or supply a state resource to access this property.</p>
+<h3 id="traceevent"><code>traceEvent()</code></h3>
+<ul>
+<li>Kotlin: <code>traceEvent</code></li>
+<li>returns: <code>Event</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>What was the value of the <code>event</code> property at the beginning of the current event.</p>
+<p>A behavior <strong>does not</strong> need to demand or supply a resource to access this property.</p>
+<h3 id="tracevalue"><code>traceValue()</code></h3>
+<ul>
+<li>Kotlin: <code>traceValue</code></li>
+<li>returns: <code>T</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>What was the value of the <code>value</code> property at the beginning of the current event.</p>
+<p>A behavior <strong>does not</strong> need to demand or supply a resource to access this property.</p>
+<h3 id="updatewithaction-1"><code>updateWithAction()</code></h3>
+<ul>
+<li>param: <code>newValue: T</code></li>
+<li>optional param: <code>debugName: String</code></li>
+</ul>
+<p>Equivalent to calling <code>action()</code> on the underlying Graph instance and <code>update()</code> on the State object.</p>
+<h3 id="update-1"><code>update()</code></h3>
+<ul>
+<li>param: <code>newValue: T</code></li>
+</ul>
+<p>Checks to see if the newValue parameter <code>!equals()</code> the current value, and if so updates it to that new value.</p>
+<p>A behavior must supply this resource in order to call this method.</p>
+<p>State resources may also be updated inside an action if they are not supplied by any behavior.</p>
+<h3 id="updateforce"><code>updateForce()</code></h3>
+<ul>
+<li>param: <code>newValue: T</code></li>
+</ul>
+<p>Updates value to the newValue even if they are <code>.equals()</code>.
+This means that any demanding behaviors will be activated.</p>
+<h3 id="value-1"><code>value()</code></h3>
+<ul>
+<li>Kotlin: <code>value</code></li>
+<li>returns: <code>T</code></li>
+<li><em>read only</em> property</li>
+</ul>
+<p>The current underlying value.</p>
+<h1 id="interfaces">Interfaces</h1>
+<h2 id="demandable">Demandable</h2>
+<p>What a behavior can demand. A sealed opaque type which includes:</p>
+<ul>
+<li>Instances of Resource and its subclasses State and Moment</li>
+<li>The object returned by <code>.order</code> on an instance of Resource</li>
+</ul>
+<p>There are no other Demandable types and it is not open for extension.</p>
+<h2 id="dateprovider-1">DateProvider</h2>
+<p>Optional override for default <code>dateProvier</code> on Graph instance.</p>
+<p>Implement a type with a single method:</p>
+<p><code>now(): long</code></p>
+<p>The default implementation returns <code>currentTimeMillis()</code></p>
+
+	
+	
+	
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Yahoo All Rights Reserved</small>
+        
+	
+		
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js" integrity="sha512-JERecFUBbsm75UpkVheAuDOE8NdHjQBrPACfEQYPwvPG+fjgCpHAz1Jw2ci9EXmd3DdfiWth3O3CQvcfEg8gsA==" crossorigin="anonymous"></script>
+
+
+
+
+<script src='/bgdocs/docs/js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/bgdocs/docs/js/main.min.5502966e44e76d09efb092d4e61f653fa0b492b7bc6e75bab1ce6752810dde8d.js" integrity="sha256-VQKWbkTnbQnvsJLU5h9lP6C0kre8bnW6sc5nUoEN3o0=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>
