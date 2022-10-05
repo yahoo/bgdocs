@@ -14,10 +14,12 @@ And once they are the same, the heat will turn off.
 
 ## Initial Code
 
-We have created a starter project using [JSFiddle](https://jsfiddle.net/slevin11/k3z2uysx/).
+The recommended way to get started is to use our [preconfigured tutorial site](https://replit.com/@slevin1/Behavior-Graph-Java-Tutorial-2?v=1).
+
 You should use that for this tutorial.
-It has some simple HTML/CSS to represent the Thermostat's user interface.
-If you wish to use your own environment you will need to copy the HTML and CSS from this JSFiddle site into your own.
+
+It has some existing Swing code to represent the Thermostat's user interface.
+If you wish to use your own environment you will need to copy the three `.java` files from our tutorial site.
 
 The initial setup code has been provided for you.
 There is a `Main.java` which creates the core objects.
@@ -28,10 +30,10 @@ Do not use it as an ideal example of a Swing application).
 The bulk of our application will exist inside our `Thermostat.java` file. It contains a subclass of `Extent`.
 
 {{< highlight java "hl_lines=">}}
-import com.yahoo.behaviorgraph.Extent;
-import com.yahoo.behaviorgraph.Graph;
-import com.yahoo.behaviorgraph.Moment;
-import com.yahoo.behaviorgraph.State;
+import behaviorgraph.Extent;
+import behaviorgraph.Graph;
+import behaviorgraph.Moment;
+import behaviorgraph.State;
 
 public class Thermostat extends Extent<Thermostat> {
 
@@ -169,8 +171,9 @@ These rules are essential to allowing Behavior Graph to ensure your resources ar
 ### Output
 
 At this point our `desiredTemperature` changes when you press the Up button.
-But we don't update the display.
-We add that here.
+But we don't update the display, yet.
+
+We will add that here.
 
 {{< highlight java "hl_lines=8-10">}}
     behavior()
@@ -187,7 +190,7 @@ We add that here.
 {{< / highlight >}}
 
 This behavior creates a __Side Effect__ block.
-Inside that block we use standard DOM methods to update the temperature.
+Inside that block we use standard Swing methods to update the temperature.
 Now if you run this and click on the Up button you will see the temperature field appear and increment.
 
 Side effects are the correct way to generate output from inside a behavior.
@@ -198,7 +201,8 @@ Side effects do not have a restriction on what resources they can access, unlike
 
 ### Down
 
-We can add the handling for our Down button in a similar way.
+We can handle our Down button in a similar way.
+We add a `down` moment to track the button.
 
 {{< highlight java "hl_lines=6">}}
 public class Thermostat extends Extent<Thermostat> {
@@ -209,7 +213,7 @@ public class Thermostat extends Extent<Thermostat> {
   Moment down = moment();
 {{< / highlight >}}
 
-We add a `down` moment to track the button.
+Then a Swing listener to create an action.
 
 {{< highlight java "hl_lines=5-7">}}
     ui.upButton.addActionListener(e -> {
@@ -242,11 +246,14 @@ And we added additional logic to decrement our desired temperature when the down
 Run the program.
 Clicking on the Up and Down buttons should now move the desired temperature display up and down.
 
-### AddedToGraph
+### Run when Added
 
 You may have noticed that the desired temperature display doesn't show up until after we've tapped on one of the buttons.
 This is because our behavior only runs when one of its demands is updated.
 What we would like to do is also run it once at the beginning.
+
+The `getDidAdd()` method on extent returns a special resource associated with that extent.
+We add it to our list of demands.
 
 {{< highlight javascript "hl_lines=3">}}
     behavior()
@@ -257,7 +264,7 @@ What we would like to do is also run it once at the beginning.
           desiredTemperature.update(desiredTemperature.value() + 1);
 {{< / highlight >}}
 
-Now when you run the code you will see that the temperature appears at the beginning.
+Now when you run the code you will see that the temperature also appears at the beginning.
 
 `getDidAdd()` is a getter method on Extent (which we subclass). It returns a `State<Boolean>` resource that becomes `true` during the event that the extent is added to the graph. We add this resource to our list of demands.
 So our behavior will also run once at the beginning.
@@ -274,7 +281,7 @@ This logic compares the current temperature to the desired temperature and turns
 
 ### Current Temperature
 
-First we need a resource to track the current temperature,
+First we need a state resource to track the current temperature,
 
 {{< highlight java "hl_lines=2">}}
   State<Integer> desiredTemperature = state(60);
@@ -299,8 +306,8 @@ and a new behavior to update the UI when that resource updates.
       });
 {{< / highlight >}}
 
-Like with `desiredTemperature` this behavior runs whenever `currentTemperature` updates as well as once at the beginning.
-It uses a side effect to update our UI.
+Like with `desiredTemperature` this behavior runs whenever `currentTemperature` updates as well as once when it is added.
+It uses a side effect to update our Swing UI.
 
 ### Heat On
 
@@ -354,9 +361,9 @@ So we add that logic to our new behavior.
 {{< / highlight >}}
 
 We demand `getDidAdd()` to ensure we update the display when the thermostat starts.
-We also add a side effect block to update the UI.
+We also add a side effect to update the UI.
 
-Now when you click the Up and Down buttons you should see the heating display change based on `desiredTemperature` changes.
+Run it. Now when you click the Up and Down buttons you should see the heating display change based on `desiredTemperature` changes.
 
 ### Heating Equipment
 
@@ -387,16 +394,16 @@ It uses `.justUpdatedTo()` to differentiate changing to true or false.
 
 At this point we want to make an important point about the way state resources work.
 Even though the behavior that supplies `heatOn` calls `.update()` every time it runs, it doesn't necessarily update the state resource.
-Behavior Graph uses `==` to check if the new value is different from the starting value.
+Inside `.update()`, Behavior Graph uses `.equals()` to check if the new value is different from the starting value.
 If they are the same, the state resource does not actually update.
 Therefore, demanding behaviors are not activated.
 
-As an example, if `heatOn.value()` is currently `false`, calling `heatOn.update(true)` will update the resource and activate demanding behaviors. However, if in the next event we also call `heatOn.update(true)`, Behavior Graph will check `true == true` and therefore will not actually update or activate demanding behaviors.
+As an example, if `heatOn.value()` is currently `false`, calling `heatOn.update(true)` will update the resource and activate demanding behaviors. However, if in the next event we also call `heatOn.update(true)`, Behavior Graph will see that it is already `true` and therefore will not actually update or activate demanding behaviors.
 
 #### Turning On
 
-We aren't controlling actually heating equipment.
-But our ui object has some API to simulate this functionality by gradually increasing our heat over time.
+We aren't controlling actual heating equipment.
+But our ThermostatUI object has some API to simulate this functionality by gradually increasing our heat over time.
 
 {{< highlight java "hl_lines=2-6">}}
         if (heatOn.justUpdatedTo(true)) {
@@ -416,7 +423,7 @@ In this case, the new information is that `currentTemperature` has increased by 
 
 Note we are accessing `currentTemperature.value()` outside of a behavior.
 Unlike many reactive frameworks, this is fine.
-We maintain the integrity of our state by manipulating control flow not by restricting access.
+We maintain the integrity of our state by manipulating control flow, not by restricting access.
 
 #### Turning Off
 
@@ -486,4 +493,4 @@ When introducing it incrementally to an exiting codebase, it is easiest to work 
 ## Congratulations
 
 Congratulations! You have completed the second tutorial.
-You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/kfuwrmb8/).
+You can see the [finished tutorial code here](https://replit.com/@slevin1/Behavior-Graph-Java-Tutorial-2#Thermostat.java_completed).

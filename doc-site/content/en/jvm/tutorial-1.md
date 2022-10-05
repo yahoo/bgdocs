@@ -4,7 +4,7 @@ title: "Tutorial 1 - Basics"
 
 Here we will introduce the essentials to get you started quickly using Behavior Graph.
 
-The recommended way to get started is to use our [preconfigured tutorial site]().
+The recommended way to get started is to use our [preconfigured tutorial site](https://replit.com/@slevin1/Behavior-Graph-Java-Tutorial-1?v=1).
 
 If you prefer to set up your own environment please see the [Getting Started page]({{< ref quickstart >}}).
 Make sure to open up the Java console.
@@ -20,7 +20,7 @@ We've created the basic outline for you.
 (We've combined both classes into the same file to simplify this tutorial.)
 
 {{< highlight java >}}
-import com.yahoo.behaviorgraph.*;
+import behaviorgraph.*;
 
 class Main {
   public static void main(String[] args) {
@@ -60,7 +60,7 @@ In the console you should see
 Let's review this in pieces.
 
 {{< highlight java >}}
-import com.yahoo.behaviorgraph.*;
+import behaviorgraph.*;
 {{< / highlight >}}
 
 This is a standard Java import.
@@ -113,10 +113,11 @@ This behavior has two parts.
 The `.demands()` clause states that this behavior depends on the resource `person`.
 
 The `.runs()` clause is the code that gets run whenever one (or more) of the demands is updated (has new information).
-This one prints our greeting using `person.value`.
-The `.value` property returns the contents of our `person` state resource.
-A behavior must demand a resource in order to access its `.value` property.
-(It can also access it if it supplies the resource as well.)
+This one prints our greeting using `person.value()`.
+The `.value()` property returns the contents of our `person` state resource.
+A behavior must demand a resource in order to access its `.value()` property.
+
+(Note: it can also access `.value()` if it `.supplies()` the resource as well which we will get to later.)
 
 {{< highlight java >}}
 e.addToGraphWithAction();
@@ -263,7 +264,7 @@ This will be true only if some other part of our code called `button.update()` d
 ### Press the Button
 
 If you run the program now you will get no output.
-This is because we only update the `person` and `greeting` resources and our `log` statement only runs when `button.justUpdated()` is true.
+This is because we only update the `person` and `greeting` resources and our `println` statement only runs when `button.justUpdated()` is true.
 
 So lets add some additional lines to simulate a button press.
 
@@ -287,7 +288,7 @@ Now our program outputs:
 ```
 
 The first two actions only update the state resources.
-Our behavior is run but the `if (this.button.justUpdated())` check prevents anything from happening.
+Our behavior is run but the `if (button.justUpdated())` check prevents anything from happening.
 The third action causes the behavior to run as well.
 This time the `if` check passes and it logs the message based on prior updates.
 
@@ -308,7 +309,7 @@ Will output:
 
 The message changed because both `button` updated as well as `greeting` in that same action.
 The order in which they were updated inside the action is irrelevant to any demanding behaviors.
-That's one of the main benefits of Behavior Graph, it let's you explicitly define when you do and do not care about sequencing.
+That's one of the main benefits of Behavior Graph, __it let's you explicitly define when you do and do not care about sequencing__.
 
 ## A Graph
 
@@ -318,7 +319,7 @@ Behaviors will often depend on information provided by other behaviors.
 
 ### Supplies
 
-Imagine, for security sake, that we would like to introduce logging into our "Hello, World" program.
+Imagine, for security's sake, that we would like to introduce logging into our "Hello, World" program.
 
 {{< highlight java "hl_lines=2 5 8 10">}}
 Moment button = e.moment();
@@ -348,7 +349,7 @@ A behavior can supply multiple resources.
 It is an error to call `.update()` on a resource inside a behavior if it does not appear in the supplies clause.
 
 Actions can call `.update()` on a resource without specifying that they do so.
-Actions cannot `.update()` a resource if it is supplied by a behavior.
+Actions cannot `.update()` a resource if it is also supplied by a behavior.
 {{< /alert >}}
 
 ### Logging Behavior
@@ -455,7 +456,7 @@ e.behavior()
 We create a moment resource for `sentMessage`.
 Sending the message is a one off, not state that persists, so we keep track of that with a moment.
 We will be calling `.update()` on `sentMessage` so we need to add it to the list of supplies.
-We call `this.sentMessage.update()` right after the `println` call to track when we actually print out our message.
+We call `sentMessage.update()` right after the `println` call to track when we actually print out our message.
 
 Note that a behavior can supply more than one resource.
 This is a common pattern that lets us group related logic together without having to jump through hoops to avoid duplication.

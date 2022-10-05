@@ -47,33 +47,6 @@ let graph = new bg.Graph();
 let loginForm = new LoginForm(graph);
 loginForm.addToGraphWithAction();
 {{< /tab >}}
-{{< tab header="Java" lang="java" >}}
-import com.yahoo.behaviorgraph.*;
-
-public class LoginForm extends Extent<LoginForm> {
-    State<Boolean> loginEnabled = state(false);
-    State<String> email = state("");
-    State<String> password = state("");
-
-    public LoginForm(Graph graph) {
-        super(graph);
-
-        behavior()
-            .supplies(loginEnabled)
-            .demands(email, password)
-            .runs(ext -> {
-                boolean emailValid = validateEmail(email.value());
-                boolean passwordValid = password.value().length() > 0;
-                boolean enabled = emailValid && passwordValid;
-                loginEnabled.update(enabled);
-            });
-    }
-
-    private boolean validateEmail(String email) {
-        // ... validate email code goes here
-    }
-}
-{{< /tab >}}
 {{< /tabpane >}}
 
 First we import Behavior Graph to have access to its primary interface objects: `Graph` and `Extent`.
@@ -119,7 +92,7 @@ We store this information in another state resource called `loginEnabled`.
 We list this resource in the `supplies()` clause of our `behavior()`.
 This list is called the behavior's __supplies__.
 A behavior can read and write the contents of these resources.
-We write to a state resource by calling its `{{< term "update-method" >}}` method.
+We write to a state resource by calling its `update()` method.
 
 ## Logging In
 
@@ -153,40 +126,15 @@ this.behavior()
         this.loginEnabled.update(enabled);
     })
 {{< /tab >}}
-{{< tab header="Java" lang="java" highlight="hl_lines=2-3 8-15 19 23" >}}
-State<String> password = state("");
-Moment loginClick = moment();
-State<Boolean> loggingIn = state(false);
-public LoginForm(Graph graph) {
-    super(graph);
-    behavior()
-        .supplies(loggingIn)
-        .demands(loginClick)
-        .runs(ext -> {
-            if (loginClick.justUpdated() && !this.loggingIn.value()) {
-                loggingIn.update(true);
-            }
-        });
-    
-    behavior()
-        .supplies(loginEnabled)
-        .demands(email, password, loggingIn)
-        .runs(ext -> {
-            boolean emailValid = validateEmail(email.value());
-            boolean passwordValid = password.value().length() > 0;
-            boolean enabled = emailValid && passwordValid && !loggingIn.value();
-            loginEnabled.update(enabled);
-        });
-{{< /tab >}}
 {{< /tabpane >}}
 
 Our new behavior has one demand, `loginClick`.
 This is a second type of resource called a __moment resource__.
 Moments are designed to track momentary happenings such as a button click or network call returning.
-We can check if a moment has just happened by accessing its `{{< term "momentjustupdated-method" >}}` property.
+We can check if a moment has just happened by accessing its `justUpdated()` property.
 
 When the user clicks on the button, `loginClick` will update, and this new behavior will run.
-It performs a simple Boolean check to determine if the `loggingIn` state resource needs to update to `{{< term "true-bool" >}}`.
+It performs a simple Boolean check to determine if the `loggingIn` state resource needs to update to `true`.
 It is allowed to update this resource because `loggingIn` is part of its supplies.
 
 We also modified our previous behavior to include `loggingIn` as one of its demands.
@@ -209,22 +157,15 @@ this.loginButton.onClick = () => {
     });
 };
 {{< /tab >}}
-{{< tab header="Java" lang="java" >}}
-loginButton.addActionListener(e -> {
-    graph.action(() -> {
-        loginForm.loginClick.updateWithAction();
-    });
-});
-{{< /tab >}}
 {{< /tabpane >}}
 
 We would similarly connect `email` and `password` to their respective text fields.
 
 Once the user has entered a valid email and password, the Login button will enable.
 When the user subsequently clicks on the Login button, the behavior that supplies `loggingIn` will run.
-It will update the `loggingIn` resource to `{{< term "true-bool" >}}`.
+It will update the `loggingIn` resource to `true`.
 This in turn will cause the behavior that supplies `loginEnabled` to run.
-It will update the `loginEnabled` resource to `{{< term "false-bool" >}}` (because we are logging in).
+It will update the `loginEnabled` resource to `false` (because we are logging in).
 
 ## Side Effects
 
@@ -245,21 +186,6 @@ this.behavior()
             this.loginButton.enabled = this.loginEnabled.value;
         });
     })
-{{< /tab >}}
-{{< tab header="Java" lang="java" highlight="hl_lines=10-12" >}}
-behavior()
-    .supplies(loginEnabled)
-    .demands(email, password, loggingIn)
-    .runs(ext -> {
-        boolean emailValid = validateEmail(email.value());
-        boolean passwordValid = password.value().length() > 0;
-        boolean enabled = emailValid && passwordValid && !loggingIn.value();
-        loginEnabled.update(enabled);
-        
-        sideEffect(ext1 -> {
-            loginButton.setEnabled(loginEnabled.value());
-        });
-    });
 {{< /tab >}}
 {{< /tabpane >}}
 

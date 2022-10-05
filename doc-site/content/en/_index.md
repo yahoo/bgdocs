@@ -39,6 +39,16 @@ We originally developed it for ourselves to use in a video playing library at Ya
 
 It's also possible you're the type of person who likes nerdy new software ideas. (Seriously though, who doesn't, amirite?) If that's the case, we guarantee you will find Behavior Graph interesting.
 
+## Can I see an example?
+
+Behavior Graph introduces a handful of new concepts.
+These concepts aren't difficult, but you will require some orientation than we can show in a single snipped.
+
+Please see Code Example for the relevant platform:
+
+* [Javascript/Typescript](js-and-typescript/code-example)
+* [Java/Kotlin & JVM/Android](jvm/code-example)
+
 ## How does it Work?
 
 As programmers it's natural to partition our software into subtasks. For example, let's consider what happens on a typical login form.
@@ -87,17 +97,10 @@ This gives us:
 
 Behavior Graph isn't a replacement for functions. (We wrote it with functions, hello!) Instead it gives us higher level abstractions for partitioning our code into subtasks. It lets us say "these two blocks of code are related and here's how". And with that information the computer is able to run things for us. And humans are better able to infer the intent of the code.
 
-## Can I see an example?
-
-Behavior Graph introduces a handful of new concepts.
-These concepts aren't difficult, but you will require some orientation.
-
-* We've created a [short walk-through of a Login form](https://yahoo.github.io/bgdocs/docs/typescript/code-example/) using Behavior Graph.
-* You can also take a look at [one of our tutorials](https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/).
 
 ## Small
 
-Behavior Graph is a small library. It's around 1500 lines of formatted code. It has no dependencies.
+Behavior Graph is a small library. It's around 1500 lines of formatted code.
 
 ## Incremental 
 
@@ -116,30 +119,12 @@ Behavior Graph has been ported to multiple platforms.
 * Swift: [BGSwift](https://github.com/yahoo/BGSwift)
 * Kotlin/Android: [bgkotlin](https://github.com/yahoo/bgkotlin)
 
-## Should I Use it in my Project?
-
-This Javascript/Typescript version is not used in production at Yahoo currently. It is a direct port from the original Objective-C. It has excellent test coverage. We are confident it works as intended.
-
-But it is also newly open sourced. You won't find blog posts and Stack Overflow answers to your questions. If you are on a team that expects that type of support you should proceed with caution.
-
-If you are building a browser based app using imperative UI libraries such as JQuery or direct DOM manipulation we think you should be fine. But if you are using any of the popular reactive UI frameworks such as React, Angular, or Ember you will need to figure out how to make that work. We do not have existing adapters.
-
-Would like to help us with any of these adapters? We would certainly love to have your help. Please reach out to us on [discord](https://discord.gg/5mvat8tc7d).
-
 ## Obtaining Behavior Graph
 
-Javascript Behavior Graph is hosted on NPM @ [behavior-graph](https://www.npmjs.com/package/behavior-graph).
+Please see the Getting started guide for your relevant platform
 
-Behavior Graph is also available via a number of popular CDN Services. You may prefer to use these when importing directly into the browser or with Deno.
-
-* [Skypack.dev](https://www.skypack.dev/view/behavior-graph)
-* [JSDelivr](https://www.jsdelivr.com/package/npm/behavior-graph)
-
-## Documentation
-
-[Go here for the full documentation site](https://yahoo.github.io/bgdocs/docs/typescript/).
-
-While there are only a handful of basic concepts in Behavior Graph, it does require a shift in thinking. We recommend you start with the [Getting Started guide](https://yahoo.github.io/bgdocs/docs/typescript/quickstart/) then work through the [Tutorials](https://yahoo.github.io/bgdocs/docs/typescript/tutorials/tutorial-1/).
+* [Javascript/Typescript](js-and-typescript/quickstart)
+* [Java/Kotlin & JVM/Android](jvm/quickstart)
 
 ## Contact Us
 

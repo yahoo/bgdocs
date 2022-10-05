@@ -7,65 +7,51 @@ Using Behavior Graph is as simple as downloading it via your preferred format an
 
 ## Downloading
 
-### NPM
+### Maven Central
 
-Behavior Graph is hosted on NPM @ [behavior-graph](https://www.npmjs.com/package/behavior-graph).
+Behavior Graph is available on Maven Central @ [com.yahoo.behaviorgraph/bgjvm](https://search.maven.org/artifact/com.yahoo.behaviorgraph/bgjvm).
 
-You may add it as a dependency in your project's __package.json__ manually or install it via the shell
-It supports both CommonJS and module imports.
+You may download the jar directly from there or you can include it as part of your Gradle or Maven project.
 
-```sh
-npm install behavior-graph
+### Maven
+
+Add a dependency in your pom.xml.
+
+```xml
+    <dependency>  
+      <groupId>com.yahoo.behaviorgraph</groupId>  
+      <artifactId>bgjvm</artifactId>  
+      <version>0.7.0</version>  
+    </dependency>  
 ```
 
-Please search the web for any help using `npm`.
+### Gradle
+
+You may add it as a dependency in your Gradle build.gradle file
+
+```groovy
+dependencies {
+    implementation 'com.yahoo.behaviorgraph:bgjvm:0.7.0'
+}
+```
 
 ### GitHub
-Behavior Graph is available in source form via Github @ [yahoo/bgjs](https://www.github.com/yahoo/bgjs).
-
-### Javascript CDNs
-
-Behavior Graph is also available via a number of popular CDN Services.
-You may prefer to use these when importing directly into the browser.
-
-* [Skypack.dev](https://www.skypack.dev/view/behavior-graph)
-* [JSDelivr](https://www.jsdelivr.com/package/npm/behavior-graph)
-
+Behavior Graph is available in source form via Github @ [yahoo/bgkotlin](https://github.com/yahoo/bgkotlin).
 
 ## Importing
 
-Javascript imports require some knowledge of your environment which is beyond the scope of this guide.
+You can import the Behavior Graph classes using normal Java import syntax
 
-For modern environments:
+```java
+import behaviorgraph.*;
+```
 
-Node: `import * as bg from behavior-graph`
+## Kotlin
 
-or
-
-Browser: `import * as bg from "https://cdn.skypack.dev/behavior-graph";`
-
-Behavior Graph is also available as an IIFE which you can include as a script tag directly into the browser.
-
-`<script src="https://cdn.jsdelivr.net/npm/behavior-graph/lib/behavior-graph.min.js"></script>`
-
-The default export name is `bg` when using this method.
-
-## Quicker Start
-
-To start exploring feel free to use any of the following which have been preconfigured to use Behavior Graph.
-
-* [JSFiddle](https://jsfiddle.net/slevin11/akevq4hm/)
-* [CodePen](https://codepen.io/slevin11/pen/XWzbMWZ)
-
-## Typescript or Javascript
-
-Behavior-Graph is written in Typescript. 
-It is usable directly from Javascript or Typescript code.
-Type declaration files are provided for all APIs.
+Behavior Graph is written in Kotlin but the API has been designed to be usable with both Java and Kotlin.
 
 ## Tutorials
 
 It is unlikely you will get very far with Behavior Graph without working through a [tutorial]({{< ref "tutorial-1" >}}).
 Please spend some time with them to practice writing Behavior Graph code.
 They don't take very long. We promise you will be mentally stimulated and spiritually rewarded for your time.
-

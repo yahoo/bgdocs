@@ -6,7 +6,7 @@ In this tutorial we will create a simple todo list.
 
 ![Todo List]({{< static "images/todolist.png" >}})
 
-A todo list is interesting because it has user interface elements with independent lifetimes.
+A todo list is interesting because it has user interface elements with __independent lifetimes__.
 When we start, our list is empty.
 The visible interface elements are the header for adding new items and a footer for the remaining items.
 After we click Save, a new item will appear with a checkbox for completing it, and a button for deleting it.
@@ -17,8 +17,8 @@ This is a powerful and practical technique that gives Behavior Graph a unique ex
 
 ## Initial Code
 
-We have created a starter project on [Replit](https://replit.com/@slevin1/Behavior-Graph-Java-Tutorial-3?v=1).
-You should use that for this tutorial.
+The recommended way to get started is to use our [preconfigured tutorial site](https://replit.com/@slevin1/Behavior-Graph-Java-Tutorial-3?v=1).
+
 It has some simple Swing code to represent the Todo List's user interface.
 If you wish to use your own environment you will need to copy the java files from this project to your environment.
 
@@ -154,15 +154,15 @@ Next we modify our saving behavior to update this list.
         });
 {{< / highlight >}}
 
-We add a `supplies()` clause which includes `allItems` because we will be updating it inside this behavior.
-Whenever we create a new item we will append that `ItemExtent` instance to the end of its ArrayList via its `.value` property and the built in `.add()` method.
+We add a `.supplies()` clause which includes `allItems` because we will be updating it inside this behavior.
+Whenever we create a new item we will append that `ItemExtent` instance to the end of its ArrayList via its `.value()` property and the built in `.add()` method.
 It is typical when working with extents that come and go to store them in a state resource or a collection inside a state resource.
 
 Lastly, we call `.updateForce()` with the same array list instance.
 `.updateForce()` says, I don't care if what I'm putting in here is the same as it was before, I still want you to notify any demanding behaviors.
 
 We cannot just call `.update()` because even though the contents of the array list have changed, it is still the same array list instance.
-`.update()` automatically filters out updates when the old value `===` the new value.
+`.update()` automatically filters out updates when the old value `.equals()` the new value.
 This is usually what we want, but sometimes we need something different.
 `.updateForce()` works identically but ignores this equality check.
 This is a common pattern when storing mutable collections inside a resource.
@@ -172,7 +172,7 @@ This is a common pattern when storing mutable collections inside a resource.
 Adding an item still doesn't update the UI to match.
 Inside our `ItemExtent` we already created an instance `ItemUI` which contains the Swing code for an individual item.
 
-So now we need to tell our list about this new component.
+So now we need to tell our list ui object about this new component.
 
 {{< highlight java "hl_lines=4-7">}}
   item.addToGraph();
@@ -192,7 +192,7 @@ Run it.
 Try adding some items by typing in the box and clicking Save.
 It seems to add items but we only see empty text.
 
-We can fix that by using `getDidAdd()` built in resource.
+We can fix that by using a `getDidAdd()` built in resource.
 
 Inside `ItemExtent.java` we create a new behavior.
 
@@ -385,15 +385,10 @@ Now our feature is spread across multiple classes.
 And when we add a way to remove items we will need to involve another code-path.
 This type of spread out logic is a real challenge for developers.
 It is incredibly easy to miss a case.
-
-But, as we said above, the Behavior Graph implementation combines the remaining count functionality into one place.
-There is only one place to read to understand it.
-There is only one place to change it.
-
-Production software is significantly more complex than this trivial example.
 Most developers are swimming in control flows like this.
-Behavior Graph lets us collect the "what" and the "why" all together in the same behavior.
-The problem literally disappears.
+
+But, as we said above, the Behavior Graph implementation combines the remaining count functionality into a single block of code.
+Behavior Graph lets us collect the "what" _and_ the "why" together in the same behavior.
 
 ## Deleting Items
 
@@ -415,7 +410,7 @@ Inside `ItemExtent` we add some button click handling.
 {{< / highlight >}}
 
 This handles a Swing event and updates the `removeItem` resource on `ListExtent` (which we haven't added yet).
-It is common to interact with resources on other extents and a source of conceptual power.
+It is common to interact with resources on other extents.
 Here we are saying, "this list item is requesting to be removed."
 
 Note that each `ItemExtent`'s Delete button updates the same `list.removeItem` resource.
@@ -518,7 +513,7 @@ Inside `ItemExtent` add another handler.
     });
 {{< / highlight >}}
 
-`selectRequest` (which is a resource we haven't yet added on our `ListExtent`) updates with the list item that was clicked as its `.value`. (`ItemExtent.this` let's us point to the outer this, not the `MouseAdapter` this.)
+`selectRequest` (which is a resource we haven't yet added on our `ListExtent`) updates with the list item that was clicked as its `.value()`. (`ItemExtent.this` let's us point to the outer `this`, not the `MouseAdapter` `this`.)
 
 Inside `ListExtent` we add the related resources and a corresponding behavior.
 
@@ -542,7 +537,7 @@ Next we add a behavior that updates `selected` based on which item we clicked on
     behavior()
         .supplies(selected)
         .demands(selectRequest)
-        .runs(ctx -> {
+        .runs(ext -> {
           if (selectRequest.justUpdated()) {
             selected.update(selectRequest.value());
           }
@@ -604,7 +599,7 @@ Inside `ListExtent` we modify our `selected` behavior.
     behavior()
         .supplies(selected)
         .demands(selectRequest)
-        .runs(ctx -> {
+        .runs(ext -> {
           if (selectRequest.justUpdated()) {
             if (selected.value() == selectRequest.value()) {
               selected.update(null);
@@ -633,7 +628,7 @@ Continuing to edit our `selected` behavior in `ListExtent`
     behavior()
         .supplies(selected)
         .demands(selectRequest)
-        .runs(ctx -> {
+        .runs(ext -> {
           if (selectRequest.justUpdated()) {
             if (selected.value() == selectRequest.value()) {
               selected.update(null);
@@ -643,7 +638,7 @@ Continuing to edit our `selected` behavior in `ListExtent`
           }
 
           if (selected.justUpdated()) {
-            sideEffect(ctx1 -> {
+            sideEffect(ext1 -> {
               listUI.setSelected(selected.value());
             });
           }
@@ -680,15 +675,15 @@ We want to prevent that from happening when we are in editing mode.
 {{< / highlight >}}
 
 At the time we click the Save button, we want to know if we are in editing mode or not.
-We could check `selected.value` to see if it is null (ie not editing).
+We could check `selected.value()` to see if it is null (ie not editing).
 However, here we use `selected.traceValue()` instead.
-`.traceValue()` is the value of the resource at the beginning of the graph event (the instant the action started).
-So if `selected` updates this event, `.traceValue` will still return what it was before it changed.
+`.traceValue()` is the value of the resource _at the beginning of the graph event_ (the instant the action started).
+So if `selected` updates this event, `.traceValue()` will still return what it was before it changed.
 
 This also removes the requirement that we demand `selected` in this behavior.
 Here we care if an item is "already selected", not that something was "just selected".
 So we don't need it as a demand.
-`.traceValue` of any resource is always accessible by any behavior without demanding (or supplying) it.
+`.traceValue()` of any resource is always accessible by any behavior without demanding (or supplying) it.
 
 The `if` check ignores the `save` click when there's something already selected.
 
@@ -696,7 +691,7 @@ The `if` check ignores the `save` click when there's something already selected.
 
 Now we can add a new behavior inside `ListExtent` that responds to our save and updates the text of the selected item.
 
-{{< highlight javascript "hl_lines=8-19">}}
+{{< highlight java "hl_lines=8-19">}}
           if (selected.justUpdated()) {
             sideEffect(ctx1 -> {
               listUI.setSelected(selected.value());
@@ -727,7 +722,7 @@ Whenever we add our remove an item, this behavior will adjust to include or remo
 We will supply all of them because any one of them might become selected.
 When the user clicks the Save button, this behavior will update the `itemText` on the selected item to whats inside the text field.
 
-Notice that we use `selected.traceValue` again here, so it is not part of the demands.
+Notice that we use `selected.traceValue()` again here, so it is not part of the demands.
 We want which item was selected at the time `save` was updated (as opposed to after we're done saving).
 We also do not need this behavior to run when `selected` updates.
 
@@ -754,7 +749,7 @@ Hints:
 
 We can modify our `selected` behavior inside `ListExtent`.
 
-{{< highlight javascript "hl_lines=3 11-13">}}
+{{< highlight java "hl_lines=3 11-13">}}
     behavior()
         .supplies(selected)
         .demands(selectRequest, save)
@@ -787,4 +782,4 @@ This is what `traceValue` provides.
 ## Congratulations
 
 Congratulations! You have completed the third tutorial.
-You can see the [finished tutorial code here](https://jsfiddle.net/slevin11/vdu25ar9/).
+You can see the [finished tutorial code here](https://replit.com/@slevin1/Behavior-Graph-JVM-Tutorial-3#Completed/ListExtent.java_completed).
