@@ -107,7 +107,7 @@ Our `person` resource has an initial value of `"Nobody"`.
 
 This is a __Behavior__.
 Behaviors are units of functionality.
-We create them with the `.behavior()` factory method that uses a fluent [`BehaviorBuilder`]({{< ref "api#behaviorbuildert" >}}) API.
+We create them with the `.behavior()` factory method that uses a fluent [`BehaviorBuilder`]({{< ref "api#behaviorbuilder" >}}) API.
 
 This behavior has two parts.
 The `.demands()` clause states that this behavior depends on the resource `person`.

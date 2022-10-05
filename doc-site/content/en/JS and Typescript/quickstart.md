@@ -65,7 +65,7 @@ Type declaration files are provided for all APIs.
 
 ## Tutorials
 
-It is unlikely you will get very far with Behavior Graph without working through a [tutorial]({{< ref "tutorials/tutorial-1" >}}).
+It is unlikely you will get very far with Behavior Graph without working through a [tutorial]({{< ref "tutorial-1" >}}).
 Please spend some time with them to practice writing Behavior Graph code.
 They don't take very long. We promise you will be mentally stimulated and spiritually rewarded for your time.
 

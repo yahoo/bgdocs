@@ -10,28 +10,14 @@ Implemented it in ObjectiveC and the speedup was noticeable.
 
 Would also permit value objects.
 
-| | |
-| ----- | ----- |
-| Versions | all |
-| Priorities | performance, native |
-| Impact | High |
-| Confidence | Medium-High |
-| Effort | Medium-High |
-
-
+Do it? Probably
 
 ### More C in ObjC version
 
 More C in the ObjC version would make it faster.
 If it were all C it could be the base of C++ and Swift versions as well.
 
-| | |
-| ----- | ----- |
-| Versions | objc |
-| Priorities | performance, native |
-| Impact | Medium |
-| Confidence | Low |
-| Effort | High |
+Do it? Maybe
 
 ### Better Remove
 
@@ -39,81 +25,58 @@ Delete in bulk would reduce resorts.
 Would also eliminate the need to unwind links to other removed extents.
 Extent removal could be done outside of events and queued for the next event so a bunch of dealloc/finalizer calls could group removes together.
 
-| | |
-| ----- | ----- |
-| Versions | all |
-| Priorities | performance |
-| Impact | Medium |
-| Confidence | Low |
-| Effort | Low |
+Partially implemented with lifetimes in ts and kotlin versions.
+Could still do removals outside events.
+
+Do it? Probably
 
 ### Group together dynamic relinking behaviors
 
 Each dynamic behavior creates its own relinking behavior but there is likely several dynamic behaviors that relink on the same switching resources. The code could combine those for possibly some performance benefit.
 
-* Impact: Medium-Low
-* Effort: Medium-Low
-
-### Incomplete Remove in Kotlin
-
-Kotlin has the prior implementation of extent removal code which can leave some links leading to some retained objects.
-
-* Impact: Medium-Low
-* Effort: Low
+Do it? Yes
+To do: Swift, Kotlin, TS
+Done: Objc
 
 ### Lazy Resource name Loading
 
 All versions do some form of creating debug names for the resources using reflection. This happens once when the extent is created so its not particularly slow but in production these names aren't needed so the reflection could be reserved until needed.
 
-* Impact: Medium-Low
-* Effort: Medium-Low
+Do it? Probably
 
 ### Events as Value Types
 
 Could compact sequence numbers by having internal reference counting of events as value types and then periodically resequence them if we thought sequence numbers would run out.
 
+Do it? Maybe
+
+### Multithreading
+
+Swift handles mutlithreading fairly well.
+But it needs a few refinements: run tasks on behavior graph queue to get stable state, specify side effect queue, ability to check current state on background threads
+
+Port this to kotlin as well. Maybe objective c.
+
+Do it? Probably
+To do: Kotlin, Swift
+
 ## Better API / Usability
 
-### Change Behavior API to supplies then demands
+### BehaviorBuilder API
 
-Because supplies are unique to behaviors they better uniquely identify the behavior and are therefore could make the code easier to scan.
+Swift should use builder API for behaviors. Kotlin & Typescript use it.
+Ojbc might need a different approach.
 
-Because its a difference in THE primary API call it would be better to do before open sourcing.
+Do it? Yes
+To do: Swift, objc?
+Done: kotlin, TS
 
-* Impact: Medium
-* Confidence: Medium-Low
-* Effort: Medium (easy to change, lots of migration work)
+### Ability to Turn off Naming
 
-### Kotlin needs Added API
+Need a switch for disabling automatic resource debug names in production.
 
-Typescript and Objc have a resource that updates when extent is added. This resource can be used to run behaviors when extent is added.
-
-Ideally done before Open Sourcing.
-
-### Remove behavior autorun
-
-Behaviors should only run when their demanded resources update for consistency. Objc and Kotlin still have autorun on.
-
-* Platforms: Kotlin, Objc
-
-### traceValue to startValue
-
-startValue is a more intuitive name
-
-* Platforms: all
-
-### Dynamic behavior API
-
-Port Objc dynamicBehavior method
-
-* Platforms: typescipt, kotlin
-
-### Missing demand checks
-
-Objc has a check for missing demands that can be turned off in production because it comes with some performance cost.
-It doesn't exist in typescript or kotlin but its very useful.
-
-* Platforms: typescript, kotlin
+Do it? Yes
+To Do: kotlin, TS, Swift 
 
 ### Improve Unit Testability
 
@@ -123,20 +86,22 @@ This could be done by:
 1) Enabling tests to update resources directly
 2) Enable tests to check resources and events before they are cleared at the end of the event (for things like justUpdated).
 
-### Tiered Demands
+### Subsequent Relinking
 
-Could improve performance and precision by allowing developers to say a demanded resource is just an ordering resource which means updates don't activate the demanding behavior.
+Do it? Yes
+To do: Objc
+Done: swift, kotlin, TS
+
+### Ordering Demands
+
+Do it? Yes
+To do: Swift
+Done: Objc, swift, kotlin
 
 ### Nested Lifetimes
 
 Ability to specify when extents have a lifetime that is strictly bounded by a parent extent.
 Then when the parent is removed all the children are removed.
-
-This would possibly improve performance with bulk removals.
-Also could eliminate some extra work from developer.
-Also would allow 
-
-### Incompatible lifetime checks
 
 If a behavior links to a resource that doesn't have the same or longer lifetime then it needs to be a dynamic link.
 So resources in the same or parent extents (see Nested Lifetimes) would be static.
@@ -144,40 +109,43 @@ So resources in the same or parent extents (see Nested Lifetimes) would be stati
 This would ensure resources don't disappear on the behavior.
 Might also eliminate some work while removing extents.
 
+Do it? Probably
+To do: Swift, objc
+Done: TS, kotlin
+
 ### Graph lifecycle hooks
 
 eventBegin, eventEnd, sideEffectsBegin, sideEffectsEnd
 
 These could be useful for integrating with existing code or frameworks.
 
+Do it? Maybe
+
 ### setDynamicDemands/Supplies
 
 Right now setDemands/Supplies overwrites all demands/supplies. setDynamicDemands/Supplies could overwrite just the dynamic ones and leave the static ones.
 This would be for dynamicBehaviors.
+
+Do it? Yes
+To do: Swift, objc
+Done: TS, kotlin
 
 ### Pluggable Events
 
 Events currently have a sequence and a datetime.
 Its possible the developer would like to thread other information or multiple datetimes into the events.
 
-### Optional BG Debug Strings 
-
-Objc version has defines for removing debug strings in production builds (to some degree).
-Would be nice to have this information compile out entirely in production.
-
-Kotlin and typescript have no options in this regard.
-Objc compiles out resource names but does include impulse names.
+Do it? Maybe
 
 ### Dynamic debug info with extents
 
 Extents capture abstractions in the model.
 We should be able to provide them with dynamic debug information to capture what they are abstracting during debug.
 
-### Catch leaked side effects
+For example an extent would abstract a single participant in a chat in general.
+And a specific extent instance would model a particular participant, so we should be able to see thatn in debug messages.
 
-Objc has code to catch actions that are created during behaviors.
-This is usually a mistake.
-Kotlin and Typescript should catch this as well.
+Do it? Probably
 
 ### Type support for how Resources can be used
 
@@ -191,11 +159,41 @@ This way an extent could expose several resources as readonly and the typesystem
 
 Another enhancement could distinguish resources that were meant to be supplied by a behavior vs ones that could be updated inside actions.
 
+Do it? Maybe
+
+### Aggregate Aware resources
+
+Does it make sense to have resources that understand maps and arrays and sets?
+EG They have built in moments like `somethingAdded`, `somethingRemoved`, `contentUpdated(element)`
+
+Tracking sub elements as individual resources does conflict with extents being the language of lifetimes.
+ 
+### What does a recursive behavior look like?
+
+Perhaps a subsection could be rerun to express a loop if we knew it had a specific set of dependencies?
+
+### nil aware updatedTo/From methods
+
+It's often the case that we check if something updated to or from nil: `updatedToSomething`, `updatedToNothing`
+
+`updatedFromSomethingElse` means changed and previous wasn't nil
+
+etc
+
+
+
+### Combinators
+
+if its common to take the value from any one of several resources or some boolean combination of several then maybe a built in behavior for that is interesting.
+
+### Restrict demand changing to a single behavior
+
+Right now there's no native understanding that demands/supplies change in particular places.
+The graph doesn't enforce any rules around what can change the shape of the graph.
+Would it help to be explicit? Would that prevent errors by allowing changing demands from only one other behavior?
+
+
 ## Project Management
-
-### Open Source Behavior Graph
-
-This is necessary to get enough feedback on areas for improvement.
 
 ### Swift version
 
@@ -208,10 +206,12 @@ People will need ideas and know how to contribute.
 
 ## Documentation
 
-### API Documentation
+Update Docs to newest versions.
+API, Tutorials
 
-Although the API is relatively small and is covered by the reference guide, it is a format that people expect.
-We should have that API documentation in a format that people expect and compatible with their tooling/IDEs.
+Do it? Yes
+To do: Objc, Swift, Kotlin
+Done: TS
 
 ### Glossary and Communication Guide
 
@@ -227,10 +227,6 @@ There should be documentation that demonstrates these.
 
 A quick 5 minute video with animations could go a long way towards helping developers get the general idea with a miniumum investment of time.
 
-### Tutorials
-
-A very basic step by step tutorial that focuses on getting a real app working on the different platforms would help some users get started.
-
 ### Document Dynamic Behaviors
 
 The new API isn't documented yet
@@ -239,18 +235,40 @@ The new API isn't documented yet
 
 Not documented yet
 
-### Antora
-
-Docs are written in Asciidoc.
-We could use Antora to generate the complete documentation set.
-
 ### Automated Documentation
 
 Right now the docs are hand generated from the commandline but that could be part of CI.
 
-### Doc on what we mean by Interactive Software
+### Game that teaches BG fundamentals
 
-### Detailed Doc on Benefits of Behavior Graph
+A set of puzzles that guide the user through the core concepts.
+Inspiration: Rocky's Boots, Robot Odyssey, Advent of Code
+
+### Way to explain BG in a non-computer way
+
+Fundamentally about providing a language for describing how separate tasks are related.
+That should be describable with some animations on a web site that one could show to people on a phone.
+Or drawings on a napkin.
+
+
+### Needed Patterns Examples
+
+* didAdd & baking in state (state's initial value shouldn't precalculate work done by behaviors?)
+* mixing state and moment resources
+
+### Needed Guides
+
+* dynamic behaviors and extents
+* migrating: working back from site effects
+* fixing cycles
+* error messages and how to fix them
+
+### Needed Tutorials
+
+* errors and debugging
+* swift playgrounds
+
+
 
 ## Tooling
 
@@ -258,6 +276,7 @@ Right now the docs are hand generated from the commandline but that could be par
 
 * Intellij could probably navigate the graph across resources and behaviors
 * Intellij debugger could probably display useful information as the behaviors run
+* filter out BG internals frames
 
 ### Improved Xcode Integration
 
@@ -270,7 +289,11 @@ Same idea
 
 ### debugHere for Kotlin/Typescript
 
-debugHere is a useful debugging command in Objc.
+debug console debug printing (debugHere)
+
+Do it? Yes
+To do: TS, Kotlin, Swift
+Done: objc
 
 ### BG Serializer
 
@@ -278,17 +301,39 @@ Being able to serialize all the BG Activity so it could be played back on differ
 
 Currently it is difficult to test performance on a typical Behavior Graph app because we have no large apps in Typescript/Kotlin to test on.
 
+Do it? Probably
+
 ### Conceptual Debugger
 
 Could make an entire debugging/visualizing tool that could use a serialized output of the behavior graph to give a live view into resources and behaviors and focus in on specific areas.
+
+A way to step through behaviors.
+
+Do it? Probably
 
 ### Behavior Graph Diagrams Tool
 
 Being able to quickly generate a visual diagram of a handful of behaviors would be useful documentation for explaining certain areas of functionality.
 
+Do it? Maybe
+
 ### Logging
 
 Could have a default logger that spits out all behavior graph activity including resource updates.
+
+Do it? Probably
+
+### Custom Instruments for Apple Instruments
+
+Could analyze most common behaviors and performance bottlenecks
+
+[Custom Instruments (WWDC Video)](https://developer.apple.com/videos/play/wwdc2018/410)
+
+### Better retain cycle visibility
+
+### Log analysis for Antipatterns
+
+If there were standard logging then we could provide tooling for looking at those logs and say things like: "this looks suspicious" or "there's a bottleneck right here".
 
 ## Other
 
@@ -296,12 +341,52 @@ Could have a default logger that spits out all behavior graph activity including
 
 Right now Objc tests have evolved through different versions of Behavior Graph and the code it was built for so they do not get to the heart of modern Behavior Graph functionality effectively. There's likely many redundant tests.
 
-Typescript tests are a good mode with excellent coverage.
-
-Kotlin tests are slightly behind Typescript and need updating.
+Do it? Yes
+To do: Objc
+Done: Kotlin, Swift, TS
 
 ### Better Way to Organize Behaviors
 
 Search and navigation tools work better for behaviors similar to how Google better organizes the web than old Yahoo hierarchies.
 
 However, developers are used to organizing code in hierarchies so we should find better ways to accommodate that.
+
+### Static graphs
+
+If a graph doesn't change shape, in theory we could compile it down to code that doesn't need a graph run time.
+
+For partially dynamic graphs we might be able to improve performance of just the static parts.
+
+### Performance hints?
+Are there ways of saying that we sort of know the shape of the graph? Perhaps we made room between existing ordering so extents coming and going don't necessarily force a reorder of some common demanding behavior. Seems likely.
+
+### Track trace demands
+
+Right now we can just leave trace demands out of demands lists.
+This is fine for runtime but it doesn't provide visibility into relationships with other tooling.
+
+### Hungarian-like notation for moments and state resources
+
+Sometimes its hard to tell if we are talking about a moment or a state because of English ambiguity.
+ 
+### Other languages
+
+c++, c#, D, Python, Clojure, etc
+
+### Database style resources
+
+Design is oriented towards extents as structures of resources.
+But resources could all live in database like data structure with concurrency guarantees or snapshotting or rolling back.
+
+If we used handles this could be compatible with existing resources.
+
+### Does it make an interesting Unity library
+
+Games may be a good audience
+
+### What does a language native BG API look like?
+
+Could use Graal to add to existing language
+
+
+

@@ -1,4 +1,4 @@
-import com.yahoo.behaviorgraph.*
+import behaviorgraph.*
 
 // @tag::chat_extent[]
 class ChatExtent(graph: Graph) : Extent<ChatExtent>(graph) {

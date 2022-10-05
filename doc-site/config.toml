@@ -1,4 +1,4 @@
-baseURL = "https://yahoo.github.io/bgdocs/docs/typescript/"
+baseURL = "https://yahoo.github.io/bgdocs/docs"
 title = "Behavior Graph"
 
 ignoreFiles = ["community", "blog", "about", "docs2", "ignore", "\\.bak$"]
