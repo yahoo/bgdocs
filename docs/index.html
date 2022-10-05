@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.97.3" />
+<link rel="alternate" type="application/rss&#43;xml" href="https://yahoo.github.io/bgdocs/docs/index.xml">
+<meta name="robots" content="index, follow">
+
+
+<link rel="shortcut icon" href="/bgdocs/docs/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/bgdocs/docs/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-192x192.png" sizes="192x192">
+
+<title>Behavior Graph</title>
+<meta name="description" content="Behavior Graph lets you build your programs out of small, easily understood pieces in a way that lets the computer do more of the work for you.
+It is …">
+<meta property="og:title" content="Behavior Graph" />
+<meta property="og:description" content="Behaior Graph Documentation" />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://yahoo.github.io/bgdocs/docs/" /><meta property="og:site_name" content="Behavior Graph" />
+
+<meta itemprop="name" content="Behavior Graph">
+<meta itemprop="description" content="Behaior Graph Documentation"><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Behavior Graph"/>
+<meta name="twitter:description" content="Behaior Graph Documentation"/>
+
+
+
+
+<link rel="preload" href="/bgdocs/docs/scss/main.min.209ee91954d0f2f182770e6c71011a5580360636bcf2a9bcf7f1c3da478784ff.css" as="style">
+<link href="/bgdocs/docs/scss/main.min.209ee91954d0f2f182770e6c71011a5580360636bcf2a9bcf7f1c3da478784ff.css" rel="stylesheet" integrity="">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-home">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/bgdocs/docs/">
+		<span class="navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zm7.993 21.8577c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="font-weight-bold">Behavior Graph</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"></div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-bgdocsdocs-li">
+  <a href="/bgdocs/docs/" title="Behavior Graph" class="align-left pl-0 active td-sidebar-link td-sidebar-link__section tree-root" id="m-bgdocsdocs"><span class="td-sidebar-nav-active-item">Documentation</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-bgdocsdocsjs-and-typescript-li">
+  <a href="/bgdocs/docs/js-and-typescript/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-bgdocsdocsjs-and-typescript"><span class="">JS and Typescript</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptquickstart-li">
+  <a href="/bgdocs/docs/js-and-typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptquickstart"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptcode-example-li">
+  <a href="/bgdocs/docs/js-and-typescript/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptcode-example"><span class="">Code Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptapi-li">
+  <a href="/bgdocs/docs/js-and-typescript/api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptapi"><span class="">API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-1-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-1/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-1"><span class="">Tutorial 1 - Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-2-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-2"><span class="">Tutorial 2 - IO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-3-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-3/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-3"><span class="">Tutorial 3 - Extents</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-bgdocsdocsjvm-li">
+  <a href="/bgdocs/docs/jvm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-bgdocsdocsjvm"><span class="">JVM and Android</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmquickstart-li">
+  <a href="/bgdocs/docs/jvm/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmquickstart"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmcode-example-li">
+  <a href="/bgdocs/docs/jvm/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmcode-example"><span class="">Code Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmapi-li">
+  <a href="/bgdocs/docs/jvm/api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmapi"><span class="">API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-1-li">
+  <a href="/bgdocs/docs/jvm/tutorial-1/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-1"><span class="">Tutorial 1 - Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-2-li">
+  <a href="/bgdocs/docs/jvm/tutorial-2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-2"><span class="">Tutorial 2 - IO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-3-li">
+  <a href="/bgdocs/docs/jvm/tutorial-3/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-3"><span class="">Tutorial 3 - Extents</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsrelatedwork-li">
+  <a href="/bgdocs/docs/relatedwork/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsrelatedwork"><span class="">Related Work</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsquestions-li">
+  <a href="/bgdocs/docs/questions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsquestions"><span class="">Questions and Feedback</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+
+</div>
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#whos-it-for">Who&rsquo;s it for?</a></li>
+    <li><a href="#can-i-see-an-example">Can I see an example?</a></li>
+    <li><a href="#how-does-it-work">How does it Work?</a></li>
+    <li><a href="#small">Small</a></li>
+    <li><a href="#incremental">Incremental</a></li>
+    <li><a href="#scale">Scale</a></li>
+    <li><a href="#multiplatform">Multiplatform</a></li>
+    <li><a href="#obtaining-behavior-graph">Obtaining Behavior Graph</a></li>
+    <li><a href="#contact-us">Contact Us</a></li>
+    <li><a href="#contributing">Contributing</a></li>
+    <li><a href="#comparisons">Comparisons</a></li>
+    <li><a href="#challenges">Challenges</a></li>
+    <li><a href="#going-deeper-reactive-programming">Going Deeper: Reactive Programming</a></li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+			
+				
+			
+			
+
+
+
+  
+  
+
+		
+			
+				
+			
+			
+
+
+
+  
+  
+
+		
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="td-breadcrumbs td-breadcrumbs__single">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="https://yahoo.github.io/bgdocs/docs/">Documentation</a>
+  </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>Behavior Graph</h1>
+  
+	<header class="article-meta">
+		
+
+  
+    
+      
+
+
+    
+      
+
+
+    
+  
+
+		
+	</header>
+	<p>Behavior Graph lets you build your programs out of small, easily understood pieces in a way that lets the computer do more of the work for you.</p>
+<p>It is an architecture and supporting library that simplifies the type of complexity that comes with event-driven software, such as user facing applications and control systems.</p>
+<p>It&rsquo;s also a fun way to program.</p>
+<h2 id="whos-it-for">Who&rsquo;s it for?</h2>
+<p>It is particularly helpful for developers building:</p>
+<ul>
+<li>Web app front ends</li>
+<li>Mobile and desktop applications</li>
+<li>Control systems</li>
+<li>Robots</li>
+</ul>
+<p>We originally developed it for ourselves to use in a video playing library at Yahoo. Even though we had experienced engineers and excellent test coverage, we still struggled with the complexity of the codebase. Behavior Graph is our solution.</p>
+<p>It&rsquo;s also possible you&rsquo;re the type of person who likes nerdy new software ideas. (Seriously though, who doesn&rsquo;t, amirite?) If that&rsquo;s the case, we guarantee you will find Behavior Graph interesting.</p>
+<h2 id="can-i-see-an-example">Can I see an example?</h2>
+<p>Behavior Graph introduces a handful of new concepts.
+These concepts aren&rsquo;t difficult, but you will require some orientation than we can show in a single snipped.</p>
+<p>Please see Code Example for the relevant platform:</p>
+<ul>
+<li><a href="js-and-typescript/code-example">Javascript/Typescript</a></li>
+<li><a href="jvm/code-example">Java/Kotlin &amp; JVM/Android</a></li>
+</ul>
+<h2 id="how-does-it-work">How does it Work?</h2>
+<p>As programmers it&rsquo;s natural to partition our software into subtasks. For example, let&rsquo;s consider what happens on a typical login form.</p>
+<ol>
+<li>When a user clicks on the Login button, we want to validate the Email and Password fields.</li>
+<li>If validation passes, then we want to make a network call to log the user in.</li>
+<li>Additionally we want to update the UI to provide feedback in case the validation fails, or disable the login button while we are actively logging in.</li>
+</ol>
+<p>Most programming languages offer <strong>functions</strong> as the primary tool for creating these subtasks. Conceptually we have three subtasks. So we will create three corresponding functions: <code>validateFields</code>, <code>networkLogin</code>, and <code>updateUI</code>. We will also need an additional <code>onLoginClick</code> function to run these tasks. It will look like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">function</span> <span style="color:#000">onLoginClick</span><span style="color:#000;font-weight:bold">()</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">validateFields</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">networkLogin</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">updateUI</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">}</span>
+</span></span></code></pre></div><p>Our four functions are not independent, however. There are <strong>dependency relationships</strong> between them that need to be respected.</p>
+<ul>
+<li><code>validateFields</code> depends on <code>onLoginClick</code> being run.</li>
+<li><code>networkLogin</code> depends on <code>onLoginClick</code> being run, and it depends on the results of <code>validateFields</code>.</li>
+<li><code>updateUI</code> depends on the results of both <code>validateFields</code> and <code>networkLogin</code>.</li>
+</ul>
+<p>But looking at the code, there is nothing that says, <code>networkLogin</code> depends on <code>validateFields</code>. Instead, we implement this relationship by calling our functions in a specific order. If we were to call <code>networkLogin()</code> before <code>validateFields()</code>, the feature wouldn&rsquo;t work.</p>
+<p>So as long as we are organizing our code using only functions, we will need to implement part of our logic in terms of ordered function calls. This is because function definitions cannot express dependency relationships directly. There is no other way.</p>
+<p>We could do more by using parameters and return values (aka functional programming), but that still wouldn&rsquo;t remove the need to call these functions in a valid order. Calling something like <code>networkLogin(validateFields())</code> is still a sequence of function calls.</p>
+<p>It is the job of the developer to translate these dependency relationships into sequenced function calls. This requires time and effort:</p>
+<ul>
+<li>There&rsquo;s work to get it correct, which is often much more difficult than in our example here.</li>
+<li>Features inevitably change, which means dependencies inevitably change. So there&rsquo;s work in updating our existing sequences.</li>
+<li>When reading code, we must mentally translate back from function calls to the original dependency relationships. This is so we can understand the intent of the code. This is also work.</li>
+<li>And finally there&rsquo;s work fixing errors whenever any of these efforts go wrong.</li>
+</ul>
+<p>We&rsquo;re proposing that maybe all this work isn&rsquo;t necessary. What if function definitions <em>could</em> express dependency relationships?</p>
+<p><strong>Behavior Graph</strong> is a library that provides this alternative. It introduces a new unit of code organization called the <strong>behavior</strong>. It is a block of code together with its dependency relationships.</p>
+<p>Unlike functions, behaviors are never called directly. Instead, behaviors declare their interfaces using reactive containers of data called <strong>resources</strong>. When data in these resources changes, Behavior Graph knows that any dependent behaviors need to run. Behaviors together with resources form a graph. (A graph of behaviors! Get it?!)</p>
+<p>This gives us:</p>
+<ol>
+<li><em>Control flow for free</em>: The computer uses the dependency relationships to run our behaviors in the correct sequence. This works just like spreadsheet formulas.</li>
+<li><em>Ease of maintenance</em>: Requirements inevitably change. This means dependencies change. Control flow automatically adapts.</li>
+<li><em>Legibility</em>: Dependency relationships are explicit. We can look at a behavior and immediately see how it interfaces with other behaviors. This is unlike function definitions which are linked via calls in some other part of the program.</li>
+</ol>
+<p>Behavior Graph isn&rsquo;t a replacement for functions. (We wrote it with functions, hello!) Instead it gives us higher level abstractions for partitioning our code into subtasks. It lets us say &ldquo;these two blocks of code are related and here&rsquo;s how&rdquo;. And with that information the computer is able to run things for us. And humans are better able to infer the intent of the code.</p>
+<h2 id="small">Small</h2>
+<p>Behavior Graph is a small library. It&rsquo;s around 1500 lines of formatted code.</p>
+<h2 id="incremental">Incremental</h2>
+<p>It is easy to introduce into a codebase incrementally. It is designed to work side by side with existing code. We went through this incremental migration process ourselves.</p>
+<h2 id="scale">Scale</h2>
+<p>A complex codebase is exactly where it brings the most benefit. Our team uses it daily in a codebase where the status quo wasn&rsquo;t good enough.</p>
+<h2 id="multiplatform">Multiplatform</h2>
+<p>Behavior Graph has been ported to multiple platforms.</p>
+<ul>
+<li>Javascript/Typescript: <a href="https://github.com/yahoo/bgjs">bgjs</a></li>
+<li>Objective-C: <a href="https://github.com/yahoo/bgobjc">bgobjc</a></li>
+<li>Swift: <a href="https://github.com/yahoo/BGSwift">BGSwift</a></li>
+<li>Kotlin/Android: <a href="https://github.com/yahoo/bgkotlin">bgkotlin</a></li>
+</ul>
+<h2 id="obtaining-behavior-graph">Obtaining Behavior Graph</h2>
+<p>Please see the Getting started guide for your relevant platform</p>
+<ul>
+<li><a href="js-and-typescript/quickstart">Javascript/Typescript</a></li>
+<li><a href="jvm/quickstart">Java/Kotlin &amp; JVM/Android</a></li>
+</ul>
+<h2 id="contact-us">Contact Us</h2>
+<p>We really do need help and we really do like talking about Behavior Graph.
+Discord is a good place for that.</p>
+<p><a href="https://discord.gg/5mvat8tc7d">Behavior Graph Discord</a></p>
+<h2 id="contributing">Contributing</h2>
+<ul>
+<li>Yes, there are many interesting areas for contribution. Please ask us.</li>
+<li>Don&rsquo;t just make a pull request. Talk to us first. We don&rsquo;t want to see you put in effort on something that won&rsquo;t get accepted.</li>
+</ul>
+<h2 id="comparisons">Comparisons</h2>
+<p>Behavior Graph builds on concepts from <a href="https://en.wikipedia.org/wiki/Reactive_programming">reactive programming</a>. It uses the same underlying idea to automate control flow by using existing dataflow dependencies.</p>
+<p>However, programming with Behavior Graph feels different than when using other reactive programming libraries. It is not functional reactive programming. It is not built around streams. And it is not optimized for assembling observable chains of data transformations.</p>
+<p>Behavior Graph is also not a reactive UI library. You should continue to use your preferred UI framework of choice.</p>
+<p>Instead Behavior Graph gives developers a tool for organizing their software around dependency relationships. We consider the following features essential for this:</p>
+<ul>
+<li><strong>Bipartite Graph</strong>: Behavior Graph separates reactive blocks of code, <em>behaviors</em>, from reactive containers of data, <em>resources</em>. Behaviors can update multiple resources independently. Their relationships can vary dynamically at runtime. They can exist in separate modules and with separate lifetimes.</li>
+<li><strong>Imperative Friendly</strong>: Many reactive libraries have a strong functional programming flavor. This can lead to added friction when working with non-reactive code. Behavior Graph is designed to be compatible with existing imperative code and APIs. The code inside behaviors is as imperative as you like. We provide ways to create side effects and mutate state. You are free to read the contents of resources from external code.</li>
+<li><strong>Explicit</strong>: Behaviors declare their relationships explicitly. This aids in navigation and readability in large codebases. Reading and writing reactive data does not look like normal variable access. Reactive variables are not the same as normal variables and we prefer presenting them that way.</li>
+<li><strong>Error Detection</strong>: By understanding the underlying graph, the computer is able to detect errors for us. Behavior Graph tells us when we have specified our dependencies incorrectly.</li>
+<li><strong>Glitch Free</strong>: Glitches occur when multiple dependency paths result in the same reactive code getting run twice. Behavior Graph does not have glitches.</li>
+<li><strong>Transactional</strong>: Side effects are always postponed until after all other reactive code has completed to ensure consistent state. Reactive events are serialized to prevent side effects from leaking new reactive events into the current event.</li>
+<li><strong>A Language for Change</strong>: We can ask a resource if it &ldquo;just updated&rdquo; and &ldquo;what it updated from&rdquo;.</li>
+<li><strong>Dynamic Graph</strong>: Dependencies are dynamically updatable. Different parts of a running program which have different lifetimes can all be part of the same graph.</li>
+</ul>
+<h2 id="challenges">Challenges</h2>
+<p>There&rsquo;s always trade-offs with any programming paradigm (even the one that ships with your preferred programming language). We have worked hard to keep Behavior Graph from forcing you into a corner. It is designed to be compatible with existing code.</p>
+<p>Wherever you feel friction, just don&rsquo;t use it.</p>
+<p>Here are some challenges based on our own experience using it daily:</p>
+<ul>
+<li>You need to learn it. As will people who work on the same code. Sorry, there&rsquo;s no way around this.</li>
+<li>Not all problems are dependency problems. You will be surprised how much of your code can be effectively organized into behaviors. At the same time you will need to develop a sense of where it isn&rsquo;t needed.</li>
+<li>Dependency cycles happen. They can be tricky. Behavior Graph lets you know where they are and offers some debugging tools to help visualize it. But it&rsquo;s still up to you to fix it. This requires leaning back in your chair and thinking.</li>
+<li>Debugging is different. We&rsquo;ve noticed that the first tool programmers reach for when they run into an error is the stack frame debugger. They want to figure out <em>why</em> the current line of code is running. With Behavior Graph this information is no longer on the stack. Programmers need to learn to use the tools Behavior Graph provides for this. We think there&rsquo;s room for interesting innovation here.</li>
+<li>It is a library. It&rsquo;s impossible to avoid seeing some of its internals inside stack traces and errors. We think there&rsquo;s room for interesting innovation here as well.</li>
+<li>Performance. Behavior Graph is plenty fast, but it is doing some work for you. And some work takes more than zero time. If you are writing high performance code (ie nanosecond time-frame), we recommend you use the proper tools for the job.</li>
+</ul>
+<h2 id="going-deeper-reactive-programming">Going Deeper: Reactive Programming</h2>
+<p>If you search on the internet for &ldquo;what is reactive programming&rdquo; you are likely to end up more confused than before you searched. For us, the benefits are all about simplifying control flow. We can see this in spreadsheet formulas. They are an easy example of how reactive programming improves the user experience.</p>
+<p>In spreadsheet software, a formula often depends on the contents of other cells. When the contents of those cells change, the formula that depends on them is rerun. The formula&rsquo;s cell then updates with the new results. This updated cell then causes any formulas that depend on it to rerun. This process cascades across the cells in the spreadsheet. Formulas run at the correct time because the computer has automated the control flow for us. It knows how to do this because the formulas already specify what other cells they depend on.</p>
+<p>Now, let&rsquo;s imagine a different type of spreadsheet program. In this one, the program does <em>not automatically run</em> formulas for us. Instead it requires us to do this manually. After we type in a formula for what a cell should display, we also need to type in which formulas should run whenever it updates. For example, if cells <code>B1</code> and <code>C1</code> depend on <code>A1</code>, then the formula for <code>A1</code> needs to explicitly tell them to run. This might look like this:</p>
+<pre tabindex="0"><code class="language-excel" data-lang="excel">A1 := 1 / 1000
+      runFormulaFor(B1)
+      runFormulaFor(C1)
+</code></pre><p>That&rsquo;s it. That&rsquo;s the feature. Would you switch to this new spreadsheet program?</p>
+<p>No, because it&rsquo;s bad idea.</p>
+<p>Even if we get the control flow correct, every change we make comes with potential control flow errors. We need to mentally walk backwards and forwards along some implicit dependency graph to ensure that formulas are still running in the correct order. For example, what would happen if someone else comes along and changes the formula for <code>B1</code> so that it also depends on <code>C1</code>? The formula for <code>A1</code> becomes wrong because it&rsquo;s calls are in the wrong order. We need to run the formula for <code>C1</code> first. Maintaining a large spreadsheet like this would be madness.</p>
+<p>But this is exactly what we do as programmers on a daily basis.</p>
+
+        <div class="section-index">
+    
+    
+    
+    
+    
+    
+    
+    
+    <hr class="panel-line">
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="/bgdocs/docs/relatedwork/">Related Work</a>
+                </h5>
+                <p></p>
+            </div>
+        
+            
+            <div class="entry">
+                <h5>
+                    <a href="/bgdocs/docs/questions/">Questions and Feedback</a>
+                </h5>
+                <p></p>
+            </div>
+        
+    
+</div>
+
+	
+	
+	
+</div>
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Yahoo All Rights Reserved</small>
+        
+	
+		
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js" integrity="sha512-JERecFUBbsm75UpkVheAuDOE8NdHjQBrPACfEQYPwvPG+fjgCpHAz1Jw2ci9EXmd3DdfiWth3O3CQvcfEg8gsA==" crossorigin="anonymous"></script>
+
+
+
+
+<script src='/bgdocs/docs/js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/bgdocs/docs/js/main.min.5502966e44e76d09efb092d4e61f653fa0b492b7bc6e75bab1ce6752810dde8d.js" integrity="sha256-VQKWbkTnbQnvsJLU5h9lP6C0kre8bnW6sc5nUoEN3o0=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>
