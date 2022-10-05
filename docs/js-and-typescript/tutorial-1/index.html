@@ -1,0 +1,727 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="generator" content="Hugo 0.97.3" />
+<meta name="robots" content="index, follow">
+
+
+<link rel="shortcut icon" href="/bgdocs/docs/favicons/favicon.ico" >
+<link rel="apple-touch-icon" href="/bgdocs/docs/favicons/apple-touch-icon-180x180.png" sizes="180x180">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/favicon-16x16.png" sizes="16x16">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/favicon-32x32.png" sizes="32x32">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-36x36.png" sizes="36x36">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-48x48.png" sizes="48x48">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-72x72.png" sizes="72x72">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-96x96.png" sizes="96x96">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-144x144.png" sizes="144x144">
+<link rel="icon" type="image/png" href="/bgdocs/docs/favicons/android-192x192.png" sizes="192x192">
+
+<title>Tutorial 1 - Basics | Behavior Graph</title>
+<meta name="description" content="Here we will introduce the essentials to get you started quickly using Behavior Graph.
+The recommended way to get started is to use our preconfigured …">
+<meta property="og:title" content="Tutorial 1 - Basics" />
+<meta property="og:description" content="Here we will introduce the essentials to get you started quickly using Behavior Graph.
+The recommended way to get started is to use our preconfigured tutorial site.
+If you prefer to set up your own environment please see the Quick Start page. Make sure to open up the Javascript console. That is where we will generate our output.
+Hello, World! Type in the following into the editor. You will gain more by typing it, as it forces you to think about each line." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://yahoo.github.io/bgdocs/docs/js-and-typescript/tutorial-1/" /><meta property="article:section" content="JS and Typescript" />
+
+<meta property="article:modified_time" content="2022-09-11T11:54:52-07:00" /><meta property="og:site_name" content="Behavior Graph" />
+
+<meta itemprop="name" content="Tutorial 1 - Basics">
+<meta itemprop="description" content="Here we will introduce the essentials to get you started quickly using Behavior Graph.
+The recommended way to get started is to use our preconfigured tutorial site.
+If you prefer to set up your own environment please see the Quick Start page. Make sure to open up the Javascript console. That is where we will generate our output.
+Hello, World! Type in the following into the editor. You will gain more by typing it, as it forces you to think about each line.">
+<meta itemprop="dateModified" content="2022-09-11T11:54:52-07:00" />
+<meta itemprop="wordCount" content="2634">
+<meta itemprop="keywords" content="" /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Tutorial 1 - Basics"/>
+<meta name="twitter:description" content="Here we will introduce the essentials to get you started quickly using Behavior Graph.
+The recommended way to get started is to use our preconfigured tutorial site.
+If you prefer to set up your own environment please see the Quick Start page. Make sure to open up the Javascript console. That is where we will generate our output.
+Hello, World! Type in the following into the editor. You will gain more by typing it, as it forces you to think about each line."/>
+
+
+
+
+<link rel="preload" href="/bgdocs/docs/scss/main.min.209ee91954d0f2f182770e6c71011a5580360636bcf2a9bcf7f1c3da478784ff.css" as="style">
+<link href="/bgdocs/docs/scss/main.min.209ee91954d0f2f182770e6c71011a5580360636bcf2a9bcf7f1c3da478784ff.css" rel="stylesheet" integrity="">
+
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha384-vtXRMe3mGCbOeY7l30aIg8H9p3GdeSe4IFlP6G8JMa7o7lXvnz3GFKzPxzJdPfGK"
+  crossorigin="anonymous"></script>
+
+  </head>
+  <body class="td-page">
+    <header>
+      
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+        <a class="navbar-brand" href="/bgdocs/docs/">
+		<span class="navbar-logo"><svg id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 500 500" style="enable-background:new 0 0 500 500"><g><path style="fill:#fff" d="M116.8525 421.9722c-5.7041.0-10.3442-4.3127-10.3442-9.6129V88.183c0-5.3002 4.6401-9.6117 10.3442-9.6117H320.858c3.0347.0 9.3959.5498 11.7506 2.6302l.3545.3442 58.905 63.2912c2.3101 2.491 2.9202 8.4928 2.9202 11.3184v256.2039c0 5.3002-4.6407 9.6129-10.3436 9.6129H116.8525z"/><g><g><g><path style="fill:#767676" d="M384.4445 423.2066H116.852c-6.3839.0-11.5786-4.8658-11.5786-10.8474V88.1831c0-5.9804 5.1947-10.8461 11.5786-10.8461h204.0062c.377.0 9.2786.0329 12.568 2.9389l.3947.3833 58.9508 63.337c3.2135 3.4652 3.2514 11.7924 3.2514 12.1593v256.2036C396.0231 418.3408 390.8284 423.2066 384.4445 423.2066zM116.5079 411.9189c.0848.0278.1999.0531.3441.0531h267.5925c.1442.0.2581-.0253.3441-.0531V156.1556c-.0076-.9033-.3593-3.7347-.7034-5.0037l-57.6527-61.9416c-1.4651-.3176-4.4533-.6389-5.5742-.6389H116.852c-.143.0-.2594.024-.3441.0531V411.9189zm267.4533-261.149zM327.0321 89.371v.0013V89.371z"/></g></g></g><g><g><path style="fill:#5b7fc0" d="M189.0874 210.1754l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4473C177.5953 212.627 183.0601 210.1742 189.0874 210.1754zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 234.1722 197.0804 232.033z"/><path style="opacity:.3;fill:#fff" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/><g><defs><path id="SVGID_1_" d="M194.7376 237.6875c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 234.2399 196.1861 236.239 194.7376 237.6875z"/></defs><clipPath id="SVGID_2_"><use xlink:href="#SVGID_1_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_2_);fill:#fff" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/><path style="opacity:.13;clip-path:url(#SVGID_2_);fill:#020202" d="M190.0704 225.0237c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 225.7247 191.9774 225.0237 190.0704 225.0237z"/></g><g><defs><path id="SVGID_3_" d="M189.0898 210.176c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 212.6276 183.0612 210.176 189.0898 210.176zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 236.239 197.0839 234.2399 197.0839 232.0372z"/></defs><clipPath id="SVGID_4_"><use xlink:href="#SVGID_3_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_4_);fill:#5b7fc0" d="M172.6595 215.6045c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8475-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 209.1953 176.6171 211.647 172.6595 215.6045z"/></g></g><rect x="198.8952" y="225.1043" style="fill:#5b7fc0" width="122.6266" height="13.8671"/></g><g><path style="fill:#d95140" d="M189.0874 155.7611l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.0249 2.454-11.4897 6.4116-15.4473C177.5953 158.2128 183.0601 155.7599 189.0874 155.7611zm7.993 21.8577c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.2508 181.7667 197.0816 179.758 197.0804 177.6188z"/><path style="opacity:.3;fill:#fff" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/><g><defs><path id="SVGID_5_" d="M194.7376 183.2733c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 179.8256 196.1861 181.8248 194.7376 183.2733z"/></defs><clipPath id="SVGID_6_"><use xlink:href="#SVGID_5_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_6_);fill:#fff" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/><path style="opacity:.13;clip-path:url(#SVGID_6_);fill:#020202" d="M190.0704 170.6095c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9546.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.663-2.8588-6.116.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C193.7885 171.3104 191.9774 170.6095 190.0704 170.6095z"/></g><g><defs><path id="SVGID_7_" d="M189.0898 155.7617c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8066-21.8612-21.8613.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 158.2134 183.0612 155.7617 189.0898 155.7617zm7.9941 21.8613c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 181.8248 197.0839 179.8256 197.0839 177.623z"/></defs><clipPath id="SVGID_8_"><use xlink:href="#SVGID_7_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_8_);fill:#d95140" d="M172.6595 161.1903c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 154.7811 176.6171 157.2327 172.6595 161.1903z"/></g><rect x="198.8952" y="170.69" style="fill:#d95140" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#56a55c" d="M189.5379 264.6147l.0012-.0012c7.7751.0012 15.0294 4.1862 18.932 10.9235 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3304-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032-5.8394.0-11.3281-2.2733-15.458-6.4032-4.13-4.13-6.4032-9.6186-6.4056-15.4628.0012-6.0249 2.454-11.4897 6.4116-15.4472C178.0458 267.0663 183.5105 264.6135 189.5379 264.6147zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6538 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403C196.7013 290.6202 197.5321 288.6115 197.5309 286.4723z"/><path style="opacity:.3;fill:#fff" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/><g><defs><path id="SVGID_9_" d="M195.1881 292.1268c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.9989 7.9942-7.9941 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.5344 288.6792 196.6366 290.6783 195.1881 292.1268z"/></defs><clipPath id="SVGID_10_"><use xlink:href="#SVGID_9_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_10_);fill:#fff" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/><path style="opacity:.13;clip-path:url(#SVGID_10_);fill:#020202" d="M190.5209 279.463c-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7446-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9941 2.3802-1e-4 4.616 1.0833 6.1218 2.8788C194.239 280.164 192.4279 279.463 190.5209 279.463z"/></g><g><defs><path id="SVGID_11_" d="M189.5403 264.6153c7.7763.0 15.0283 4.1826 18.926 10.9151 1.9201 3.3135 2.9377 7.0987 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8613-12.0547.0024-21.8636-9.8065-21.8612-21.8613.0-6.0285 2.4516-11.492 6.4116-15.452C178.0482 267.0669 183.5117 264.6153 189.5403 264.6153zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9941.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.6366 290.6783 197.5344 288.6792 197.5344 286.4765z"/></defs><clipPath id="SVGID_12_"><use xlink:href="#SVGID_11_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_12_);fill:#56a55c" d="M173.11 270.0439c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8613 12.0547.0024 21.8636-9.797 21.8613-21.8613.0024-3.8474-1.0151-7.6326-2.9353-10.9462-3.8977-6.7325-11.1497-10.9151-18.926-10.9151C182.5311 263.6346 177.0676 266.0863 173.11 270.0439z"/></g></g><rect x="199.3456" y="279.5436" style="fill:#56a55c" width="122.6266" height="13.8671"/></g><g><g><path style="fill:#f1bc42" d="M189.0874 318.7208l.0012-.0012c7.7751.0012 15.0295 4.1862 18.932 10.9234 1.9177 3.3159 2.9305 7.1011 2.9293 10.9378.0 5.8394-2.2733 11.3305-6.4032 15.4604-4.1288 4.1288-9.6186 6.4032-15.458 6.4032s-11.328-2.2733-15.458-6.4032-6.4032-9.6186-6.4056-15.4628c.0012-6.025 2.454-11.4897 6.4116-15.4472C177.5953 321.1724 183.0601 318.7196 189.0874 318.7208zm7.993 21.8576c.0012-1.4042-.3687-2.7868-1.063-3.9887-1.4293-2.4684-4.0833-3.9995-6.9299-4.0019-4.4077.0024-7.993 3.5877-7.993 7.993.0 2.1356.832 4.1431 2.3427 5.6539 1.5083 1.5083 3.5159 2.3403 5.6503 2.3415 2.1356.0 4.1443-.8308 5.6539-2.3403S197.0816 342.7176 197.0804 340.5784z"/><path style="opacity:.3;fill:#fff" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/><g><defs><path id="SVGID_13_" d="M194.7376 346.2329c-1.4461 1.4461-3.4452 2.3439-5.6479 2.3439-4.4077-.0024-7.9918-3.5865-7.9942-7.9942.0024-4.4125 3.5937-7.999 7.9942-7.9942 2.8443.0 5.497 1.5323 6.924 3.9983.6991 1.2067 1.0702 2.5881 1.0702 3.9959C197.0839 342.7853 196.1861 344.7844 194.7376 346.2329z"/></defs><clipPath id="SVGID_14_"><use xlink:href="#SVGID_13_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_14_);fill:#fff" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/><path style="opacity:.13;clip-path:url(#SVGID_14_);fill:#020202" d="M190.0704 333.5691c-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0011 1.9547.7088 3.7452 1.8782 5.1354-1.7447-1.4674-2.8575-3.6631-2.8588-6.1161.0024-4.4125 3.5936-7.999 7.9942-7.9942 2.3802-1e-4 4.616 1.0834 6.1218 2.8788C193.7885 334.2701 191.9774 333.5691 190.0704 333.5691z"/></g><g><defs><path id="SVGID_15_" d="M189.0898 318.7214c7.7763.0 15.0283 4.1826 18.926 10.915 1.9201 3.3136 2.9377 7.0988 2.9353 10.9462.0024 12.0643-9.8065 21.8636-21.8613 21.8612-12.0547.0024-21.8636-9.8065-21.8612-21.8612.0-6.0285 2.4516-11.4921 6.4116-15.452C177.5977 321.173 183.0612 318.7214 189.0898 318.7214zm7.9941 21.8612c0-1.4078-.3711-2.7892-1.0702-3.9959-1.4269-2.466-4.0797-3.9983-6.924-3.9983-4.4005-.0048-7.9918 3.5817-7.9942 7.9942.0024 4.4077 3.5865 7.9918 7.9942 7.9942 2.2027.0 4.2018-.8978 5.6479-2.3439C196.1861 344.7844 197.0839 342.7853 197.0839 340.5826z"/></defs><clipPath id="SVGID_16_"><use xlink:href="#SVGID_15_" style="overflow:visible"/></clipPath><path style="clip-path:url(#SVGID_16_);fill:#f1bc42" d="M172.6595 324.15c-3.96 3.96-6.4116 9.4235-6.4116 15.452-.0024 12.0547 9.8066 21.8636 21.8613 21.8612 12.0547.0024 21.8636-9.797 21.8613-21.8612.0024-3.8474-1.0151-7.6327-2.9353-10.9462-3.8977-6.7324-11.1497-10.9151-18.926-10.9151C182.0806 317.7407 176.6171 320.1924 172.6595 324.15z"/></g></g><rect x="198.8952" y="333.6497" style="fill:#f1bc42" width="122.6266" height="13.8671"/></g></g></svg></span><span class="font-weight-bold">Behavior Graph</span>
+	</a>
+	<div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+		<ul class="navbar-nav mt-2 mt-lg-0">
+			
+			
+			
+			
+		</ul>
+	</div>
+	<div class="navbar-nav d-none d-lg-block"></div>
+</nav>
+
+    </header>
+    <div class="container-fluid td-outer">
+      <div class="td-main">
+        <div class="row flex-xl-nowrap">
+          <aside class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+            
+<div id="td-sidebar-menu" class="td-sidebar__inner">
+  <form class="td-sidebar__search d-flex align-items-center">
+    
+    <button class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" type="button" data-toggle="collapse" data-target="#td-section-nav" aria-controls="td-docs-nav" aria-expanded="false" aria-label="Toggle section navigation">
+    </button>
+  </form>
+  <nav class="collapse td-sidebar-nav" id="td-section-nav">
+    <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+      <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-bgdocsdocs-li">
+  <a href="/bgdocs/docs/" title="Behavior Graph" class="align-left pl-0 td-sidebar-link td-sidebar-link__section tree-root" id="m-bgdocsdocs"><span class="">Documentation</span></a>
+  <ul class="ul-1">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child active-path" id="m-bgdocsdocsjs-and-typescript-li">
+  <a href="/bgdocs/docs/js-and-typescript/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-bgdocsdocsjs-and-typescript"><span class="">JS and Typescript</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptquickstart-li">
+  <a href="/bgdocs/docs/js-and-typescript/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptquickstart"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptcode-example-li">
+  <a href="/bgdocs/docs/js-and-typescript/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptcode-example"><span class="">Code Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescriptapi-li">
+  <a href="/bgdocs/docs/js-and-typescript/api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescriptapi"><span class="">API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child active-path" id="m-bgdocsdocsjs-and-typescripttutorial-1-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-1/" class="align-left pl-0 active td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-1"><span class="td-sidebar-nav-active-item">Tutorial 1 - Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-2-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-2"><span class="">Tutorial 2 - IO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjs-and-typescripttutorial-3-li">
+  <a href="/bgdocs/docs/js-and-typescript/tutorial-3/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjs-and-typescripttutorial-3"><span class="">Tutorial 3 - Extents</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child" id="m-bgdocsdocsjvm-li">
+  <a href="/bgdocs/docs/jvm/" class="align-left pl-0 td-sidebar-link td-sidebar-link__section" id="m-bgdocsdocsjvm"><span class="">JVM and Android</span></a>
+  <ul class="ul-2 foldable">
+    <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmquickstart-li">
+  <a href="/bgdocs/docs/jvm/quickstart/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmquickstart"><span class="">Getting Started</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmcode-example-li">
+  <a href="/bgdocs/docs/jvm/code-example/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmcode-example"><span class="">Code Example</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmapi-li">
+  <a href="/bgdocs/docs/jvm/api/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmapi"><span class="">API</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-1-li">
+  <a href="/bgdocs/docs/jvm/tutorial-1/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-1"><span class="">Tutorial 1 - Basics</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-2-li">
+  <a href="/bgdocs/docs/jvm/tutorial-2/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-2"><span class="">Tutorial 2 - IO</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsjvmtutorial-3-li">
+  <a href="/bgdocs/docs/jvm/tutorial-3/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsjvmtutorial-3"><span class="">Tutorial 3 - Extents</span></a>
+</li>
+  </ul>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsrelatedwork-li">
+  <a href="/bgdocs/docs/relatedwork/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsrelatedwork"><span class="">Related Work</span></a>
+</li><li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child" id="m-bgdocsdocsquestions-li">
+  <a href="/bgdocs/docs/questions/" class="align-left pl-0 td-sidebar-link td-sidebar-link__page" id="m-bgdocsdocsquestions"><span class="">Questions and Feedback</span></a>
+</li>
+  </ul>
+</li>
+    </ul>
+  </nav>
+</div>
+
+          </aside>
+          <aside class="d-none d-xl-block col-xl-2 td-sidebar-toc d-print-none">
+            
+<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+<a id="print" href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/_print/"><i class="fa fa-print fa-fw"></i> Print entire section</a>
+
+</div>
+
+            
+
+
+<div class="td-toc"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#hello-world">Hello, World!</a>
+      <ul>
+        <li><a href="#the-parts">The Parts</a></li>
+        <li><a href="#how-it-works">How it works</a></li>
+      </ul>
+    </li>
+    <li><a href="#doing-more">Doing More</a>
+      <ul>
+        <li><a href="#multiple-updates">Multiple Updates</a></li>
+      </ul>
+    </li>
+    <li><a href="#moments">Moments</a>
+      <ul>
+        <li><a href="#press-the-button">Press the Button</a></li>
+      </ul>
+    </li>
+    <li><a href="#a-graph">A Graph</a>
+      <ul>
+        <li><a href="#supplies">Supplies</a></li>
+        <li><a href="#logging-behavior">Logging Behavior</a></li>
+      </ul>
+    </li>
+    <li><a href="#events">Events</a>
+      <ul>
+        <li><a href="#the-same-event">The Same Event</a></li>
+        <li><a href="#what-just-happened">What Just Happened?</a></li>
+      </ul>
+    </li>
+    <li><a href="#challenge">Challenge</a>
+      <ul>
+        <li><a href="#answer">Answer</a></li>
+        <li><a href="#ordering-resources">Ordering Resources</a></li>
+      </ul>
+    </li>
+    <li><a href="#complete">Complete</a></li>
+  </ul>
+</nav></div>
+
+
+
+            
+
+	
+		
+			
+				
+			
+			
+
+
+
+  
+  
+
+		
+			
+				
+			
+			
+
+
+
+  
+  
+
+		
+	
+
+          </aside>
+          <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+            
+  
+
+            <nav aria-label="breadcrumb" class="td-breadcrumbs">
+  <ol class="breadcrumb">
+  <li class="breadcrumb-item">
+    <a href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/">JS and Typescript</a>
+  </li>
+  <li class="breadcrumb-item active" aria-current="page">
+    <a href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/tutorial-1/">Tutorial 1 - Basics</a>
+  </li>
+  </ol>
+</nav>
+            
+<div class="td-content">
+	<h1>Tutorial 1 - Basics</h1>
+	
+	<header class="article-meta">
+		
+
+  
+    
+      
+
+
+    
+      
+
+
+    
+  
+
+		
+	</header>    
+	<p>Here we will introduce the essentials to get you started quickly using Behavior Graph.</p>
+<p>The recommended way to get started is to use our <a href="https://jsfiddle.net/slevin11/k2g6fov0/">preconfigured tutorial site</a>.</p>
+<p>If you prefer to set up your own environment please see the <a href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/quickstart/">Quick Start page</a>.
+Make sure to open up the Javascript console.
+That is where we will generate our output.</p>
+<h2 id="hello-world">Hello, World!</h2>
+<p>Type in the following into the editor.
+You will gain more by typing it, as it forces you to think about each line.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">as</span> <span style="color:#000">bg</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#34;https://cdn.skypack.dev/behavior-graph&#34;</span><span style="color:#000;font-weight:bold">;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">g</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Graph</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">HelloExtent</span> <span style="color:#204a87;font-weight:bold">extends</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Extent</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">constructor</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">super</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Nobody&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">e</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">HelloExtent</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">addToGraphWithAction</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;World&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>Run the code.
+In the console you should see</p>
+<pre tabindex="0"><code>&#34;Hello, World!&#34;
+</code></pre><h3 id="the-parts">The Parts</h3>
+<p>Let&rsquo;s review this in pieces.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">import</span> <span style="color:#ce5c00;font-weight:bold">*</span> <span style="color:#000">as</span> <span style="color:#000">bg</span> <span style="color:#000">from</span> <span style="color:#4e9a06">&#34;https://cdn.skypack.dev/behavior-graph&#34;</span><span style="color:#000;font-weight:bold">;</span></span></span></code></pre></div>
+<p>This is a standard Javascript import.
+You may need to adjust it depending on your Javascript environment which is beyond the scope of this tutorial.
+Behavior Graph is distributed though <a href="https://www.npmjs.com/package/behavior-graph">NPM</a> and is available through a number of downstream CDNs.
+See the <a href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/quickstart/">Quick Start page</a> for more information.
+Note that Behavior Graph is imported as <code>bg</code> here.
+We will reference that in a few places in the tutorial.
+Your import name may be different.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">g</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Graph</span><span style="color:#000;font-weight:bold">();</span></span></span></code></pre></div>
+<p>You must create an instance of a <code>Graph</code>.
+You may have more than one instance, but all Behavior Graph elements are associated with a specific instance.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">class</span> <span style="color:#000">HelloExtent</span> <span style="color:#204a87;font-weight:bold">extends</span> <span style="color:#000">bg</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">Extent</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">constructor</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">super</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">graph</span><span style="color:#000;font-weight:bold">);</span></span></span></code></pre></div>
+<p>You will modularize your Behavior Graph code into <strong>Extents</strong>.
+You do this by extending the built in <code>Extent</code> class and passing it your <code>Graph</code> instance in the constructor.
+Extents collect Behaviors and Resources together with the same lifetime.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Nobody&#34;</span><span style="color:#000;font-weight:bold">);</span></span></span></code></pre></div>
+<p><code>person</code> is a <strong>Resource</strong>.
+Resources are containers for information.
+This specifically is a <strong>State</strong> resource.
+State resources contain persistent information, i.e. it may be used in the future.
+You will define state resources as properties on your Extent subclass and create them with the <code>.state()</code> factory method.
+State resources always have an initial value.
+Our <code>person</code> resource has an initial value of <code>&quot;Nobody&quot;</code>.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>This is a <strong>Behavior</strong>.
+Behaviors are units of functionality.
+We create them with the <code>.behavior()</code> factory method that uses a fluent <a href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/api/#behaviorbuilder"><code>BehaviorBuilder</code></a> API.</p>
+<p>This behavior has two parts.
+The <code>.demands()</code> clause states that this behavior depends on the resource <code>person</code>.</p>
+<p>The <code>.runs()</code> clause is the code that gets run whenever one (or more) of the demands is updated (has new information).
+This one prints our greeting using <code>this.person.value</code>.
+The <code>.value</code> property returns the contents of our <code>person</code> state resource.
+A behavior must demand a resource in order to access its <code>.value</code> property.
+(It can also access it if it supplies the resource as well.)</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#204a87;font-weight:bold">let</span> <span style="color:#000">e</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">new</span> <span style="color:#000">HelloExtent</span><span style="color:#000;font-weight:bold">(</span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">addToGraphWithAction</span><span style="color:#000;font-weight:bold">();</span></span></span></code></pre></div>
+<p>We will need to create an instance of our <code>HelloExtent</code> in order to add it to the graph.
+Then we call <code>.addToGraphWithAction()</code> which adds the <code>HelloExtent</code>&rsquo;s resource and behavior to our graph.
+They will not perform any work until their extent has been added.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;World&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>Here we create a new Action using <code>.action()</code> on our Graph instance.
+Action blocks are how we introduce new information from the outside.
+In this case, we are providing the person&rsquo;s name by calling <code>.update()</code> on our <code>person</code> state resource.</p>
+<h3 id="how-it-works">How it works</h3>
+<p>This call to <code>.action()</code> will start a series of steps.</p>
+<ol>
+<li>It will run the anonymous function given as a parameter.</li>
+<li><code>e.person.update()</code> will tell the graph to mark any demanding behaviors as activated.
+In this case there is the only one demanding behavior.</li>
+<li>The anonymous function will complete.</li>
+<li>The graph will call the runs block on the one activated behavior.</li>
+<li>That runs block prints out &ldquo;Hello, World!&rdquo; by accessing the <code>.value</code> of <code>person</code> which is the value we passed into the <code>.update()</code> method.</li>
+<li>The <code>.action()</code> method completes and the program continues.</li>
+</ol>
+<p>All of these steps together make up a single Behavior Graph <strong>Event</strong>.</p>
+<h2 id="doing-more">Doing More</h2>
+<p>While this may seem like a tedious implementation of &ldquo;Hello, World&rdquo;, we have already established a foundation that will let this program grow to arbitrary complexity.
+The computer can use these components to support us throughout the development process.</p>
+<p>Let&rsquo;s introduce a second reason why we may need to print our greeting.</p>
+<p><em>The highlighted lines will always be the new or updated lines</em></p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Nobody&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Greetings&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>First we create a second state resource, <code>greeting</code>.
+Then we add <code>greeting</code> as an additional demand.
+We must add it as a demand because we access its <code>.value</code> property.
+Behavior Graph will raise an error if we do not.
+This explicitness is by design.
+Finally we modify our message to use <code>greeting.value</code>.</p>
+<p>When we run our program now it should produce</p>
+<pre tabindex="0"><code>&#34;Greetings, World!&#34;
+</code></pre><p>If we want to get back to our original message we can add more to our action.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;World&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>Now we have</p>
+<pre tabindex="0"><code>&#34;Hello, World!&#34;
+</code></pre><h3 id="multiple-updates">Multiple Updates</h3>
+<p>This illustrates an important distinction between Behavior Graph and many reactive libraries.
+Our behavior demands multiple resources.
+That means whenever either <code>person</code> or <code>greeting</code> <strong>or both</strong> update our behavior should run.
+However it doesn&rsquo;t run immediately, it is only <strong>activated</strong>.</p>
+<p>Inside our action we update both <code>person</code> and <code>greeting</code>.
+Our behavior that demands them will not run until the entire action block has completed.
+All updates inside a single action are treated as if they happened at the same time.
+This means our behavior runs only once.</p>
+<p>We aren&rsquo;t required to provide both just because we demand both.
+State resources persist their value from action to action.
+Let&rsquo;s add an additional action to see this.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;World&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Goodbye&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>Now in our console it should print</p>
+<pre tabindex="0"><code>&#34;Hello, World!&#34;
+&#34;Goodbye, World!&#34;
+</code></pre><p>&ldquo;World&rdquo; persisted into the second event. While &ldquo;Goodbye&rdquo; replaced the previous greeting.</p>
+<h2 id="moments">Moments</h2>
+<p>Not all information persists.
+Sometimes things just happen.
+A button press is a typical example.
+We can model this information with <strong>Moment</strong> resources.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Nobody&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Greetings&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>First we create a <code>button</code> resource.
+We create it with a <code>.moment()</code> factory method on our Extent subclass.
+Then we add it to our behavior&rsquo;s list of demands so it runs when <code>button</code> updates.</p>
+<p>Inside our runs block, we&rsquo;ve gated our log statement by checking against <code>button.justUpdated</code>.
+This will be true only if some other part of our code called <code>button.update()</code> during the same event.</p>
+<h3 id="press-the-button">Press the Button</h3>
+<p>If you run the program now you will get no output.
+This is because we only update the <code>person</code> and <code>greeting</code> resources and our <code>log</code> statement only runs when <code>button.justUpdated</code> is true.</p>
+<p>So lets add some additional lines to simulate a button press.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;World&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Hello&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span>
+</span></span><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Goodbye&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>Now our program outputs:</p>
+<pre tabindex="0"><code>&#34;Goodbye, World!&#34;
+</code></pre><p>The first two actions only update the state resources.
+Our behavior is run but the <code>if (this.button.justUpdated)</code> check prevents anything from happening.
+The third action causes the behavior to run as well.
+This time the <code>if</code> check passes and it logs the message based on prior updates.</p>
+<p>Of course they don&rsquo;t need to be in separate actions.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Nevermind&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>Will output:</p>
+<pre tabindex="0"><code>&#34;Nevermind, World!&#34;
+</code></pre><p>The message changed because both <code>button</code> updated as well as <code>greeting</code> in that same action.
+The order in which they were updated inside the action is irrelevant to any demanding behaviors.</p>
+<h2 id="a-graph">A Graph</h2>
+<p>With only one behavior, it is difficult to call it a behavior graph.
+The real power of Behavior Graph comes with the ability to incrementally introduce related functionality.
+Behaviors will often depend on information provided by other behaviors.</p>
+<h3 id="supplies">Supplies</h3>
+<p>Imagine, for security sake, that we would like to introduce logging into our &ldquo;Hello, World&rdquo; program.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>We add a new state resource, <code>message</code>, to save the current message.
+We add this resource to a new supplies clause of our behavior definition with <code>.supplies()</code>.
+<strong>Supplies</strong> are resources that this behavior is solely responsible for.
+It means that a behavior can both read a resource&rsquo;s <code>.value</code> and <code>.update()</code> it as well.</p>
+<p>We call <code>message.update()</code> with the text contents of the greeting to save them for later.</p>
+
+
+<div class="alert alert-primary" role="alert">
+<h4 class="alert-heading">Rule</h4>
+
+    <p>A resource can only be supplied by one behavior.
+A behavior can supply multiple resources.
+It is an error to call <code>.update()</code> on a resource inside a behavior if it does not appear in the supplies clause.</p>
+<p>Actions can call <code>.update()</code> on a resource without specifying that they do so.
+Actions cannot <code>.update()</code> a resource if it is supplied by a behavior.</p>
+
+
+</div>
+
+<h3 id="logging-behavior">Logging Behavior</h3>
+<p>We can introduce the logging functionality by adding an additional behavior.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Message changed to: &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>This new behavior demands <code>message</code>.
+This means it will run whenever <code>message</code> updates.
+Our output shows this result:</p>
+<pre tabindex="0"><code>&#34;Message changed to: Hello, World!&#34;
+&#34;Message changed to: Goodbye, World!&#34;
+&#34;Nevermind, World!&#34;
+&#34;Message changed to: Nevermind, World!&#34;
+</code></pre><p>As you can see our new logging behavior runs and generates output each time the message changes.</p>
+<h2 id="events">Events</h2>
+<p>In Behavior Graph we call a single pass through the graph (from the start of an action to the last output) an <a href="https://yahoo.github.io/bgdocs/docs/js-and-typescript/api/#graphevent"><strong>Event</strong></a>.
+Our current output is the result of three events.</p>
+<p><strong>First Event:</strong></p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
+  a[&#34;Action:&lt;br /&gt;person=&gt;World&lt;br /&gt;greeting=&gt;Hello&#34;] --&gt; b[&#34;Behavior 1:&lt;br /&gt;message=&gt;Hello, World!&#34;] --&gt; c[&#34;Behavior 2:&lt;br /&gt;message change logged&#34;]
+</code></pre><p><strong>Second Event:</strong></p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
+  a[&#34;Action:&lt;br /&gt;greeting=&gt;Goodbye&#34;] --&gt; b[&#34;Behavior 1:&lt;br /&gt;message=&gt;Goodbye, World!&#34;] --&gt; c[&#34;Behavior 2:&lt;br /&gt;message change logged&#34;]
+</code></pre><p><strong>Third Event:</strong></p>
+<pre tabindex="0"><code class="language-mermaid" data-lang="mermaid">graph LR
+  a[&#34;Action:&lt;br /&gt;button updates&lt;br /&gt;greeting=&gt;Nevermind&#34;] --&gt; b[&#34;Behavior 1:&lt;br /&gt;message=&gt;Nevermind, World!&lt;br /&gt;message printed&#34;] --&gt; c[&#34;Behavior 2:&lt;br /&gt;message change logged&#34;]
+</code></pre><h3 id="the-same-event">The Same Event</h3>
+<p>Every time a resource is updated, it is assigned the current event.
+So in the <strong>First Event</strong> example above, when <code>person</code> and <code>greeting</code> update, they get pointers to that same event in their <code>.event</code> property.
+Then when <code>message</code> updates in the first behavior it also gets a pointer to this same event.</p>
+<p>We can access this event inside any behavior that we demand (or supply).
+This can use this to append a timestamp to our log messages.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Message changed to: &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; : &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">event</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">timestamp</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>You should now see something similar to the lines below</p>
+<pre tabindex="0"><code>&#34;Message changed to: Hello, World! : Fri Jan 28 2022 16:43:43 GMT-0800&#34;
+&#34;Message changed to: Goodbye, World! : Fri Jan 28 2022 16:43:43 GMT-0800&#34;
+&#34;Nevermind, World!&#34;
+&#34;Message changed to: Nevermind, World! : Fri Jan 28 2022 16:43:43 GMT-0800&#34;
+</code></pre><h3 id="what-just-happened">What Just Happened?</h3>
+<p>Using <code>.justUpdated</code> is a powerful tool for organizing our code into related functionality.
+We will add additional logging to see how this works.
+First we will track when we send the message.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">null</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>          <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>We create a moment resource for <code>sentMessage</code>.
+Sending the message is a one off action, so we keep track of that with a moment.
+We will be calling <code>.update()</code> on <code>sentMessage</code> so we need to add it to the list of supplies.
+We call <code>this.sentMessage.update()</code> right after the <code>console.log</code> call to track when we actually print out our message.</p>
+<p>Note that a behavior can supply more than one resource.
+This is a common pattern that lets us group related logic together without having to jump through hoops to avoid duplication.</p>
+<p>Next we modify our logging message to demand this additional resource.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Message changed to: &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; : &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">event</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">timestamp</span><span style="color:#000;font-weight:bold">);</span>      
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Message sent: &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; : &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">event</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">timestamp</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>This behavior now demands <code>sentMessage</code> which means it will run whenever that resource is updated.
+Inside our run block we check to see which resource was updated and generate the correct log message.
+It may be the case that either one or both is updated.</p>
+<p>You will find yourself using this &ldquo;what just happened?&rdquo; pattern in many of your behaviors.</p>
+<p>Running your program should looks like this:</p>
+<pre tabindex="0"><code>&#34;Message changed to: Hello, World! : Sat Jan 29 2022 08:33:05 GMT-0800&#34;
+&#34;Message changed to: Goodbye, World! : Sat Jan 29 2022 08:33:05 GMT-0800&#34;
+&#34;Nevermind, World!&#34;
+&#34;Message changed to: Nevermind, World! : Sat Jan 29 2022 08:33:05 GMT-0800&#34;
+&#34;Message sent: Nevermind, World! : Sat Jan 29 2022 08:33:05 GMT-0800&#34;
+</code></pre><h2 id="challenge">Challenge</h2>
+<p>Can you introduce a single resource that turns on or off our newly added logging?
+Try to do this challenge before looking at the answer.</p>
+<p>Here&rsquo;s some hints:</p>
+<ul>
+<li>Try adding a state resource.</li>
+<li>You&rsquo;ll need to demand it in a behavior and introduce some additional logic.</li>
+</ul>
+<h3 id="answer">Answer</h3>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">moment</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingEnabled</span> <span style="color:#ce5c00;font-weight:bold">=</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">state</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">true</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">supplies</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;, &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">person</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34;!&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span>
+</span></span><span style="display:flex;"><span>      
+</span></span><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingEnabled</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Message changed to: &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; : &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">event</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">timestamp</span><span style="color:#000;font-weight:bold">);</span>      
+</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#000">console</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">log</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Message sent: &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#4e9a06">&#34; : &#34;</span> <span style="color:#ce5c00;font-weight:bold">+</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">event</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">timestamp</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>        <span style="color:#000;font-weight:bold">}</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p><code>loggingEnabled</code> is our new resource.
+We want it to persist so we use a state resource.
+It defaults to <code>true</code> meaning logging is on.</p>
+<p>We then need to demand it inside our logging behavior in order to access its <code>.value</code> property.
+If we try to access <code>.value</code> without demanding it, Behavior Graph will raise an error.</p>
+<p>We can modify our last action to see it work.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span><span style="color:#000">g</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">action</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">button</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">();</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">greeting</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#4e9a06">&#34;Nevermind&#34;</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>  <span style="color:#000">e</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">update</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">false</span><span style="color:#000;font-weight:bold">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#000;font-weight:bold">});</span></span></span></code></pre></div>
+<p>After adding this additional line, running our code looks like this.</p>
+<pre tabindex="0"><code>&#34;Message changed to: Hello, World! : Sat Jan 29 2022 08:39:43 GMT-0800&#34;
+&#34;Message changed to: Goodbye, World! : Sat Jan 29 2022 08:39:43 GMT-0800&#34;
+&#34;Nevermind, World!&#34;
+</code></pre><p>We no longer log the last two messages because logging was turned off in the same action.
+Notice how even though <code>loggingEnabled.update(false)</code> comes after our updates, we still disable logging for the same event.
+If you were to do this without Behavior Graph, using status quo method calls and property updates, you would need to ensure that <code>loggingEnabled</code> changes to <code>false</code> <em>before</em> the other updates.
+It would be a different result if you updated it <em>after</em>.
+<em>The ability to remove the hidden complexity that comes with sequencing is a programming superpower.</em>
+Behavior Graph gives you this feature for free.</p>
+<h3 id="ordering-resources">Ordering Resources</h3>
+<p>You may notice that although <code>.loggingEnabled</code> is a demand, we don&rsquo;t actually need it to to be a reason for our logging behavior to run.
+We only need to check its <code>.value</code>.
+Behavior Graph lets us lighten this constraint.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#f8f8f8;-moz-tab-size:4;-o-tab-size:4;tab-size:4;display:grid;"><code class="language-javascript" data-lang="javascript"><span style="display:flex;"><span>    <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">behavior</span><span style="color:#000;font-weight:bold">()</span>
+</span></span><span style="display:flex; background-color:#dfdfdf"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">demands</span><span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">sentMessage</span><span style="color:#000;font-weight:bold">,</span> <span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">order</span><span style="color:#000;font-weight:bold">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#000;font-weight:bold">.</span><span style="color:#000">runs</span><span style="color:#000;font-weight:bold">(()</span> <span style="color:#000;font-weight:bold">=&gt;</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">loggingEnabled</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">value</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span>
+</span></span><span style="display:flex;"><span>          <span style="color:#204a87;font-weight:bold">if</span> <span style="color:#000;font-weight:bold">(</span><span style="color:#204a87;font-weight:bold">this</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">message</span><span style="color:#000;font-weight:bold">.</span><span style="color:#000">justUpdated</span><span style="color:#000;font-weight:bold">)</span> <span style="color:#000;font-weight:bold">{</span></span></span></code></pre></div>
+<p>We can add <code>.order</code> to any resource inside our demands clause.
+When we do this, updating that resource will not activate this behavior.
+This can give us some additional accuracy when specifying how our behaviors are linked.</p>
+<h2 id="complete">Complete</h2>
+<p>Congratulations! You have completed this first tutorial.
+You can see the <a href="https://jsfiddle.net/slevin11/uej3y09f/">finished tutorial code here</a>.</p>
+<p>While you may feel that there were many new concepts introduced, we have already covered the majority of them.
+You will find they come naturally with some practice.
+The remaining tutorials give you a taste for how Behavior Graph works inside real interactive programs.</p>
+
+	
+	
+	
+</div>
+
+
+          </main>
+        </div>
+      </div>
+      
+<footer class="bg-dark py-5 row d-print-none">
+  <div class="container-fluid mx-sm-5">
+    <div class="row">
+      <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+        
+      </div>
+      <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+        
+      </div>
+      <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+        <small class="text-white">&copy; 2022 Yahoo All Rights Reserved</small>
+        
+	
+		
+	
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js"
+    integrity="sha512-UR25UO94eTnCVwjbXozyeVd6ZqpaAE9naiEUBK/A+QDbfSTQFhPGj5lOR6d8tsgbBk84Ggb5A3EkjsOgPRPcKA=="
+    crossorigin="anonymous"></script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@8.13.4/dist/mermaid.min.js" integrity="sha512-JERecFUBbsm75UpkVheAuDOE8NdHjQBrPACfEQYPwvPG+fjgCpHAz1Jw2ci9EXmd3DdfiWth3O3CQvcfEg8gsA==" crossorigin="anonymous"></script>
+
+
+
+
+<script src='/bgdocs/docs/js/tabpane-persist.js'></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<script src="/bgdocs/docs/js/main.min.5502966e44e76d09efb092d4e61f653fa0b492b7bc6e75bab1ce6752810dde8d.js" integrity="sha256-VQKWbkTnbQnvsJLU5h9lP6C0kre8bnW6sc5nUoEN3o0=" crossorigin="anonymous"></script>
+
+
+
+
+  </body>
+</html>
